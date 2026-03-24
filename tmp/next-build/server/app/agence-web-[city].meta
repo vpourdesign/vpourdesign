@@ -1,0 +1,16 @@
+{
+  "status": 404,
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/agence-web-[city]/layout,_N_T_/agence-web-[city]/page,_N_T_/agence-web-[city]"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!YWdlbmNlLXdlYi1bY2l0eV0/__PAGE__",
+    "/!YWdlbmNlLXdlYi1bY2l0eV0",
+    "/_index",
+    "/_head"
+  ]
+}

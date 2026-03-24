@@ -1,0 +1,276 @@
+/* ============================================================
+   LAYOUT 01 — GRILLE ÉDITORIALE DÉCALÉE
+   Reference CSS — à utiliser avec LAYOUT.md dans Claude Code
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=DM+Mono:wght@400;500&display=swap');
+
+/* ---- TOKENS ---- */
+:root {
+  --bg-primary:    #0C0B09;
+  --bg-secondary:  #111009;
+  --line:          #2a2820;
+  --text-primary:  #F0EAD6;
+  --text-muted:    #8a7e6a;
+  --text-ghost:    #4a4438;
+  --text-ultra:    #2a2520;
+  --accent:        #C9A84C;
+  --accent-dim:    rgba(201, 168, 76, 0.15);
+
+  --font-display:  'Cormorant Garamond', Georgia, serif;
+  --font-mono:     'DM Mono', 'Courier New', monospace;
+}
+
+/* ---- RESET ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  cursor: crosshair;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- MAIN GRID ---- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 180px 200px;
+  width: 100%;
+  height: 380px; /* ajuster selon viewport */
+}
+
+/* Toutes les cellules partagent le même fond */
+.cell {
+  background: var(--bg-primary);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 32px;
+}
+
+/* ---- ZONES ---- */
+.cell-a {
+  grid-column: 1 / 3;
+  grid-row: 1;
+  border-right: 0.5px solid var(--line);
+  border-bottom: 0.5px solid var(--line);
+  justify-content: flex-end; /* ancrage bas */
+  padding: 28px 32px;
+}
+
+.cell-b {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  border-left: 0.5px solid var(--line);
+  justify-content: space-between;
+  padding: 28px 24px;
+}
+
+.cell-c {
+  grid-column: 1;
+  grid-row: 2;
+  border-right: 0.5px solid var(--line);
+  border-top: 0.5px solid var(--line);
+  justify-content: flex-end;
+  padding: 24px 32px;
+}
+
+.cell-d {
+  grid-column: 2;
+  grid-row: 2;
+  border-left: 0.5px solid var(--line);
+  border-top: 0.5px solid var(--line);
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 24px 28px;
+}
+
+/* ---- TYPOGRAPHIE ---- */
+
+/* Eyebrow — metadata, studio name, date */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--text-ghost);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* Headline principale */
+.h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 300;
+  color: var(--text-primary);
+  line-height: 0.93;
+  letter-spacing: -0.02em;
+}
+
+/* Mot en italique accent doré dans le H1 */
+.h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* Sous-titre éditorial */
+.subline {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Corps de texte */
+.body {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+/* Numéro de page / index */
+.page-num {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--text-ghost);
+}
+
+/* Chiffre décoratif géant */
+.deco-number {
+  font-family: var(--font-mono);
+  font-size: clamp(48px, 7vw, 80px);
+  font-weight: 500;
+  color: var(--text-ultra);
+  line-height: 1;
+  user-select: none;
+}
+
+/* Tag catégorie */
+.tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Label colonne latérale */
+.sidebar-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ---- COMPOSANTS ---- */
+
+/* Ligne verticale accent — élément signature */
+.accent-line {
+  width: 1px;
+  height: 48px;
+  background: var(--accent);
+  opacity: 0.4;
+}
+
+/* Diviseur horizontal fin */
+.h-rule {
+  width: 100%;
+  height: 0.5px;
+  background: var(--line);
+  margin: 12px 0;
+}
+
+/* Lien navigation */
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-ghost);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--text-muted); }
+
+/* Badge inline (usage rare) */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 0.5px solid var(--accent);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+/* ---- ANIMATIONS ---- */
+
+/* Entrée staggerée des cellules */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cell-a { animation: fadeInUp 0.7s ease both; }
+.cell-b { animation: fadeInUp 0.7s ease 0.1s both; }
+.cell-c { animation: fadeInUp 0.7s ease 0.2s both; }
+.cell-d { animation: fadeInUp 0.7s ease 0.3s both; }
+
+/* Hover sur liens — opacity shift uniquement */
+a { transition: opacity 0.2s; }
+a:hover { opacity: 0.6; }
+
+/* ---- UTILITAIRES ---- */
+.flex-col       { display: flex; flex-direction: column; }
+.flex-between   { display: flex; justify-content: space-between; }
+.gap-6          { gap: 6px; }
+.gap-8          { gap: 8px; }
+.gap-12         { gap: 12px; }
+.mt-6           { margin-top: 6px; }
+.mt-8           { margin-top: 8px; }
+.mt-12          { margin-top: 12px; }
+
+/* ---- FULL PAGE VARIANT ---- */
+/* Pour un site complet, empiler plusieurs grilles */
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.section-grid {
+  border-top: 0.5px solid var(--line);
+}
+
+/* Navigation pleine largeur (optionnel) */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+
+.nav-items {
+  display: flex;
+  gap: 24px;
+}

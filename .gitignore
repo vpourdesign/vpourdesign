@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.DS_Store
+*.log
+.env
+.env.local
+
+# Large media files (host separately via CDN or Vercel)
+*.mp4
+*.webm
+*.psd
+FICHIERS-NO-GITHUB/

@@ -1,0 +1,87 @@
+export const services = [
+  {
+    id: 'creation-site-web',
+    num: '01',
+    title: 'Sites web',
+    description: 'Conception et développement de sites web sur mesure, optimisés pour la performance et le référencement. Du vitrine au e-commerce.',
+    tags: ['Design', 'Développement', 'SEO'],
+    iconClass: 'float',
+    longDescription: 'Nous concevons des sites web sur mesure qui reflètent votre marque et convertissent vos visiteurs en clients. Chaque site est optimisé pour le SEO, la vitesse et l\'accessibilité. De la page vitrine au e-commerce complexe, nous maîtrisons les technologies modernes pour livrer des résultats exceptionnels.',
+    features: ['Design responsive sur mesure', 'Optimisation SEO intégrée', 'Performance Lighthouse 95+', 'CMS facile à gérer', 'Hébergement et maintenance', 'Intégration IA pour contenu dynamique'],
+  },
+  {
+    id: 'strategie-ia',
+    num: '02',
+    title: 'Stratégie IA',
+    description: 'Intégration de l\'intelligence artificielle dans votre flux de travail. Automatisation, génération de contenu, analyse prédictive.',
+    tags: ['Automatisation', 'Contenu', 'Analyse'],
+    iconClass: 'spin',
+    longDescription: 'L\'intelligence artificielle n\'est plus un luxe — c\'est un avantage compétitif. Nous intégrons l\'IA dans votre flux de travail pour automatiser les tâches répétitives, générer du contenu de qualité et analyser vos données pour prendre de meilleures décisions.',
+    features: ['Automatisation des processus', 'Génération de contenu IA', 'Chatbots intelligents', 'Analyse prédictive', 'Optimisation marketing IA', 'Formation et accompagnement'],
+  },
+  {
+    id: 'identite-visuelle',
+    num: '03',
+    title: 'Identité visuelle',
+    description: 'Logos, chartes graphiques et systèmes visuels complets. Chaque marque mérite une identité qui lui est propre.',
+    tags: ['Logo', 'Branding', 'Charte'],
+    iconClass: 'pen-draw',
+    longDescription: 'Votre identité visuelle est la première impression que vous faites. Nous créons des logos mémorables, des chartes graphiques cohérentes et des systèmes visuels complets qui racontent votre histoire et différencient votre marque.',
+    features: ['Conception de logo professionnel', 'Charte graphique complète', 'Système d\'identité visuelle', 'Papeterie et applications', 'Guide de marque', 'Déclinaisons numériques et print'],
+  },
+  {
+    id: 'contenu-medias',
+    num: '04',
+    title: 'Contenu & médias',
+    description: 'Vidéos, photographies, gestion des réseaux sociaux. Du concept à la publication, nous racontons votre histoire.',
+    tags: ['Vidéo', 'Photo', 'Social'],
+    iconClass: 'pulse',
+    longDescription: 'Du concept à la publication, nous créons du contenu qui capte l\'attention et génère des résultats. Vidéos corporatives, photographies professionnelles, gestion de réseaux sociaux — votre histoire mérite d\'être racontée avec impact.',
+    features: ['Production vidéo corporative', 'Photographie professionnelle', 'Gestion des réseaux sociaux', 'Stratégie de contenu', 'Animation et motion design', 'Publicité vidéo (Meta, YouTube)'],
+  },
+  {
+    id: 'seo-referencement',
+    num: '05',
+    title: 'SEO & Référencement',
+    description: 'Optimisation pour les moteurs de recherche, référencement local, Google Business Profile. Dominez les résultats de recherche.',
+    tags: ['SEO local', 'Google Ads', 'Analytics'],
+    iconClass: 'float',
+    longDescription: 'Être visible sur Google n\'est pas optionnel — c\'est essentiel. Nous optimisons votre présence en ligne pour dominer les résultats de recherche locaux. SEO technique, contenu optimisé, Google Business Profile — chaque levier est activé pour maximiser votre visibilité.',
+    features: ['Audit SEO complet', 'Optimisation on-page et technique', 'SEO local et Google Maps', 'Stratégie de contenu SEO', 'Google Business Profile', 'Rapports mensuels détaillés'],
+  },
+];
+
+export const projects = [
+  {
+    id: 'remax-crystal',
+    num: '01',
+    title: 'Remax Crystal',
+    subtitle: 'Plus de 10 ans de collaboration. Créations vidéos, graphiques et stratégie numérique pour l\'agence immobilière.',
+    year: '2012 — présent',
+    tags: ['Vidéo', 'Graphisme', 'Web'],
+    image: '/images/accueil-clients/remax.jpg',
+  },
+  {
+    id: 'probaclac',
+    num: '02',
+    title: 'Probaclac',
+    subtitle: 'Depuis 2012, les probiotiques Probaclac nous confient leurs mandats de création publicitaire et leurs mandats web.',
+    year: '2012 — présent',
+    tags: ['Publicité', 'Web'],
+    image: '/images/accueil-clients/probaclac.jpg',
+  },
+  {
+    id: 'olivier-martineau',
+    num: '03',
+    title: 'Olivier Martineau',
+    subtitle: 'Direction artistique complète pour le spectacle « C\'est pas moi, c\'est toi ». Poster, affiches, panneaux d\'autoroute, campagne publicitaire et site web.',
+    year: '2024',
+    tags: ['Direction artistique', 'Campagne', 'Site web'],
+    image: '/images/accueil-clients/martineau.jpg',
+  },
+];
+
+export const clients = [
+  'Olivier Martineau humoriste', 'Probaclac', 'Remax Crystal', 'Dansereau Traiteur',
+  'Immodev', 'Fred et Max', 'Les Barbares', 'Clinique Santé Rosemère', 'Toitex',
+];

@@ -1,0 +1,10 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/agence-web-[city]/page": "/agence-web-[city]",
+  "/page": "/",
+  "/robots.txt/route": "/robots.txt",
+  "/services/[slug]/page": "/services/[slug]",
+  "/services/page": "/services",
+  "/sitemap.xml/route": "/sitemap.xml"
+}
