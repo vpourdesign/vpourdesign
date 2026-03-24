@@ -2,6 +2,8 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import ScrollReveal from '../../components/ScrollReveal';
 import ContactForm from '../../components/ContactForm';
+import JsonLd from '../../components/JsonLd';
+import { contactPageSchema, localBusinessSchema, breadcrumbSchema } from '../../data/schema';
 
 export const metadata = {
   title: 'Contactez-nous',
@@ -12,6 +14,9 @@ export const metadata = {
 export default function ContactPage() {
   return (
     <>
+      <JsonLd data={contactPageSchema} />
+      <JsonLd data={localBusinessSchema} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Contact'}])} />
       <Nav />
       <ScrollReveal />
 

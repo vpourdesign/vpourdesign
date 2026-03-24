@@ -3,6 +3,7 @@ import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import ContactForm from '../../../components/ContactForm';
 import JsonLd from '../../../components/JsonLd';
+import { serviceSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
 
 export const metadata = {
@@ -14,6 +15,8 @@ export const metadata = {
 export default function CreationSiteWebPage() {
   return (
     <>
+      <JsonLd data={serviceSchema({name:'Cr\u00e9ation de sites web sur mesure',description:'Sites web performants, optimis\u00e9s SEO et propuls\u00e9s par l\u0027IA pour les PME de la Rive-Nord.',url:'/services/creation-site-web',features:['Site vitrine','E-commerce','Site sur mesure','Optimisation SEO','Design responsive','Int\u00e9gration IA']})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Services',url:'/services'},{name:'Sites web'}])} />
       <Nav />
       <ScrollReveal />
 

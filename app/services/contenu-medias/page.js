@@ -3,6 +3,7 @@ import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import ContactForm from '../../../components/ContactForm';
 import JsonLd from '../../../components/JsonLd';
+import { serviceSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
 
 export const metadata = {
@@ -14,6 +15,8 @@ export const metadata = {
 export default function ContenuMediasPage() {
   return (
     <>
+      <JsonLd data={serviceSchema({name:'Contenu et m\u00e9dias',description:'Production vid\u00e9o, photographie professionnelle et gestion des r\u00e9seaux sociaux pour les PME de la Rive-Nord. Contenu optimis\u00e9 par l\u0027intelligence artificielle.',url:'/services/contenu-medias',features:['Production vid\u00e9o','Photographie professionnelle','Gestion r\u00e9seaux sociaux','Publicit\u00e9 web cibl\u00e9e','Contenu optimis\u00e9 par IA']})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Services',url:'/services'},{name:'Contenu & m\u00e9dias'}])} />
       <Nav />
       <ScrollReveal />
 

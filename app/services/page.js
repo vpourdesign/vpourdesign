@@ -2,6 +2,7 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import ScrollReveal from '../../components/ScrollReveal';
 import JsonLd from '../../components/JsonLd';
+import { collectionSchema, breadcrumbSchema } from '../../data/schema';
 import Link from 'next/link';
 import { ServiceIcon } from '../../components/ServiceIcons';
 import { services } from '../../data/services';
@@ -15,6 +16,8 @@ export const metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd data={collectionSchema({name:'Services',description:'Nos services web et IA',url:'/services',items:[{name:'Sites web',url:'/services/creation-site-web'},{name:'Strat\u00e9gie IA',url:'/services/strategie-ia'},{name:'Identit\u00e9 visuelle',url:'/services/identite-visuelle'},{name:'Contenu & m\u00e9dias',url:'/services/contenu-medias'},{name:'SEO & R\u00e9f\u00e9rencement',url:'/services/seo-referencement'}]})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Services'}])} />
       <Nav />
       <ScrollReveal />
       <section className="hero-grid">

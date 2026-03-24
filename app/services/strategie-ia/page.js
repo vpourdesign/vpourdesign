@@ -3,6 +3,7 @@ import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import ContactForm from '../../../components/ContactForm';
 import JsonLd from '../../../components/JsonLd';
+import { serviceSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
 
 export const metadata = {
@@ -14,6 +15,8 @@ export const metadata = {
 export default function StrategieIAPage() {
   return (
     <>
+      <JsonLd data={serviceSchema({name:'Strat\u00e9gie IA pour PME',description:'L\u0027intelligence artificielle au service de votre croissance. Sites web 5x plus performants, automatisation et Big Data accessible pour les PME de la Rive-Nord.',url:'/services/strategie-ia',features:['Sites web 5x plus performants','Veille des performances','Automatisation contenus sociaux','Applications sur mesure','Big Data accessible']})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Services',url:'/services'},{name:'Strat\u00e9gie IA'}])} />
       <Nav />
       <ScrollReveal />
 

@@ -3,6 +3,7 @@ import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import ContactForm from '../../../components/ContactForm';
 import JsonLd from '../../../components/JsonLd';
+import { serviceSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
 
 export const metadata = {
@@ -14,6 +15,8 @@ export const metadata = {
 export default function SeoReferencementPage() {
   return (
     <>
+      <JsonLd data={serviceSchema({name:'SEO et r\u00e9f\u00e9rencement local',description:'R\u00e9f\u00e9rencement local et SEO pour les PME de la Rive-Nord de Montr\u00e9al. Premi\u00e8re page Google gr\u00e2ce \u00e0 l\u0027intelligence artificielle.',url:'/services/seo-referencement',features:['SEO local Rive-Nord','Optimisation technique','Strat\u00e9gie de contenu SEO','Google Ads','Rapports et transparence']})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Services',url:'/services'},{name:'SEO & R\u00e9f\u00e9rencement'}])} />
       <Nav />
       <ScrollReveal />
 

@@ -2,6 +2,7 @@ import Nav from '../../../components/Nav';
 import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import JsonLd from '../../../components/JsonLd';
+import { blogPostSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
 
 export const metadata = {
@@ -18,24 +19,12 @@ export const metadata = {
 };
 
 export default function BlogArticleIA() {
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Comment l'IA transforme le web design pour les PME de la Rive-Nord",
-    "description": "Découvrez comment l'intelligence artificielle révolutionne la conception de sites web pour les PME de la Rive-Nord de Montréal.",
-    "author": { "@type": "Person", "name": "Vincent Lavoie" },
-    "publisher": { "@type": "Organization", "name": "V pour Design", "url": "https://vpourdesign.com" },
-    "datePublished": "2026-03-23",
-    "dateModified": "2026-03-23",
-    "mainEntityOfPage": "https://vpourdesign.com/blog/ia-transforme-web-design-pme-rive-nord",
-    "keywords": "intelligence artificielle, web design, PME, Rive-Nord, agence web, Laval, Blainville, SEO"
-  };
-
   return (
     <>
+      <JsonLd data={blogPostSchema({title:'Comment l\u0027IA transforme le web design pour les PME de la Rive-Nord',description:'D\u00e9couvrez comment l\u0027intelligence artificielle r\u00e9volutionne la conception de sites web pour les PME de la Rive-Nord de Montr\u00e9al.',slug:'ia-transforme-web-design-pme-rive-nord',datePublished:'2026-03-23',keywords:['intelligence artificielle','web design','PME','Rive-Nord']})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Blog',url:'/blog'},{name:'IA et web design PME'}])} />
       <Nav />
       <ScrollReveal />
-      <JsonLd data={articleSchema} />
 
       {/* HERO GRID */}
       <section className="hero-grid">

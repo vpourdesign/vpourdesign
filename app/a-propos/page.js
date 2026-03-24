@@ -2,6 +2,7 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import ScrollReveal from '../../components/ScrollReveal';
 import JsonLd from '../../components/JsonLd';
+import { founderProfileSchema, localBusinessSchema, breadcrumbSchema } from '../../data/schema';
 import Link from 'next/link';
 import { ServiceIcon } from '../../components/ServiceIcons';
 import { services } from '../../data/services';
@@ -13,25 +14,11 @@ export const metadata = {
 };
 
 export default function AproposPage() {
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "V pour Design",
-    "description": "Agence web spécialisée en intelligence artificielle sur la Rive-Nord de Montréal",
-    "telephone": "+15145675763",
-    "email": "info@vpourdesign.com",
-    "foundingDate": "2014",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Montréal",
-      "addressRegion": "QC",
-      "addressCountry": "CA"
-    },
-  };
-
   return (
     <>
+      <JsonLd data={founderProfileSchema} />
       <JsonLd data={localBusinessSchema} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'\u00C0 propos'}])} />
       <Nav />
       <ScrollReveal />
 

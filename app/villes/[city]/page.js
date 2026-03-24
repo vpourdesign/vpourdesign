@@ -3,6 +3,7 @@ import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import ContactForm from '../../../components/ContactForm';
 import JsonLd from '../../../components/JsonLd';
+import { cityLocalBusinessSchema, faqSchema, breadcrumbSchema } from '../../../data/schema';
 import { ServiceIcon } from '../../../components/ServiceIcons';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -41,27 +42,6 @@ export default async function CityPage({ params }) {
   const cityData = cities.find(c => c.slug === city);
   if (!cityData) notFound();
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": cityData.faq.map(item => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": { "@type": "Answer", "text": item.a },
-    })),
-  };
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": `V pour Design — Agence web ${cityData.name}`,
-    "description": cityData.metaDescription,
-    "url": `https://vpourdesign.com/agence-web-${city}`,
-    "telephone": "+15145675763",
-    "email": "info@vpourdesign.com",
-    "areaServed": { "@type": "City", "name": cityData.name },
-  };
-
   const cityImage = getCityImage(city);
 
   // Build clean H1 from the data h1 field
@@ -72,8 +52,9 @@ export default async function CityPage({ params }) {
 
   return (
     <>
-      <JsonLd data={localBusinessSchema} />
-      <JsonLd data={faqSchema} />
+      <JsonLd data={cityLocalBusinessSchema(cityData)} />
+      <JsonLd data={faqSchema(cityData.faq)} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:cityData.name}])} />
       <Nav />
       <ScrollReveal />
 

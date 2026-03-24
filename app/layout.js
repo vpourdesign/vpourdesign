@@ -1,4 +1,6 @@
 import './globals.css';
+import JsonLd from '../components/JsonLd';
+import { organizationSchema, websiteSchema } from '../data/schema';
 
 export const metadata = {
   metadataBase: new URL('https://vpourdesign.com'),
@@ -36,7 +38,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fr">
+    <html lang="fr-CA">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -44,8 +46,11 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
           rel="stylesheet"
         />
+        <link rel="alternate" hrefLang="fr-CA" href="https://vpourdesign.com" />
       </head>
       <body>
+        <JsonLd data={organizationSchema} />
+        <JsonLd data={websiteSchema} />
         {children}
       </body>
     </html>

@@ -7,43 +7,13 @@ import Link from 'next/link';
 import { ServiceIcon } from '../components/ServiceIcons';
 import { services, projects, clients } from '../data/services';
 import { cities } from '../data/cities';
+import { localBusinessSchema, breadcrumbSchema } from '../data/schema';
 
 export default function HomePage() {
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "V pour Design",
-    "description": "Agence web spécialisée en intelligence artificielle sur la Rive-Nord de Montréal",
-    "url": "https://vpourdesign.com",
-    "telephone": "+15145675763",
-    "email": "info@vpourdesign.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Montréal",
-      "addressRegion": "QC",
-      "addressCountry": "CA"
-    },
-    "areaServed": [
-      { "@type": "City", "name": "Laval" },
-      { "@type": "City", "name": "Blainville" },
-      { "@type": "City", "name": "Boisbriand" },
-      { "@type": "City", "name": "Sainte-Thérèse" },
-      { "@type": "City", "name": "Rosemère" },
-      { "@type": "City", "name": "Terrebonne" },
-      { "@type": "City", "name": "Mascouche" },
-      { "@type": "City", "name": "Saint-Eustache" },
-      { "@type": "City", "name": "Mirabel" },
-      { "@type": "City", "name": "Saint-Jérôme" },
-    ],
-    "priceRange": "$$",
-    "foundingDate": "2014",
-    "numberOfEmployees": { "@type": "QuantitativeValue", "value": "5" },
-    "sameAs": [],
-  };
-
   return (
     <>
       <JsonLd data={localBusinessSchema} />
+      <JsonLd data={breadcrumbSchema([{ name: 'Accueil' }])} />
       <Nav />
       <ScrollReveal />
 

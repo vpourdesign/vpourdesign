@@ -1,6 +1,8 @@
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import ScrollReveal from '../../components/ScrollReveal';
+import JsonLd from '../../components/JsonLd';
+import { collectionSchema, breadcrumbSchema } from '../../data/schema';
 import Link from 'next/link';
 import { projects } from '../../data/services';
 
@@ -13,6 +15,8 @@ export const metadata = {
 export default function ProjetPage() {
   return (
     <>
+      <JsonLd data={collectionSchema({name:'Projets & r\u00e9alisations',description:'D\u00e9couvrez nos projets et r\u00e9alisations r\u00e9centes. Portfolio de nos cr\u00e9ations web, graphiques et vid\u00e9o.',url:'/projets',items:projects.map(p => ({name:p.title,url:`/projets/${p.id}`}))})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Projets'}])} />
       <Nav />
       <ScrollReveal />
 
@@ -22,20 +26,23 @@ export default function ProjetPage() {
           <div className="eyebrow">Portfolio</div>
           <h1 className="h1">Nos réalisations<br/><em>récentes</em></h1>
         </div>
-        <div className="cell cell-b">
-          <div><div className="page-num">Projets</div></div>
-          <div className="ai-icon-wrap">
-            <div className="accent-line" style={{ height: '80px' }}></div>
-          </div>
-          <div>
-            <div className="tag">V pour Design</div>
-          </div>
+        <div className="cell cell-b" style={{ padding: 0, position: 'relative', overflow: 'hidden' }}>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4, filter: 'grayscale(30%) contrast(1.1)' }}
+          >
+            <source src="/VPD_DEMO_web.webm" type="video/webm" />
+            <source src="/VPD_DEMO_web.mp4" type="video/mp4" />
+          </video>
         </div>
         <div className="cell cell-c">
           <p className="subline">Une sélection de nos créations les plus remarquables : sites web performants, stratégies numériques et identités visuelles qui génèrent des résultats.</p>
         </div>
         <div className="cell cell-d">
-          <div className="deco-number">{projects.length}<span>projets</span></div>
+          <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 300, fontStyle: 'italic', color: 'var(--text-primary)', lineHeight: 1.2 }}>Des résultats,<br/>pas des <em style={{ color: 'var(--accent)' }}>promesses</em></div>
         </div>
       </section>
 

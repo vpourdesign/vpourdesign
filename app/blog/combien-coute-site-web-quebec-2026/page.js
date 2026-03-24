@@ -2,6 +2,7 @@ import Nav from '../../../components/Nav';
 import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import JsonLd from '../../../components/JsonLd';
+import { blogPostSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
 
 export const metadata = {
@@ -18,24 +19,12 @@ export const metadata = {
 };
 
 export default function BlogArticleCout() {
-  const articleSchema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Combien coûte un site web au Québec en 2026?",
-    "description": "Guide complet des prix pour la création d'un site web professionnel au Québec en 2026.",
-    "author": { "@type": "Person", "name": "Vincent Lavoie" },
-    "publisher": { "@type": "Organization", "name": "V pour Design", "url": "https://vpourdesign.com" },
-    "datePublished": "2026-03-24",
-    "dateModified": "2026-03-24",
-    "mainEntityOfPage": "https://vpourdesign.com/blog/combien-coute-site-web-quebec-2026",
-    "keywords": "prix site web, coût site web Québec, combien coûte un site web, création site web prix, agence web Rive-Nord"
-  };
-
   return (
     <>
+      <JsonLd data={blogPostSchema({title:'Combien co\u00fbte un site web au Qu\u00e9bec en 2026?',description:'Guide complet des prix pour la cr\u00e9ation d\u0027un site web professionnel au Qu\u00e9bec en 2026.',slug:'combien-coute-site-web-quebec-2026',datePublished:'2026-03-24',keywords:['prix site web','co\u00fbt site web Qu\u00e9bec','combien co\u00fbte un site web','cr\u00e9ation site web prix','agence web Rive-Nord']})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Blog',url:'/blog'},{name:'Combien co\u00fbte un site web'}])} />
       <Nav />
       <ScrollReveal />
-      <JsonLd data={articleSchema} />
 
       {/* HERO GRID */}
       <section className="hero-grid">

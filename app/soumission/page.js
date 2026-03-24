@@ -2,6 +2,8 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import ScrollReveal from '../../components/ScrollReveal';
 import ContactForm from '../../components/ContactForm';
+import JsonLd from '../../components/JsonLd';
+import { breadcrumbSchema } from '../../data/schema';
 
 export const metadata = {
   title: 'Soumission gratuite',
@@ -12,6 +14,7 @@ export const metadata = {
 export default function SoumissionPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Soumission'}])} />
       <Nav />
       <ScrollReveal />
 

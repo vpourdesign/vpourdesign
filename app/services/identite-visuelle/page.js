@@ -3,6 +3,7 @@ import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import ContactForm from '../../../components/ContactForm';
 import JsonLd from '../../../components/JsonLd';
+import { serviceSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
 
 export const metadata = {
@@ -14,6 +15,8 @@ export const metadata = {
 export default function IdentiteVisuellePage() {
   return (
     <>
+      <JsonLd data={serviceSchema({name:'Identit\u00e9 visuelle et branding',description:'Logos, chartes graphiques et syst\u00e8mes visuels complets pour les PME de la Rive-Nord. Design de marque augment\u00e9 par l\u0027intelligence artificielle.',url:'/services/identite-visuelle',features:['Logo et marque','Charte graphique','Supports imprim\u00e9s','Templates r\u00e9seaux sociaux','Design augment\u00e9 par IA']})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Services',url:'/services'},{name:'Identit\u00e9 visuelle'}])} />
       <Nav />
       <ScrollReveal />
 

@@ -1,6 +1,8 @@
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import ScrollReveal from '../../components/ScrollReveal';
+import JsonLd from '../../components/JsonLd';
+import { collectionSchema, breadcrumbSchema } from '../../data/schema';
 import Link from 'next/link';
 
 export const metadata = {
@@ -52,6 +54,8 @@ export default function BlogPage() {
 
   return (
     <>
+      <JsonLd data={collectionSchema({name:'Blog',description:'Articles et ressources sur l\u0027intelligence artificielle, le web design, le SEO local et les tendances num\u00e9riques pour les PME de la Rive-Nord.',url:'/blog',items:articles.filter(a => a.slug).map(a => ({name:a.description,url:a.slug}))})} />
+      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Blog'}])} />
       <Nav />
       <ScrollReveal />
 
