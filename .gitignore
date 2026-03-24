@@ -7,6 +7,5 @@ node_modules/
 
 # Large media files (host separately via CDN or Vercel)
 *.mp4
-*.webm
 *.psd
 FICHIERS-NO-GITHUB/
