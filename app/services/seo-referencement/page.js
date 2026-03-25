@@ -202,11 +202,9 @@ export default function SeoReferencementPage() {
         <div style={{ padding: 'clamp(40px, 5vw, 80px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '16px' }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-ghost)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>Ce qui est inclus</div>
           {[
-            'Audit SEO complet de votre site',
+            'Audit SEO partiel de votre site',
             'Analyse des mots-cl\u00e9s locaux',
             '\u00c9tude de la comp\u00e9tition Rive-Nord',
-            'Plan d\'action SEO 90 jours',
-            'Configuration Google Business Profile',
           ].map((item, i) => (
             <div key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', padding: '12px 0', borderBottom: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', gap: '12px' }}>
               <span style={{ color: 'var(--accent)', fontSize: '16px' }}>+</span> {item}
