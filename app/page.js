@@ -70,6 +70,24 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* CTA — IA CONSULTATION */}
+      <div className="cta-ia-band-wrap">
+        <section className="cta-ia-band">
+          <div className="cta-ia-inner">
+            <div className="cta-ia-img">
+              <img src="/images/accueil/meeting-ai.jpg" alt="Réunion stratégique sur l'intelligence artificielle" loading="lazy" />
+            </div>
+            <div className="cta-ia-content">
+              <p className="cta-ia-eyebrow">Intelligence artificielle</p>
+              <h2 className="cta-ia-headline">Vous dites <em>« IA »</em> en réunion,<br/>mais personne ne sait par où commencer&nbsp;?</h2>
+              <p className="cta-ia-body">On passe du jargon à l&apos;action. Nous identifions les gains concrets que l&apos;intelligence artificielle peut apporter à <strong>votre</strong> workflow — puis on les implante avec vous, étape par étape.</p>
+              <p className="cta-ia-offer">Première consultation gratuite.</p>
+              <a href="#contact" className="cta-ia-btn">Prendre rendez-vous →</a>
+            </div>
+          </div>
+        </section>
+      </div>
+
       {/* SERVICES */}
       <section id="services">
         <div className="section-grid">

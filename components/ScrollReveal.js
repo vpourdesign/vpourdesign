@@ -28,7 +28,18 @@ export default function ScrollReveal() {
       });
     });
 
-    return () => observer.disconnect();
+    // CTA band — wipe reveal (top to bottom)
+    const wipeObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('wipe-open');
+          wipeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.cta-ia-band-wrap').forEach(el => wipeObserver.observe(el));
+
+    return () => { observer.disconnect(); wipeObserver.disconnect(); };
   }, []);
 
   return null;
