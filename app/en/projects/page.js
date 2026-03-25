@@ -65,7 +65,8 @@ export default function ProjectPage() {
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.4, filter: 'grayscale(30%) contrast(1.1)' }}
           >
             <source src="/VPD_DEMO_web.webm" type="video/webm" />
-            <source src="/VPD_DEMO_web.mp4" type="video/mp4" />
+            <source src="/VPD_DEMO_web.webm" type="video/webm" />
+              <source src="/VPD_DEMO_web.mp4" type="video/mp4" />
           </video>
         </div>
         <div className="cell cell-c">

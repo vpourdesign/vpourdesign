@@ -108,6 +108,7 @@ export default function HomePageEn() {
           </div>
           <div className="showreel-video-wrap">
             <video muted autoPlay loop playsInline preload="auto">
+              <source src="/VPD_DEMO_web.webm" type="video/webm" />
               <source src="/VPD_DEMO_web.mp4" type="video/mp4" />
             </video>
             <div className="showreel-overlay"></div>
