@@ -32,9 +32,9 @@ export default function ContenuMediasPage() {
           letterSpacing: '-0.02em',
           maxWidth: '1100px',
         }}>
-          Le contenu est roi.<br/>
-          Nous sommes les<br/>
-          faiseurs de <em style={{ color: 'var(--accent)' }}>rois.</em>
+          Le contenu ne suffit pas.<br/>
+          Nous créons l&apos;impact qui fait<br/>
+          la <em style={{ color: 'var(--accent)' }}>différence.</em>
         </h1>
       </section>
 
@@ -209,8 +209,6 @@ export default function ContenuMediasPage() {
           {[
             'Audit de vos r\u00e9seaux sociaux',
             'Strat\u00e9gie de contenu personnalis\u00e9e',
-            'Calendrier \u00e9ditorial 30 jours',
-            '3 concepts de capsules vid\u00e9o',
             'Analyse de la comp\u00e9tition locale',
           ].map((item, i) => (
             <div key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', padding: '12px 0', borderBottom: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', gap: '12px' }}>
