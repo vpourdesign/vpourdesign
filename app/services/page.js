@@ -38,7 +38,7 @@ export default function ServicesPage() {
           <p className="subline">Chaque service bénéficie de notre expertise en intelligence artificielle pour des résultats supérieurs, plus rapides et plus intelligents.</p>
         </div>
         <div className="cell cell-d">
-          <div className="deco-number">5<span>services</span></div>
+          <div className="deco-number">Sur<span>mesure</span></div>
         </div>
       </section>
 
