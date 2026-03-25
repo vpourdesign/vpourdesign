@@ -174,8 +174,8 @@ export default function StrategieIAPage() {
             margin: '0 auto',
           }}>
             Ce que vous <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>imaginez,</em><br/>
-            il n&apos;y a plus de barrière<br/>
-            pour le réaliser.
+            rien ne vous empêche<br/>
+            de le réaliser.
           </h2>
         </div>
       </section>
