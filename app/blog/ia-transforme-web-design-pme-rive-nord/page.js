@@ -42,7 +42,7 @@ export default function BlogArticleIA() {
           </div>
         </div>
         <div className="cell cell-c">
-          <p className="subline">Par Vincent Lavoie · 8 min de lecture</p>
+          <p className="subline">Par Vincent Lavoie</p>
         </div>
         <div className="cell cell-d">
           <div className="deco-number">01</div>
@@ -127,6 +127,7 @@ export default function BlogArticleIA() {
                   <p>Grâce à une structure SEO pensée par l&apos;IA dès la conception, nos clients voient une augmentation significative de leur visibilité locale sur Google dans les 6 premiers mois.</p>
                 </div>
               </div>
+              <p style={{ fontSize: '11px', color: '#8a7e6a', marginTop: '12px', fontStyle: 'italic' }}>* Ces données sont des estimations basées sur notre expérience et nos observations internes. Les résultats réels peuvent varier selon le projet, le secteur d&apos;activité et les conditions du marché.</p>
             </section>
 
             <section id="exemples">

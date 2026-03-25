@@ -40,7 +40,7 @@ export default function BlogArticleCout() {
           />
         </div>
         <div className="cell cell-c">
-          <p className="subline">Par Vincent Lavoie · 10 min de lecture</p>
+          <p className="subline">Par Vincent Lavoie</p>
         </div>
         <div className="cell cell-d">
           <div className="deco-number">04</div>
