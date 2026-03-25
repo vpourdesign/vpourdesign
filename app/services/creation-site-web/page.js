@@ -163,61 +163,6 @@ export default function CreationSiteWebPage() {
         </div>
       </section>
 
-      {/* CTA — FREE SESSION */}
-      <section style={{ borderTop: '0.5px solid var(--line)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-        <div style={{ padding: 'clamp(40px, 5vw, 80px)', borderRight: '0.5px solid var(--line)' }}>
-          <div className="eyebrow" style={{ marginBottom: '24px', color: 'var(--accent)' }}>Offre exclusive</div>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(28px, 4vw, 48px)',
-            fontWeight: 300,
-            color: 'var(--text-primary)',
-            lineHeight: 1.1,
-            marginBottom: '24px',
-          }}>
-            Une s&eacute;ance<br/><em style={{ color: 'var(--accent)' }}>gratuite</em>
-          </h2>
-          <p style={{
-            fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
-            fontWeight: 300,
-            fontSize: 'clamp(16px, 1.5vw, 20px)',
-            color: 'var(--text-muted)',
-            lineHeight: 1.7,
-            marginBottom: '32px',
-            maxWidth: '45ch',
-          }}>
-            Nous sommes tellement confiants dans la qualit&eacute; de nos sites web que nous offrons une premi&egrave;re s&eacute;ance d&apos;exploration gratuite. Aucune obligation. Aucun pitch de vente. Juste une conversation honn&ecirc;te sur vos besoins et comment nous pouvons y r&eacute;pondre.
-          </p>
-          <Link href="/contact" style={{
-            display: 'inline-block',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '13px',
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: 'var(--bg-primary)',
-            background: 'var(--accent)',
-            padding: '14px 32px',
-            textDecoration: 'none',
-            transition: 'opacity 0.3s',
-          }}>
-            R&eacute;server ma s&eacute;ance gratuite &rarr;
-          </Link>
-        </div>
-        <div style={{ padding: 'clamp(40px, 5vw, 80px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '16px' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-ghost)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>Ce qui est inclus</div>
-          {[
-            'Analyse de votre site actuel',
-            'Wireframes et maquettes',
-            'Strat\u00e9gie de contenu',
-            'Plan SEO personnalis\u00e9',
-            'Estimation transparente',
-          ].map((item, i) => (
-            <div key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', padding: '12px 0', borderBottom: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ color: 'var(--accent)', fontSize: '16px' }}>+</span> {item}
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* CONTACT FORM */}
       <section id="contact" className="contact-section">
