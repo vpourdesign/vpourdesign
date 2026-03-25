@@ -56,10 +56,14 @@ html {
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
-  cursor: crosshair;
+  cursor: default;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+a, button {
+  cursor: pointer;
 }
 
 a {
@@ -105,7 +109,7 @@ a {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: color 0.3s;
-  cursor: crosshair;
+  cursor: pointer;
 }
 
 .nav-link:hover {
@@ -154,7 +158,7 @@ a {
 }
 
 .hamburger--active .hamburger-line {
-  background: var(--text-primary);
+  background: #F0EAD6;
 }
 
 .hamburger--active .hamburger-line--1 {
@@ -584,7 +588,7 @@ a {
   grid-template-columns: 80px 1fr 200px 1fr;
   border-bottom: 0.5px solid var(--line);
   padding: 0;
-  cursor: crosshair;
+  cursor: default;
   transition: background 0.4s;
 }
 
@@ -794,7 +798,7 @@ a {
   grid-template-columns: 80px 1fr 1fr 1fr;
   border-top: 0.5px solid var(--line);
   min-height: 200px;
-  cursor: crosshair;
+  cursor: default;
   transition: background 0.4s;
 }
 
@@ -931,7 +935,7 @@ a {
 .showreel-video-wrap {
   position: relative;
   overflow: hidden;
-  cursor: crosshair;
+  cursor: default;
   border-right: 0.5px solid var(--line);
 }
 

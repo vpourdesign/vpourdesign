@@ -174,8 +174,8 @@ export default function AIStrategyPage() {
             margin: '0 auto',
           }}>
             What you <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>imagine,</em><br/>
-            there are no longer<br/>
-            any barriers to making it real.
+            nothing is stopping you<br/>
+            from making it real.
           </h2>
         </div>
       </section>

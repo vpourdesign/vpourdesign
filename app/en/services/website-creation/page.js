@@ -3,9 +3,8 @@ import Footer from '../../../../components/Footer';
 import ScrollReveal from '../../../../components/ScrollReveal';
 import ContactForm from '../../../../components/ContactForm';
 import JsonLd from '../../../../components/JsonLd';
+import PortfolioGrid from '../../../../components/PortfolioGrid';
 import { serviceSchema, breadcrumbSchema } from '../../../../data/schema';
-import Link from 'next/link';
-
 export const metadata = {
   title: 'Custom Website Creation — AI Web Agency | V pour Design',
   description: 'High-performance websites, SEO-optimized and AI-powered. Custom design for SMBs on Montreal\u0027s North Shore. From showcase to e-commerce.',
@@ -114,21 +113,6 @@ export default function WebsiteCreationPage() {
           </div>
         </div>
 
-        {/* Statement 4 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
-          <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>CMS</span>
-          </div>
-          <div style={{ padding: '48px clamp(24px, 4vw, 48px)', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '12px' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 300, color: 'var(--text-primary)', lineHeight: 1.15 }}>
-              You stay in <em style={{ color: 'var(--accent)' }}>control</em>
-            </h2>
-            <p style={{ fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif', fontWeight: 300, fontSize: '16px', color: 'var(--text-muted)', lineHeight: 1.7, maxWidth: '60ch' }}>
-              Intuitive admin interface to edit your content, add pages, manage your images. No technical dependency after delivery.
-            </p>
-          </div>
-        </div>
-
         {/* Statement 5 */}
         <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -163,60 +147,15 @@ export default function WebsiteCreationPage() {
         </div>
       </section>
 
-      {/* CTA — FREE SESSION */}
-      <section style={{ borderTop: '0.5px solid var(--line)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-        <div style={{ padding: 'clamp(40px, 5vw, 80px)', borderRight: '0.5px solid var(--line)' }}>
-          <div className="eyebrow" style={{ marginBottom: '24px', color: 'var(--accent)' }}>Exclusive offer</div>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(28px, 4vw, 48px)',
-            fontWeight: 300,
-            color: 'var(--text-primary)',
-            lineHeight: 1.1,
-            marginBottom: '24px',
-          }}>
-            A <em style={{ color: 'var(--accent)' }}>free</em><br/>session
+      {/* OUR WORK */}
+      <section style={{ borderTop: '0.5px solid var(--line)', padding: 'clamp(60px, 8vw, 120px) clamp(24px, 5vw, 64px)' }}>
+        <div style={{ marginBottom: 'clamp(40px, 5vw, 64px)' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-ghost)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>Portfolio</div>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: 300, color: 'var(--text-primary)', lineHeight: 1.05 }}>
+            Our <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>work</em>
           </h2>
-          <p style={{
-            fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
-            fontWeight: 300,
-            fontSize: 'clamp(16px, 1.5vw, 20px)',
-            color: 'var(--text-muted)',
-            lineHeight: 1.7,
-            marginBottom: '32px',
-            maxWidth: '45ch',
-          }}>
-            We are so confident in the quality of our websites that we offer a free initial exploration session. No obligation. No sales pitch. Just an honest conversation about your needs and how we can help.
-          </p>
-          <Link href="/en/contact" style={{
-            display: 'inline-block',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '13px',
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: 'var(--bg-primary)',
-            background: 'var(--accent)',
-            padding: '14px 32px',
-            textDecoration: 'none',
-            transition: 'opacity 0.3s',
-          }}>
-            Book my free session &rarr;
-          </Link>
         </div>
-        <div style={{ padding: 'clamp(40px, 5vw, 80px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '16px' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-ghost)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>What&apos;s included</div>
-          {[
-            'Analysis of your current website',
-            'Wireframes and mockups',
-            'Content strategy',
-            'Personalized SEO plan',
-            'Transparent estimate',
-          ].map((item, i) => (
-            <div key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', padding: '12px 0', borderBottom: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ color: 'var(--accent)', fontSize: '16px' }}>+</span> {item}
-            </div>
-          ))}
-        </div>
+        <PortfolioGrid />
       </section>
 
       {/* CONTACT FORM */}

@@ -119,12 +119,22 @@ export function getAlternatePath(pathname) {
     let frPath = pathname.replace(/^\/en/, '') || '/';
     frPath = frPath.replace('/about', '/a-propos');
     frPath = frPath.replace('/projects', '/projets');
+    frPath = frPath.replace('/services/website-creation', '/services/creation-site-web');
+    frPath = frPath.replace('/services/ai-strategy', '/services/strategie-ia');
+    frPath = frPath.replace('/services/brand-identity', '/services/identite-visuelle');
+    frPath = frPath.replace('/services/content-media', '/services/contenu-medias');
+    frPath = frPath.replace('/services/seo-marketing', '/services/seo-referencement');
     return frPath;
   } else {
     // FR -> EN
     let enPath = pathname === '/' ? '/en' : '/en' + pathname;
     enPath = enPath.replace('/a-propos', '/about');
     enPath = enPath.replace('/projets', '/projects');
+    enPath = enPath.replace('/services/creation-site-web', '/services/website-creation');
+    enPath = enPath.replace('/services/strategie-ia', '/services/ai-strategy');
+    enPath = enPath.replace('/services/identite-visuelle', '/services/brand-identity');
+    enPath = enPath.replace('/services/contenu-medias', '/services/content-media');
+    enPath = enPath.replace('/services/seo-referencement', '/services/seo-marketing');
     return enPath;
   }
 }

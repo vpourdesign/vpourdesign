@@ -4,8 +4,6 @@ import ScrollReveal from '../../../../components/ScrollReveal';
 import ContactForm from '../../../../components/ContactForm';
 import JsonLd from '../../../../components/JsonLd';
 import { serviceSchema, breadcrumbSchema } from '../../../../data/schema';
-import Link from 'next/link';
-
 export const metadata = {
   title: 'Content & Media — Video, Photo and Social Media | V pour Design',
   description: 'Video production, professional photography and social media management for North Shore SMBs. Content optimized by artificial intelligence.',
@@ -32,9 +30,9 @@ export default function ContentMediaPage() {
           letterSpacing: '-0.02em',
           maxWidth: '1100px',
         }}>
-          Content is king.<br/>
-          We are the<br/>
-          <em style={{ color: 'var(--accent)' }}>kingmakers.</em>
+          Content is not enough.<br/>
+          We create the impact that makes<br/>
+          the <em style={{ color: 'var(--accent)' }}>difference.</em>
         </h1>
       </section>
 
@@ -161,62 +159,6 @@ export default function ContentMediaPage() {
             content. Your customers<br/>
             want a <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>story.</em>
           </h2>
-        </div>
-      </section>
-
-      {/* CTA — FREE SESSION */}
-      <section style={{ borderTop: '0.5px solid var(--line)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
-        <div style={{ padding: 'clamp(40px, 5vw, 80px)', borderRight: '0.5px solid var(--line)' }}>
-          <div className="eyebrow" style={{ marginBottom: '24px', color: 'var(--accent)' }}>Exclusive offer</div>
-          <h2 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(28px, 4vw, 48px)',
-            fontWeight: 300,
-            color: 'var(--text-primary)',
-            lineHeight: 1.1,
-            marginBottom: '24px',
-          }}>
-            A <em style={{ color: 'var(--accent)' }}>free</em><br/>session
-          </h2>
-          <p style={{
-            fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
-            fontWeight: 300,
-            fontSize: 'clamp(16px, 1.5vw, 20px)',
-            color: 'var(--text-muted)',
-            lineHeight: 1.7,
-            marginBottom: '32px',
-            maxWidth: '45ch',
-          }}>
-            We are so confident in the value our content expertise can bring to your business that we offer a free initial exploration session. No obligation. No sales pitch. Just an honest conversation about your needs.
-          </p>
-          <Link href="/en/contact" style={{
-            display: 'inline-block',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '13px',
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-            color: 'var(--bg-primary)',
-            background: 'var(--accent)',
-            padding: '14px 32px',
-            textDecoration: 'none',
-            transition: 'opacity 0.3s',
-          }}>
-            Book my free session &rarr;
-          </Link>
-        </div>
-        <div style={{ padding: 'clamp(40px, 5vw, 80px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '16px' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-ghost)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>What&apos;s included</div>
-          {[
-            'Social media audit',
-            'Personalized content strategy',
-            '30-day editorial calendar',
-            '3 video concepts',
-            'Local competition analysis',
-          ].map((item, i) => (
-            <div key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', padding: '12px 0', borderBottom: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <span style={{ color: 'var(--accent)', fontSize: '16px' }}>+</span> {item}
-            </div>
-          ))}
         </div>
       </section>
 
