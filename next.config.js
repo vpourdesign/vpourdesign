@@ -17,6 +17,26 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      // Anciennes pages Wix indexées dans Google
+      { source: '/gestion-medias-sociaux', destination: '/services/contenu-medias', permanent: true },
+      { source: '/post/pourquoi-nous-avons-choisi-wix', destination: '/blog', permanent: true },
+      { source: '/post/reinventer-la-publicite-l-urgence-de-la-subtilite', destination: '/blog', permanent: true },
+      { source: '/product-page/video-de-mariage', destination: '/services/contenu-medias', permanent: true },
+      { source: '/product-page/creation-de-logo', destination: '/services/identite-visuelle', permanent: true },
+      { source: '/product-page/2500-flyers-4x8', destination: '/services/identite-visuelle', permanent: true },
+      { source: '/product-page/lot-de-2500-cartes-d-affaire', destination: '/services/identite-visuelle', permanent: true },
+      { source: '/category/all-products', destination: '/services', permanent: true },
+      { source: '/videos-corporatifs', destination: '/services/contenu-medias', permanent: true },
+      // Anciennes pages Joomla avec index.php
+      { source: '/index.php/:path*', destination: '/', permanent: true },
+      // Catch-all pour product-page, post, category
+      { source: '/product-page/:slug', destination: '/services', permanent: true },
+      { source: '/post/:slug', destination: '/blog', permanent: true },
+      { source: '/category/:slug', destination: '/services', permanent: true },
+    ];
+  },
 };
 
 module.exports = nextConfig;
