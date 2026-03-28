@@ -4,6 +4,7 @@ import ScrollReveal from '../../../components/ScrollReveal';
 import JsonLd from '../../../components/JsonLd';
 import { blogPostSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata = {
   title: 'Comment l\'IA transforme le web design pour les PME de la Rive-Nord — V pour Design',
@@ -15,6 +16,20 @@ export const metadata = {
     type: 'article',
     publishedTime: '2026-03-23',
     authors: ['Vincent Lavoie'],
+    images: [
+      {
+        url: 'https://vpourdesign.com/images/blog/ia.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Comment l\'IA transforme le web design pour les PME de la Rive-Nord',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Comment l\'IA transforme le web design pour les PME de la Rive-Nord',
+    description: 'L\'intelligence artificielle n\'est plus réservée aux géants du web. Voici comment les PME de la Rive-Nord peuvent en tirer parti dès maintenant.',
+    images: ['https://vpourdesign.com/images/blog/ia.jpg'],
   },
 };
 
@@ -32,12 +47,13 @@ export default function BlogArticleIA() {
           <div className="eyebrow">Blog · Intelligence artificielle</div>
           <h1 className="h1">Comment l&apos;IA transforme le web design pour les PME de la <em>Rive-Nord</em></h1>
         </div>
-        <div className="cell cell-b">
-          <div><div className="page-num">Article 01</div></div>
-          <div className="ai-icon-wrap">
+        <div className="cell cell-b" style={{ position: 'relative', overflow: 'hidden' }}>
+          <Image src="/images/blog/ia.jpg" alt="Intelligence artificielle et web design pour PME" fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover', opacity: 0.25, zIndex: 0, filter: 'grayscale(100%)' }} />
+          <div style={{ position: 'relative', zIndex: 1 }}><div className="page-num">Article 01</div></div>
+          <div className="ai-icon-wrap" style={{ position: 'relative', zIndex: 1 }}>
             <div className="accent-line" style={{ height: '80px' }}></div>
           </div>
-          <div>
+          <div style={{ position: 'relative', zIndex: 1 }}>
             <div className="tag">Mars 2026</div>
           </div>
         </div>

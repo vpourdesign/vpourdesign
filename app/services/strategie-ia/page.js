@@ -158,10 +158,12 @@ export default function StrategieIAPage() {
 
       {/* FULL-WIDTH BOLD STATEMENT — with image 2 bg */}
       <section style={{ borderTop: '0.5px solid var(--line)', position: 'relative', overflow: 'hidden' }}>
-        <img
+        <Image
           src="/images/services/ai/2.jpg"
-          alt=""
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.15, filter: 'grayscale(100%)' }}
+          alt="Réseau neuronal et intelligence artificielle au service des entreprises"
+          fill
+          sizes="100vw"
+          style={{ objectFit: 'cover', opacity: 0.15, filter: 'grayscale(100%)' }}
         />
         <div style={{ position: 'relative', zIndex: 1, padding: 'clamp(80px, 10vw, 140px) clamp(24px, 5vw, 64px)', textAlign: 'center' }}>
           <h2 style={{
@@ -222,10 +224,12 @@ export default function StrategieIAPage() {
           </Link>
         </div>
         <div style={{ padding: 'clamp(40px, 5vw, 80px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '16px', position: 'relative', overflow: 'hidden' }}>
-          <img
+          <Image
             src="/images/services/ai/3.jpg"
-            alt=""
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.08, filter: 'grayscale(100%)' }}
+            alt="Consultation stratégie IA pour PME au Québec"
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ objectFit: 'cover', opacity: 0.08, filter: 'grayscale(100%)' }}
           />
           <div style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-ghost)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '8px' }}>Ce qui est inclus</div>
