@@ -1,4 +1,5 @@
 import '../globals.css';
+import Script from 'next/script';
 import JsonLd from '../../components/JsonLd';
 import { organizationSchema, websiteSchema } from '../../data/schema';
 
@@ -40,6 +41,18 @@ export default function EnglishLayout({ children }) {
         />
         <link rel="alternate" hrefLang="fr-CA" href="https://vpourdesign.com" />
         <link rel="alternate" hrefLang="en" href="https://vpourdesign.com/en" />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-DBGGSR584C"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics-en" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-DBGGSR584C');
+          `}
+        </Script>
       </head>
       <body>
         <JsonLd data={organizationSchema} />

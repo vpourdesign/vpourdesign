@@ -137,6 +137,56 @@ export default async function CityPage({ params }) {
         </div>
       </section>
 
+      {/* WHY US — only for cities with enriched content */}
+      {cityData.whyUs && (
+        <section style={{ borderTop: '0.5px solid var(--line)' }}>
+          <div className="section-grid">
+            <div className="section-header">
+              <div className="section-label">Pourquoi V pour Design à {cityData.name}</div>
+            </div>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', borderBottom: '0.5px solid var(--line)' }}>
+            {cityData.whyUs.map((item, i) => (
+              <div key={i} className="reveal" style={{ padding: 'clamp(24px, 4vw, 48px)', borderRight: '0.5px solid var(--line)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>0{i + 1}</div>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 2.5vw, 26px)', fontWeight: 300, color: 'var(--text-primary)', lineHeight: 1.3 }}>{item.title}</h3>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', lineHeight: 1.7 }}>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* LOCAL SEO — only for cities with enriched content */}
+      {cityData.localSeo && (
+        <section className="about-section" style={{ borderTop: '0.5px solid var(--line)' }}>
+          <div className="about-sidebar">
+            <div>
+              <div className="eyebrow" style={{ marginBottom: '16px' }}>SEO local</div>
+              <div className="accent-line"></div>
+            </div>
+          </div>
+          <div className="about-main">
+            <div className="reveal">
+              <h2 className="about-title">Référencement local à<br/><em>{cityData.name}</em></h2>
+            </div>
+            <div className="reveal">
+              <p className="about-body">{cityData.localSeo}</p>
+            </div>
+            {cityData.landmarks && cityData.landmarks.length > 0 && (
+              <div className="reveal">
+                <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px', marginTop: '24px' }}>Quartiers desservis</h3>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {cityData.landmarks.map(l => (
+                    <span key={l} style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-primary)', padding: '6px 12px', border: '0.5px solid var(--line)' }}>{l}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* SERVICES OFFERED */}
       <section>
         <div className="section-grid">
