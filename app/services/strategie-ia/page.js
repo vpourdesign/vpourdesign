@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Nav from '../../../components/Nav';
 import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
@@ -99,7 +100,7 @@ export default function StrategieIAPage() {
         {/* VISUAL BREAK — Image 1 */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '0.5px solid var(--line)', minHeight: '320px' }}>
           <div style={{ position: 'relative', overflow: 'hidden', borderRight: '0.5px solid var(--line)' }}>
-            <img src="/images/services/ai/1.jpg" alt="Intelligence artificielle appliquée" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(40%) contrast(1.1)', opacity: 0.6 }} />
+            <Image src="/images/services/ai/1.jpg" alt="Intelligence artificielle appliquée" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(40%) contrast(1.1)', opacity: 0.6 }} />
           </div>
           <div style={{ padding: 'clamp(32px, 4vw, 64px)', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: '16px' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Ce qui nous différencie</div>

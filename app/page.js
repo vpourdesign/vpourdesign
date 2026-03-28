@@ -4,6 +4,7 @@ import ScrollReveal from '../components/ScrollReveal';
 import ContactForm from '../components/ContactForm';
 import JsonLd from '../components/JsonLd';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ServiceIcon } from '../components/ServiceIcons';
 import { services, projects, clients } from '../data/services';
 import { cities } from '../data/cities';
@@ -24,7 +25,7 @@ export default function HomePage() {
           <h1 className="h1">L&apos;intelligence artificielle,<br/>au service de votre <em>croissance</em></h1>
         </div>
         <div className="cell cell-b" style={{ position: 'relative', overflow: 'hidden' }}>
-          <img src="/images/accueil/ai.jpg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, zIndex: 0, filter: 'grayscale(100%)' }}/>
+          <Image src="/images/accueil/ai.jpg" alt="Intelligence artificielle abstraite" fill sizes="(max-width: 768px) 100vw, 33vw" priority style={{ objectFit: 'cover', opacity: 0.3, zIndex: 0, filter: 'grayscale(100%)' }}/>
           <div style={{ position: 'relative', zIndex: 1 }}></div>
           <div className="ai-icon-wrap" style={{ position: 'relative', zIndex: 1 }}>
             <svg className="ai-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +76,7 @@ export default function HomePage() {
         <section className="cta-ia-band">
           <div className="cta-ia-inner">
             <div className="cta-ia-img">
-              <img src="/images/accueil/meeting-ai.jpg" alt="Réunion stratégique sur l'intelligence artificielle" loading="lazy" />
+              <Image src="/images/accueil/meeting-ai.jpg" alt="Réunion stratégique sur l'intelligence artificielle" width={600} height={400} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto' }} />
             </div>
             <div className="cta-ia-content">
               <p className="cta-ia-eyebrow">Intelligence artificielle</p>
@@ -125,7 +126,7 @@ export default function HomePage() {
             <div className="page-num" style={{ writingMode: 'vertical-rl' }}>2026</div>
           </div>
           <div className="showreel-video-wrap">
-            <video muted autoPlay loop playsInline preload="auto">
+            <video muted autoPlay loop playsInline preload="none">
               <source src="/VPD_DEMO_web.webm" type="video/webm" />
               <source src="/VPD_DEMO_web.mp4" type="video/mp4" />
             </video>
@@ -202,7 +203,7 @@ export default function HomePage() {
             <div className="project-row reveal" style={{ cursor: 'pointer' }}>
               <div className="project-index">{project.num}</div>
               <div className="project-image-cell">
-                <img src={project.image} alt={project.title} />
+                <Image src={project.image} alt={project.title} width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div className="project-image-overlay"></div>
               </div>
               <div className="project-info">

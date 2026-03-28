@@ -16,7 +16,7 @@ function getCityImage(slug) {
   const imageMap = {
     'laval': 'laval.jpg',
     'blainville': 'blainville.jpg',
-    'boisbriand': 'boisbriand.png',
+    'boisbriand': 'boisbriand.jpg',
     'rosemere': 'rosemere.jpg',
   };
   return imageMap[slug] || null;

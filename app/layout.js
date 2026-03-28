@@ -49,7 +49,15 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
           rel="stylesheet"
         />
+        <link
+          rel="preload"
+          href="https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQZNLo_U2r.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <link rel="alternate" hrefLang="fr-CA" href="https://vpourdesign.com" />
+        <link rel="alternate" hrefLang="en" href="https://vpourdesign.com/en" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-DBGGSR584C"
           strategy="afterInteractive"

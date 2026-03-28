@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { getLocaleFromPath, getAlternatePath } from '../data/i18n';
@@ -46,7 +47,7 @@ export default function Nav() {
     <>
       <nav className="top-nav">
         <Link href={isEn ? '/en' : '/'} className="logo">
-          <img src="/logo-vpourdesign.png" alt="V pour Design" style={{ height: '56px', width: 'auto' }} />
+          <Image src="/logo-vpourdesign.png" alt="V pour Design" width={180} height={56} priority style={{ height: '56px', width: 'auto' }} />
         </Link>
         <div className="nav-items">
           {links.map((link) => (

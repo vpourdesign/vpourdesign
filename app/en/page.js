@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import ScrollReveal from '../../components/ScrollReveal';
@@ -24,7 +25,7 @@ export default function HomePageEn() {
           <h1 className="h1">Artificial intelligence,<br/>driving your <em>growth</em></h1>
         </div>
         <div className="cell cell-b" style={{ position: 'relative', overflow: 'hidden' }}>
-          <img src="/images/accueil/ai.jpg" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, zIndex: 0, filter: 'grayscale(100%)' }}/>
+          <Image src="/images/accueil/ai.jpg" alt="Artificial intelligence abstract" fill priority sizes="(max-width: 768px) 100vw, 33vw" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.3, zIndex: 0, filter: 'grayscale(100%)' }}/>
           <div style={{ position: 'relative', zIndex: 1 }}></div>
           <div className="ai-icon-wrap" style={{ position: 'relative', zIndex: 1 }}>
             <svg className="ai-icon" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -184,7 +185,7 @@ export default function HomePageEn() {
             <div className="project-row reveal" style={{ cursor: 'pointer' }}>
               <div className="project-index">{project.num}</div>
               <div className="project-image-cell">
-                <img src={project.image} alt={project.title} />
+                <Image src={project.image} alt={project.title} width={400} height={300} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div className="project-image-overlay"></div>
               </div>
               <div className="project-info">
