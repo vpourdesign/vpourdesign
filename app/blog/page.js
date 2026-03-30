@@ -14,8 +14,16 @@ export const metadata = {
 export default function BlogPage() {
   const articles = [
     {
-      id: 1,
+      id: 6,
       num: '01',
+      title: 'Marketing web',
+      description: 'Février a tout changé : bienvenue dans la nouvelle ère du marketing web',
+      status: 'Nouveau',
+      slug: '/blog/fevrier-nouvelle-ere-marketing-web',
+    },
+    {
+      id: 1,
+      num: '02',
       title: 'Intelligence artificielle',
       description: 'Comment l\'IA transforme le web design pour les PME de la Rive-Nord',
       status: 'Nouveau',
@@ -23,7 +31,7 @@ export default function BlogPage() {
     },
     {
       id: 4,
-      num: '02',
+      num: '03',
       title: 'Guides pratiques',
       description: 'Combien coûte un site web au Québec en 2026?',
       status: 'Nouveau',
@@ -31,21 +39,21 @@ export default function BlogPage() {
     },
     {
       id: 2,
-      num: '03',
+      num: '04',
       title: 'SEO local',
       description: 'Guide complet du référencement pour les entreprises de Laval et la Rive-Nord',
       status: 'À venir',
     },
     {
       id: 3,
-      num: '04',
+      num: '05',
       title: 'Études de cas',
       description: 'Résultats concrets : comment nous avons triplé le trafic de nos clients',
       status: 'À venir',
     },
     {
       id: 5,
-      num: '05',
+      num: '06',
       title: 'Tendances web',
       description: 'Les 10 tendances web design à surveiller cette année',
       status: 'À venir',
