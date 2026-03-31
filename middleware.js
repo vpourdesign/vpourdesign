@@ -6,6 +6,14 @@ const defaultLocale = 'fr';
 export function middleware(request) {
   const url = request.nextUrl;
   const { pathname } = url;
+  const hostname = request.headers.get('host') || '';
+
+  // www → non-www redirect (301 permanent)
+  if (hostname.startsWith('www.')) {
+    const newUrl = new URL(request.url);
+    newUrl.host = hostname.replace('www.', '');
+    return NextResponse.redirect(newUrl, 301);
+  }
 
   // Skip static files, API routes, etc.
   if (
