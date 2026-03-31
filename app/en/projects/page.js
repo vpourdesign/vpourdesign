@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Nav from '../../../components/Nav';
 import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
+import PortfolioGrid from '../../../components/PortfolioGrid';
 import JsonLd from '../../../components/JsonLd';
 import { collectionSchema, breadcrumbSchema } from '../../../data/schema';
 import Link from 'next/link';
@@ -101,6 +102,12 @@ export default function ProjectPage() {
             </div>
           </Link>
         ))}
+      </section>
+
+      {/* PORTFOLIO GRID — Websites */}
+      <section style={{ borderTop: '0.5px solid var(--line)', padding: '48px 32px 0' }}>
+        <div className="eyebrow" style={{ marginBottom: '32px' }}>Websites delivered</div>
+        <PortfolioGrid />
       </section>
 
       <Footer />
