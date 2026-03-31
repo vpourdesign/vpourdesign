@@ -237,6 +237,30 @@ export default async function CityPage({ params }) {
         </div>
       </section>
 
+      {/* MAP — for Rosemère (home base) or enriched cities */}
+      {city === 'rosemere' && (
+        <section style={{ borderTop: '0.5px solid var(--line)' }}>
+          <div className="section-grid">
+            <div className="section-header">
+              <div className="section-label">Notre bureau à Rosemère</div>
+              <div className="section-num">400 Grande-Côte</div>
+            </div>
+          </div>
+          <div style={{ borderTop: '0.5px solid var(--line)' }}>
+            <iframe
+              src="https://www.google.com/maps?q=400+Grande-C%C3%B4te,+Rosem%C3%A8re,+QC,+Canada&output=embed&hl=fr"
+              width="100%"
+              height="350"
+              style={{ border: 0, display: 'block', filter: 'grayscale(100%) invert(92%) contrast(0.9)' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="V pour Design — 400 Grande-Côte, Rosemère"
+            ></iframe>
+          </div>
+        </section>
+      )}
+
       {/* CTA + CONTACT */}
       <section id="contact" className="contact-section">
         <div className="contact-left">
@@ -253,7 +277,25 @@ export default async function CityPage({ params }) {
               <div className="contact-info-label">Courriel</div>
               <div className="contact-info-value"><a href="mailto:info@vpourdesign.com">info@vpourdesign.com</a></div>
             </div>
+            <div className="contact-info-item">
+              <div className="contact-info-label">Bureau</div>
+              <div className="contact-info-value">400 Grande-Côte, Rosemère</div>
+            </div>
           </div>
+          {city !== 'rosemere' && (
+            <div style={{ marginTop: '24px', border: '0.5px solid var(--line)' }}>
+              <iframe
+                src="https://www.google.com/maps?q=400+Grande-C%C3%B4te,+Rosem%C3%A8re,+QC,+Canada&output=embed&hl=fr"
+                width="100%"
+                height="180"
+                style={{ border: 0, display: 'block', filter: 'grayscale(100%) invert(92%) contrast(0.9)' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="V pour Design — 400 Grande-Côte, Rosemère"
+              ></iframe>
+            </div>
+          )}
         </div>
       </section>
 

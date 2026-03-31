@@ -58,13 +58,25 @@ export default function ContactPage() {
               <div className="contact-info-value"><a href="mailto:info@vpourdesign.com">info@vpourdesign.com</a></div>
             </div>
             <div className="contact-info-item">
-              <div className="contact-info-label">Location</div>
-              <div className="contact-info-value">Montreal North Shore, Quebec</div>
+              <div className="contact-info-label">Office</div>
+              <div className="contact-info-value">400 Grande-Côte<br/>Rosemère, QC</div>
             </div>
           </div>
           <div style={{ marginTop: '32px' }}>
             <div className="accent-line"></div>
             <div className="tag" style={{ marginTop: '12px' }}>Let&apos;s talk</div>
+          </div>
+          <div style={{ marginTop: '24px', border: '0.5px solid var(--line)' }}>
+            <iframe
+              src="https://www.google.com/maps?q=400+Grande-C%C3%B4te,+Rosem%C3%A8re,+QC,+Canada&output=embed&hl=en"
+              width="100%"
+              height="200"
+              style={{ border: 0, display: 'block', filter: 'grayscale(100%) invert(92%) contrast(0.9)' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="V pour Design — 400 Grande-Côte, Rosemère"
+            ></iframe>
           </div>
         </div>
       </section>

@@ -36,17 +36,18 @@ export const organizationSchema = {
   },
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Rive-Nord de Montréal",
+    "streetAddress": "400 Grande-Côte",
+    "addressLocality": "Rosemère",
     "addressRegion": "QC",
-    "postalCode": "J7C",
+    "postalCode": "J7A 1L3",
     "addressCountry": "CA"
   },
   "areaServed": [
+    { "@type": "City", "name": "Rosemère" },
     { "@type": "City", "name": "Laval", "@id": "https://www.wikidata.org/wiki/Q141471" },
     { "@type": "City", "name": "Blainville" },
     { "@type": "City", "name": "Boisbriand" },
     { "@type": "City", "name": "Sainte-Thérèse" },
-    { "@type": "City", "name": "Rosemère" },
     { "@type": "City", "name": "Terrebonne" },
     { "@type": "City", "name": "Mascouche" },
     { "@type": "City", "name": "Saint-Eustache" },
@@ -113,14 +114,16 @@ export const localBusinessSchema = {
   "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Rive-Nord de Montréal",
+    "streetAddress": "400 Grande-Côte",
+    "addressLocality": "Rosemère",
     "addressRegion": "QC",
+    "postalCode": "J7A 1L3",
     "addressCountry": "CA"
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 45.6066,
-    "longitude": -73.8775
+    "latitude": 45.6372,
+    "longitude": -73.7975
   },
   "openingHoursSpecification": [
     { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "17:00" }
@@ -228,8 +231,10 @@ export function cityLocalBusinessSchema(cityData) {
     "email": "info@vpourdesign.com",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": cityData.name,
+      "streetAddress": "400 Grande-Côte",
+      "addressLocality": "Rosemère",
       "addressRegion": "QC",
+      "postalCode": "J7A 1L3",
       "addressCountry": "CA"
     },
     "areaServed": { "@type": "City", "name": cityData.name },
