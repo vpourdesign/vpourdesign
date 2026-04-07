@@ -93,7 +93,7 @@ function Timeline({ items }) {
           <div style={{ position: 'absolute', left: '-44px', top: '2px', width: '24px', height: '24px', border: '0.5px solid #c8c0b0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#9a7b2e', background: '#F0EAD6' }}>
             {String(i + 1).padStart(2, '0')}
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: '#0C0B09', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '8px' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: '#4a4438', letterSpacing: '0.05em', textTransform: 'uppercase', marginBottom: '8px' }}>
             {item.title}
           </div>
           <p style={{ margin: 0 }}>{item.desc}</p>
