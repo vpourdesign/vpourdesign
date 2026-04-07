@@ -32,7 +32,7 @@ export default function PainPointsTabs() {
   return (
     <>
       {/* Tab selector */}
-      <div style={{ display: 'flex', gap: '0', margin: '32px 0 0', borderBottom: '0.5px solid var(--line)' }}>
+      <div style={{ display: 'flex', gap: '0', margin: '32px 0 0', borderBottom: '0.5px solid #c8c0b0' }}>
         {tabs.map((tab, i) => (
           <button
             key={i}
@@ -40,12 +40,12 @@ export default function PainPointsTabs() {
             style={{
               flex: 1,
               padding: '14px 16px',
-              background: activeTab === i ? 'var(--bg-primary)' : 'transparent',
+              background: 'transparent',
               border: 'none',
-              borderBottom: activeTab === i ? '2px solid var(--accent)' : '2px solid transparent',
+              borderBottom: activeTab === i ? '2px solid #9a7b2e' : '2px solid transparent',
               fontFamily: 'var(--font-mono)',
               fontSize: '12px',
-              color: activeTab === i ? 'var(--accent)' : 'var(--text-muted)',
+              color: activeTab === i ? '#9a7b2e' : '#8a7e6a',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
               cursor: 'pointer',
@@ -60,24 +60,24 @@ export default function PainPointsTabs() {
       {/* Tab content */}
       <div style={{ padding: '32px 0' }}>
         {/* Plainte */}
-        <div style={{ border: '0.5px solid #6b3030', background: 'rgba(107, 48, 48, 0.1)', padding: '24px', marginBottom: '20px' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#c06060', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>Plainte identifi&eacute;e</div>
-          <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(16px, 2vw, 20px)', fontWeight: 300, fontStyle: 'italic', color: 'var(--text-primary)', lineHeight: 1.4, margin: 0 }}>
+        <div style={{ border: '0.5px solid #b06060', background: 'rgba(176, 96, 96, 0.08)', padding: '24px', marginBottom: '20px' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#a04040', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>Plainte identifi&eacute;e</div>
+          <p style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(16px, 2vw, 20px)', fontWeight: 300, fontStyle: 'italic', color: '#0C0B09', lineHeight: 1.4, margin: 0 }}>
             &laquo;&nbsp;{tabs[activeTab].plainte}&nbsp;&raquo;
           </p>
         </div>
 
         {/* Publication */}
-        <div style={{ border: '0.5px solid #2a4a6b', background: 'rgba(42, 74, 107, 0.1)', padding: '24px', marginBottom: '20px' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#6090c0', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>Publication cibl&eacute;e</div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text-primary)', marginBottom: '8px', fontWeight: 500 }}>{tabs[activeTab].pubImage}</div>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-muted)', margin: 0 }}>{tabs[activeTab].pubCaption}</p>
+        <div style={{ border: '0.5px solid #5080b0', background: 'rgba(80, 128, 176, 0.08)', padding: '24px', marginBottom: '20px' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#4070a0', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>Publication cibl&eacute;e</div>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: '#0C0B09', marginBottom: '8px', fontWeight: 500 }}>{tabs[activeTab].pubImage}</div>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: '#6a5e4e', margin: 0 }}>{tabs[activeTab].pubCaption}</p>
         </div>
 
         {/* Pourquoi ca marche */}
-        <div style={{ border: '0.5px solid #2a5a3a', background: 'rgba(42, 90, 58, 0.1)', padding: '24px' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#60a070', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>Pourquoi &ccedil;a marche</div>
-          <p style={{ margin: 0 }}>{tabs[activeTab].pourquoi}</p>
+        <div style={{ border: '0.5px solid #508050', background: 'rgba(80, 128, 80, 0.08)', padding: '24px' }}>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#408040', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '12px' }}>Pourquoi &ccedil;a marche</div>
+          <p style={{ margin: 0, color: '#4a4438' }}>{tabs[activeTab].pourquoi}</p>
         </div>
       </div>
     </>
