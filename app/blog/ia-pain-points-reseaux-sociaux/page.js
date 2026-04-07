@@ -318,7 +318,7 @@ export default function BlogArticlePainPoints() {
             {/* CTA FINAL */}
             <section id="cta">
               <div className="blog-cta">
-                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 300, color: '#0C0B09', marginBottom: '16px' }}>Vous voulez qu&apos;on identifie vos <em>pain points</em>?</h3>
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 300, color: '#F0EAD6', marginBottom: '16px' }}>Vous voulez qu&apos;on identifie vos <em>pain points</em>?</h3>
                 <p>On peut faire une analyse pour votre secteur et vous montrer concr&egrave;tement ce que vos clients potentiels cherchent &mdash; et n&apos;entendent pas encore.</p>
                 <Link href="/contact" className="blog-cta-link">R&eacute;server une consultation gratuite &rarr;</Link>
               </div>
