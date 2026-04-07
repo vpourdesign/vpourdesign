@@ -2,6 +2,7 @@ import Nav from '../components/Nav';
 import Footer from '../components/Footer';
 import ScrollReveal from '../components/ScrollReveal';
 import ContactForm from '../components/ContactForm';
+import CtaSlider from '../components/CtaSlider';
 import JsonLd from '../components/JsonLd';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -71,22 +72,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA — IA CONSULTATION */}
+      {/* CTA — SLIDER */}
       <div className="cta-ia-band-wrap">
-        <section className="cta-ia-band">
-          <div className="cta-ia-inner">
-            <div className="cta-ia-img">
-              <Image src="/images/accueil/meeting-ai.jpg" alt="Réunion stratégique sur l'intelligence artificielle" width={600} height={400} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto' }} />
-            </div>
-            <div className="cta-ia-content">
-              <p className="cta-ia-eyebrow">Intelligence artificielle</p>
-              <h2 className="cta-ia-headline">Vous dites <em>« IA »</em> en réunion,<br/>mais personne ne sait par où commencer&nbsp;?</h2>
-              <p className="cta-ia-body">On passe du jargon à l&apos;action. Nous identifions les gains concrets que l&apos;intelligence artificielle peut apporter à <strong>votre</strong> workflow — puis on les implante avec vous, étape par étape.</p>
-              <p className="cta-ia-offer">Première consultation gratuite.</p>
-              <a href="#contact" className="cta-ia-btn">Prendre rendez-vous →</a>
-            </div>
-          </div>
-        </section>
+        <CtaSlider />
       </div>
 
       {/* SERVICES */}
