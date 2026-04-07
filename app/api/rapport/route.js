@@ -171,7 +171,7 @@ export async function POST(request) {
       getSearchConsoleData(auth, siteUrl, monthStart, today, ['query']),
       getSearchConsoleData(auth, siteUrl, weekStart, today, ['page']),
       getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'laval'),
-      getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'rosemère'),
+      getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'rosem'),
       getAnalyticsData(auth, propertyId, weekStart, today),
       getAnalyticsData(auth, propertyId, monthStart, today),
       getAnalyticsTopPages(auth, propertyId, weekStart, today),
