@@ -18,7 +18,7 @@ export const metadata = {
     authors: ['Vincent Lavoie'],
     images: [
       {
-        url: 'https://vpourdesign.com/images/blog/honnete.jpg',
+        url: 'https://vpourdesign.com/images/blog/rosemere.png',
         width: 1200,
         height: 630,
         alt: 'SEO local Rosemère — visibilité dans les villes voisines',
@@ -29,7 +29,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Mon commerce est à Rosemère — pourquoi mes clients de Lorraine ne me trouvent pas sur Google ?',
     description: 'Votre commerce est à Rosemère mais vos clients de Lorraine, Boisbriand ou Bois-des-Filion ne vous trouvent pas sur Google ? Voici pourquoi — et ce qu\'on peut faire concrètement.',
-    images: ['https://vpourdesign.com/images/blog/honnete.jpg'],
+    images: ['https://vpourdesign.com/images/blog/rosemere.png'],
   },
 };
 
@@ -135,7 +135,7 @@ export default function BlogSeoLocalRosemere() {
           <h1 className="h1">Mon commerce est à Rosemère —<br/>pourquoi mes clients de Lorraine ne me<br/>trouvent pas sur <em>Google</em>&nbsp;?</h1>
         </div>
         <div className="cell cell-b" style={{ position: 'relative', overflow: 'hidden' }}>
-          <Image src="/images/blog/honnete.jpg" alt="SEO local Rosemère — visibilité dans les villes voisines" fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover', opacity: 0.25, zIndex: 0, filter: 'grayscale(100%)' }} />
+          <Image src="/images/blog/rosemere.png" alt="SEO local Rosemère — visibilité dans les villes voisines" fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover', opacity: 0.35, zIndex: 0, filter: 'grayscale(100%)' }} />
           <div style={{ position: 'relative', zIndex: 1 }}><div className="page-num">Article 05</div></div>
           <div className="ai-icon-wrap" style={{ position: 'relative', zIndex: 1 }}>
             <div className="accent-line" style={{ height: '80px' }}></div>

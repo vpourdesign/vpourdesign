@@ -12,7 +12,7 @@ const slides = [
     offer: 'Guide complet + diagnostic gratuit.',
     btnText: 'Lire l\'article \u2192',
     btnHref: '/blog/seo-local-rosemere-villes-voisines',
-    image: '/images/blog/honnete.jpg',
+    image: '/images/blog/rosemere.png',
     imageAlt: 'SEO local Rosem\u00e8re — visibilit\u00e9 dans les villes voisines',
   },
   {
