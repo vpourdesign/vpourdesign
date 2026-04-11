@@ -64,14 +64,14 @@ export default function CtaSlider() {
   return (
     <section className="cta-ia-band">
       <div className="cta-ia-inner" style={{ opacity: isTransitioning ? 0 : 1, transition: 'opacity 0.3s ease' }}>
-        <div className="cta-ia-img">
+        <div className="cta-ia-img" style={{ position: 'relative', aspectRatio: '3/4', width: '100%' }}>
           <Image
+            key={slide.image}
             src={slide.image}
             alt={slide.imageAlt}
-            width={600}
-            height={400}
-            sizes="(max-width: 768px) 100vw, 50vw"
-            style={{ width: '100%', height: 'auto' }}
+            fill
+            sizes="(max-width: 768px) 100vw, 30vw"
+            style={{ objectFit: 'cover' }}
           />
         </div>
         <div className="cta-ia-content">
