@@ -45,7 +45,7 @@ const coupables = [
   },
   {
     title: 'Aucun contenu qui parle de la région',
-    desc: 'Un blog est souvent vu comme un luxe ou une perte de temps. En réalité, c\'est l\'un des seuls moyens de signaler à Google que vous êtes pertinent pour une zone élargie. Un article qui répond à une vraie question des gens des Basses-Laurentides crée des signaux géographiques forts que Google utilise pour vous classer. (L\'article que vous lisez présentement fait exactement cette stratégie — méta, non ?)',
+    desc: 'Un blog est souvent vu comme un luxe ou une perte de temps. En réalité, c\'est l\'un des seuls moyens de signaler à Google que vous êtes pertinent pour une zone élargie. Un article qui répond à une vraie question des gens des Basses-Laurentides crée des signaux géographiques forts que Google utilise pour vous classer. (En passant : l\'article que vous lisez présentement est exactement ce type de contenu. V pour Design parle de Rosemère, Lorraine et Boisbriand depuis le début — et Google le sait.)',
   },
 ];
 
