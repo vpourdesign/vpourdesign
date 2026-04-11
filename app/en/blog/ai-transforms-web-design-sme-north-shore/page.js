@@ -138,7 +138,7 @@ export default function BlogArticleAI() {
                 We work with entrepreneurs in Blainville, real estate brokers in Laval, restaurants in Sainte-Therese, and manufacturing companies in Boisbriand. Every sector has its particularities, but the finding is the same: SMEs that invest in a smart website — optimized by AI for local SEO — gain a significant edge over their competitors.
               </p>
               <p>
-                And the timing is perfect. When analyzing web agencies in the region, we find that no competitor truly positions themselves as a specialist in artificial intelligence applied to the web. Most have outdated websites, generic content, and no clear differentiation. This is a window of opportunity for SMEs that want to stand out now.
+                And the timing is right. AI adoption in web is accelerating fast, and the SMEs that integrate it now — in their content, SEO, and advertising — gain a real head start over those that wait.
               </p>
             </section>
 
