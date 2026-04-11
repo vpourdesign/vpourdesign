@@ -7,6 +7,16 @@ import Link from 'next/link';
 const slides = [
   {
     eyebrow: 'Nouveau sur le blog',
+    headline: <>Mon commerce est &agrave; Rosem&egrave;re &mdash; pourquoi mes clients de Lorraine ne me trouvent pas sur <em>Google</em>&nbsp;?</>,
+    body: 'Google vous associe uniquement à votre ville si vous ne déclarez pas votre zone de service. 130 000 clients potentiels dans un rayon de 15 minutes — et ils ne vous voient pas.',
+    offer: 'Guide complet + diagnostic gratuit.',
+    btnText: 'Lire l\'article \u2192',
+    btnHref: '/blog/seo-local-rosemere-villes-voisines',
+    image: '/images/blog/honnete.jpg',
+    imageAlt: 'SEO local Rosem\u00e8re — visibilit\u00e9 dans les villes voisines',
+  },
+  {
+    eyebrow: 'Nouveau sur le blog',
     headline: <>L&apos;IA pour les r&eacute;seaux sociaux : arr&ecirc;tez de poster dans le <em>vide</em></>,
     body: 'La vraie puissance de l\u0027IA, c\u0027est d\u0027identifier les pain points de vos clients et cr\u00e9er du contenu qui r\u00e9pond \u00e0 leurs vraies frustrations \u2014 pas juste publier pour publier.',
     offer: 'Strat\u00e9gie compl\u00e8te en 4 \u00e9tapes.',

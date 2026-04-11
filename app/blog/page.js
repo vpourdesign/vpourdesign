@@ -14,8 +14,16 @@ export const metadata = {
 export default function BlogPage() {
   const articles = [
     {
-      id: 7,
+      id: 8,
       num: '01',
+      title: 'SEO local · Basses-Laurentides',
+      description: 'Mon commerce est à Rosemère — pourquoi mes clients de Lorraine ne me trouvent pas sur Google ?',
+      status: 'Nouveau',
+      slug: '/blog/seo-local-rosemere-villes-voisines',
+    },
+    {
+      id: 7,
+      num: '02',
       title: 'Intelligence artificielle · Réseaux sociaux',
       description: 'L\'IA pour les réseaux sociaux : arrêtez de poster dans le vide',
       status: 'Nouveau',
@@ -23,7 +31,7 @@ export default function BlogPage() {
     },
     {
       id: 6,
-      num: '02',
+      num: '03',
       title: 'Marketing web',
       description: 'Février a tout changé : bienvenue dans la nouvelle ère du marketing web',
       status: 'Nouveau',
@@ -31,7 +39,7 @@ export default function BlogPage() {
     },
     {
       id: 1,
-      num: '03',
+      num: '04',
       title: 'Intelligence artificielle',
       description: 'Comment l\'IA transforme le web design pour les PME de la Rive-Nord',
       status: 'Nouveau',
@@ -39,7 +47,7 @@ export default function BlogPage() {
     },
     {
       id: 4,
-      num: '04',
+      num: '05',
       title: 'Guides pratiques',
       description: 'Combien coûte un site web au Québec en 2026?',
       status: 'Nouveau',
@@ -47,21 +55,21 @@ export default function BlogPage() {
     },
     {
       id: 2,
-      num: '05',
+      num: '06',
       title: 'SEO local',
       description: 'Guide complet du référencement pour les entreprises de Laval et la Rive-Nord',
       status: 'À venir',
     },
     {
       id: 3,
-      num: '06',
+      num: '07',
       title: 'Études de cas',
       description: 'Résultats concrets : comment nous avons triplé le trafic de nos clients',
       status: 'À venir',
     },
     {
       id: 5,
-      num: '07',
+      num: '08',
       title: 'Tendances web',
       description: 'Les 10 tendances web design à surveiller cette année',
       status: 'À venir',

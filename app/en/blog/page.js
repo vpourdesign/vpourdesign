@@ -14,8 +14,16 @@ export const metadata = {
 export default function BlogPage() {
   const articles = [
     {
-      id: 7,
+      id: 8,
       num: '01',
+      title: 'Local SEO · Basses-Laurentides',
+      description: 'My Business Is in Rosemère — Why Can\'t My Clients in Lorraine Find Me on Google?',
+      status: 'New',
+      slug: '/blog/seo-local-rosemere-villes-voisines',
+    },
+    {
+      id: 7,
+      num: '02',
       title: 'Artificial Intelligence · Social Media',
       description: 'AI for Social Media: Stop Posting Into the Void',
       status: 'New',
@@ -23,7 +31,7 @@ export default function BlogPage() {
     },
     {
       id: 6,
-      num: '02',
+      num: '03',
       title: 'Web Marketing',
       description: 'February Changed Everything: Welcome to the New Era of Web Marketing',
       status: 'New',
@@ -31,7 +39,7 @@ export default function BlogPage() {
     },
     {
       id: 1,
-      num: '03',
+      num: '04',
       title: 'Artificial Intelligence',
       description: 'How AI Transforms Web Design for North Shore SMEs',
       status: 'New',
@@ -39,7 +47,7 @@ export default function BlogPage() {
     },
     {
       id: 4,
-      num: '04',
+      num: '05',
       title: 'Practical Guides',
       description: 'How Much Does a Website Cost in Quebec in 2026?',
       status: 'New',
@@ -47,21 +55,21 @@ export default function BlogPage() {
     },
     {
       id: 2,
-      num: '05',
+      num: '06',
       title: 'Local SEO',
       description: 'Complete guide to search engine optimization for Laval and North Shore businesses',
       status: 'Coming soon',
     },
     {
       id: 3,
-      num: '06',
+      num: '07',
       title: 'Case Studies',
       description: 'Real results: how we tripled our clients\' traffic',
       status: 'Coming soon',
     },
     {
       id: 5,
-      num: '07',
+      num: '08',
       title: 'Web Trends',
       description: 'The 10 web design trends to watch this year',
       status: 'Coming soon',
