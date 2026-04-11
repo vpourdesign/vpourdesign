@@ -85,7 +85,7 @@ export default async function CityPage({ params }) {
           )}
         </div>
         <div className="cell cell-c">
-          <p className="subline">{cityData.intro.substring(0, 200)}...</p>
+          <p className="subline">{cityData.subline || cityData.intro.substring(0, 200) + '...'}</p>
         </div>
         <div className="cell cell-d">
           <div className="deco-number" style={{ fontSize: 'clamp(36px, 5vw, 56px)' }}>{cityData.stats.population}</div>

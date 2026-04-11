@@ -252,7 +252,7 @@ a {
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: minmax(240px, 32vh) minmax(160px, 22vh);
+  grid-template-rows: minmax(240px, auto) minmax(160px, 22vh);
   width: 100%;
   border-top: 0.5px solid var(--line);
 }
@@ -1595,7 +1595,7 @@ textarea.form-input {
 
 /* ---- HERO PROJECT IMAGE ---- */
 .hero-grid:has(.hero-project-img) {
-  grid-template-rows: minmax(300px, 50vh) minmax(160px, 22vh);
+  grid-template-rows: minmax(300px, auto) minmax(160px, 22vh);
 }
 
 @media (max-width: 768px) {
