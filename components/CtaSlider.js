@@ -27,7 +27,7 @@ const slides = [
   },
   {
     eyebrow: 'Intelligence artificielle',
-    headline: <>Vous dites <em>\u00ab&nbsp;IA&nbsp;\u00bb</em> en r\u00e9union,<br/>mais personne ne sait par o\u00f9 commencer&nbsp;?</>,
+    headline: <>Vous dites <em>&laquo;&nbsp;IA&nbsp;&raquo;</em> en r&eacute;union,<br/>mais personne ne sait par o&ugrave; commencer&nbsp;?</>,
     body: 'On passe du jargon \u00e0 l\u0027action. Nous identifions les gains concrets que l\u0027intelligence artificielle peut apporter \u00e0 votre workflow \u2014 puis on les implante avec vous, \u00e9tape par \u00e9tape.',
     offer: 'Premi\u00e8re consultation gratuite.',
     btnText: 'Prendre rendez-vous \u2192',
