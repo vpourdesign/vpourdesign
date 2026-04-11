@@ -196,7 +196,7 @@ export default function BlogSeoLocalRosemere() {
               <div style={{ border: '0.5px solid #5080b0', background: 'rgba(80, 128, 176, 0.07)', padding: '28px', margin: '32px 0' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#4070a0', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '14px' }}>Comment &ccedil;a marche</div>
                 <p style={{ margin: 0 }}>
-                  Quand quelqu&apos;un tape &laquo;&nbsp;&eacute;lectricien pr&egrave;s de chez moi&nbsp;&raquo; ou &laquo;&nbsp;caf&eacute; Lorraine&nbsp;&raquo; sur son t&eacute;l&eacute;phone, Google fait quelque chose de tr&egrave;s pr&eacute;cis&nbsp;: il g&eacute;olocalise l&apos;utilisateur, puis cherche des entreprises qui correspondent &agrave; la fois &agrave; la requ&ecirc;te <strong>et</strong> &agrave; la zone g&eacute;ographique. Si votre site ne mentionne que Rosem&egrave;re (ou pire, ne mentionne aucune ville du tout), Google vous associe uniquement &agrave; Rosem&egrave;re.
+                  Quand quelqu&apos;un tape &laquo;&nbsp;&eacute;lectricien pr&egrave;s de chez moi&nbsp;&raquo; ou &laquo;&nbsp;caf&eacute; Lorraine&nbsp;&raquo; sur son t&eacute;l&eacute;phone, Google fait quelque chose de tr&egrave;s pr&eacute;cis&nbsp;: il g&eacute;olocalise l&apos;utilisateur, puis cherche des entreprises qui correspondent &agrave; la fois &agrave; la requ&ecirc;te <strong>et</strong>{' '}&agrave; la zone g&eacute;ographique. Si votre site ne mentionne que Rosem&egrave;re (ou pire, ne mentionne aucune ville du tout), Google vous associe uniquement &agrave; Rosem&egrave;re.
                 </p>
               </div>
             </section>
