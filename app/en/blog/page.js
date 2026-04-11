@@ -19,7 +19,7 @@ export default function BlogPage() {
       title: 'Local SEO · Basses-Laurentides',
       description: 'My Business Is in Rosemère — Why Can\'t My Clients in Lorraine Find Me on Google?',
       status: 'New',
-      slug: '/blog/seo-local-rosemere-villes-voisines',
+      slug: '/en/blog/local-seo-rosemere-nearby-cities',
     },
     {
       id: 7,
@@ -27,7 +27,7 @@ export default function BlogPage() {
       title: 'Artificial Intelligence · Social Media',
       description: 'AI for Social Media: Stop Posting Into the Void',
       status: 'New',
-      slug: '/blog/ia-pain-points-reseaux-sociaux',
+      slug: '/en/blog/ai-pain-points-social-media',
     },
     {
       id: 6,
