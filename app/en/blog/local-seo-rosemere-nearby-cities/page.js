@@ -143,6 +143,9 @@ export default function BlogLocalSeoRosemereEN() {
           <div style={{ position: 'relative', zIndex: 1 }}>
             <div className="tag">April 2026</div>
           </div>
+          <div style={{ position: 'absolute', bottom: '8px', left: 0, right: 0, zIndex: 2, textAlign: 'center' }}>
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '9px', color: 'var(--text-muted)', letterSpacing: '0.08em' }}>Photo: Ville de Rosem&egrave;re</span>
+          </div>
         </div>
         <div className="cell cell-c">
           <p className="subline">By Vincent Lavoie</p>
