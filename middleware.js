@@ -7,12 +7,19 @@ export function middleware(request) {
   const url = request.nextUrl;
   const { pathname } = url;
   const hostname = request.headers.get('host') || '';
+  const proto = request.headers.get('x-forwarded-proto') || 'https';
 
-  // www → non-www redirect (301 permanent)
-  if (hostname.startsWith('www.')) {
+  // Canonical redirect — single 301, no chains
+  // Handles: http://vpourdesign.com  http://www.vpourdesign.com  https://www.vpourdesign.com
+  const isWww = hostname.startsWith('www.');
+  const isHttp = proto === 'http';
+
+  if (isWww || isHttp) {
+    const canonicalHost = hostname.replace(/^www\./, '');
     const newUrl = new URL(request.url);
-    newUrl.host = hostname.replace('www.', '');
-    return NextResponse.redirect(newUrl, 301);
+    newUrl.protocol = 'https:';
+    newUrl.host = canonicalHost;
+    return NextResponse.redirect(newUrl, { status: 301 });
   }
 
   // Skip static files, API routes, etc.

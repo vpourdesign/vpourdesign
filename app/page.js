@@ -11,6 +11,10 @@ import { services, projects, clients } from '../data/services';
 import { cities } from '../data/cities';
 import { localBusinessSchema, breadcrumbSchema } from '../data/schema';
 
+export const metadata = {
+  alternates: { canonical: 'https://vpourdesign.com' },
+};
+
 export default function HomePage() {
   return (
     <>

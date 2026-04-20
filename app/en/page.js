@@ -10,6 +10,20 @@ import { services, projects, clients } from '../../data/services';
 import { cities } from '../../data/cities';
 import { localBusinessSchema, breadcrumbSchema } from '../../data/schema';
 
+export const metadata = {
+  title: 'V pour Design — AI-Powered Web Agency | North Shore Montreal',
+  description: 'Web agency specialized in artificial intelligence on Montreal\'s North Shore. Website creation, SEO, AI strategy, visual identity. 17+ years experience, 500+ projects delivered.',
+  alternates: { canonical: 'https://vpourdesign.com/en' },
+  openGraph: {
+    title: 'V pour Design — AI-Powered Web Agency',
+    description: 'Web agency specialized in artificial intelligence. Montreal North Shore.',
+    url: 'https://vpourdesign.com/en',
+    siteName: 'V pour Design',
+    locale: 'en_CA',
+    type: 'website',
+  },
+};
+
 export default function HomePageEn() {
   return (
     <>

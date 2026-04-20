@@ -26,7 +26,10 @@ export default function sitemap() {
   // ─── FRENCH BLOG POSTS ───
   const blogPosts = [
     { slug: 'ia-transforme-web-design-pme-rive-nord', date: '2026-03-23' },
-    { slug: 'combien-coute-site-web-quebec-2026', date: '2026-03-24' },
+    { slug: 'combien-coute-site-web-quebec-2026',     date: '2026-03-24' },
+    { slug: 'fevrier-nouvelle-ere-marketing-web',     date: '2026-03-30' },
+    { slug: 'ia-pain-points-reseaux-sociaux',         date: '2026-04-07' },
+    { slug: 'seo-local-rosemere-villes-voisines',     date: '2026-04-11' },
   ].map(post => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),
@@ -71,8 +74,11 @@ export default function sitemap() {
 
   // ─── ENGLISH BLOG POSTS ───
   const enBlogPosts = [
-    { slug: 'ai-transforms-web-design-sme-north-shore', date: '2026-03-23' },
-    { slug: 'website-cost-quebec-2026', date: '2026-03-24' },
+    { slug: 'ai-transforms-web-design-sme-north-shore',          date: '2026-03-23' },
+    { slug: 'website-cost-quebec-2026',                          date: '2026-03-24' },
+    { slug: 'february-changed-everything-new-era-web-marketing', date: '2026-03-30' },
+    { slug: 'ai-pain-points-social-media',                       date: '2026-04-07' },
+    { slug: 'local-seo-rosemere-nearby-cities',                  date: '2026-04-11' },
   ].map(post => ({
     url: `${baseUrl}/en/blog/${post.slug}`,
     lastModified: new Date(post.date),
