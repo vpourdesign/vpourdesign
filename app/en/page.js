@@ -6,7 +6,8 @@ import ContactForm from '../../components/ContactForm';
 import JsonLd from '../../components/JsonLd';
 import Link from 'next/link';
 import { ServiceIcon } from '../../components/ServiceIcons';
-import { services, projects, clients } from '../../data/services';
+import { clients } from '../../data/services';
+import { servicesEn, projectsEn } from '../../data/services-en';
 import { cities } from '../../data/cities';
 import { localBusinessSchema, breadcrumbSchema } from '../../data/schema';
 
@@ -94,8 +95,8 @@ export default function HomePageEn() {
           </div>
         </div>
         <div className="services-list">
-          {services.map((service) => (
-            <Link href={`/services/${service.id}`} key={service.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+          {servicesEn.map((service) => (
+            <Link href={`/en/services/${service.id}`} key={service.id} style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="service-item reveal">
                 <div className="service-num">{service.num}</div>
                 <div className="service-content">
@@ -103,7 +104,7 @@ export default function HomePageEn() {
                   <div className="service-desc">{service.description}</div>
                 </div>
                 <div className="service-icon-cell">
-                  <ServiceIcon serviceId={service.id} />
+                  <ServiceIcon serviceId={service.frId} />
                 </div>
                 <div className="service-meta">
                   {service.tags.map(tag => <div key={tag} className="service-tag">{tag}</div>)}
@@ -194,7 +195,7 @@ export default function HomePageEn() {
             <div className="section-num">04 / 03</div>
           </div>
         </div>
-        {projects.map((project) => (
+        {projectsEn.map((project) => (
           <Link href={`/projets/${project.id}`} key={project.id} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="project-row reveal" style={{ cursor: 'pointer' }}>
               <div className="project-index">{project.num}</div>

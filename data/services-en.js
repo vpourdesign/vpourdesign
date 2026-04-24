@@ -1,3 +1,33 @@
+export const projectsEn = [
+  {
+    id: 'remax-crystal',
+    num: '01',
+    title: 'Remax Crystal',
+    subtitle: 'Over 10 years of collaboration. Video creation, graphic design and digital strategy for this real estate agency.',
+    year: '2012 — present',
+    tags: ['Video', 'Graphic Design', 'Web'],
+    image: '/images/accueil-clients/remax.jpg',
+  },
+  {
+    id: 'probaclac',
+    num: '02',
+    title: 'Probaclac',
+    subtitle: 'Since 2012, Probaclac probiotics has entrusted us with their advertising creation and web mandates.',
+    year: '2012 — present',
+    tags: ['Advertising', 'Web'],
+    image: '/images/accueil-clients/probaclac.jpg',
+  },
+  {
+    id: 'olivier-martineau',
+    num: '03',
+    title: 'Olivier Martineau',
+    subtitle: 'Complete art direction for the show "C\'est pas moi, c\'est toi". Poster, billboards, highway panels, advertising campaign and website.',
+    year: '2024',
+    tags: ['Art Direction', 'Campaign', 'Website'],
+    image: '/images/accueil-clients/martineau.jpg',
+  },
+];
+
 export const servicesEn = [
   {
     id: 'website-creation',
