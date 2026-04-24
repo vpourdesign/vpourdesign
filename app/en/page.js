@@ -263,7 +263,7 @@ export default function HomePageEn() {
           <div className="eyebrow" style={{ marginBottom: '20px' }}>We serve</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
             {cities.map(c => (
-              <Link key={c.slug} href={`/agence-web-${c.slug}`} className="nav-link" style={{ padding: '8px 16px', border: '0.5px solid var(--line)', fontSize: '12px' }}>
+              <Link key={c.slug} href={`/en/web-agency-${c.slug}`} className="nav-link" style={{ padding: '8px 16px', border: '0.5px solid var(--line)', fontSize: '12px' }}>
                 {c.name}
               </Link>
             ))}

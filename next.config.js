@@ -15,6 +15,10 @@ const nextConfig = {
         source: '/agence-web-:city',
         destination: '/villes/:city',
       },
+      {
+        source: '/en/web-agency-:city',
+        destination: '/en/villes/:city',
+      },
     ];
   },
   async redirects() {

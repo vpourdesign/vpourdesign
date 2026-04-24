@@ -1,4 +1,5 @@
 import { cities } from '../data/cities';
+import { citiesEn } from '../data/cities-en';
 import { services, projects } from '../data/services';
 
 export default function sitemap() {
@@ -45,12 +46,20 @@ export default function sitemap() {
     priority: 0.6,
   }));
 
-  // ─── CITY PAGES ───
+  // ─── FRENCH CITY PAGES ───
   const cityPages = cities.map(c => ({
     url: `${baseUrl}/agence-web-${c.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.9,
+  }));
+
+  // ─── ENGLISH CITY PAGES ───
+  const enCityPages = citiesEn.map(c => ({
+    url: `${baseUrl}/en/web-agency-${c.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.8,
   }));
 
   // ─── ENGLISH STATIC PAGES ───
@@ -95,5 +104,6 @@ export default function sitemap() {
     ...enStaticPages,
     ...enServicePages,
     ...enBlogPosts,
+    ...enCityPages,
   ];
 }

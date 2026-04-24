@@ -1,17 +1,18 @@
-import Nav from '../../../components/Nav';
-import Footer from '../../../components/Footer';
-import ScrollReveal from '../../../components/ScrollReveal';
-import ContactForm from '../../../components/ContactForm';
-import JsonLd from '../../../components/JsonLd';
-import { cityLocalBusinessSchema, faqSchema, breadcrumbSchema } from '../../../data/schema';
-import { ServiceIcon } from '../../../components/ServiceIcons';
+import Nav from '../../../../components/Nav';
+import Footer from '../../../../components/Footer';
+import ScrollReveal from '../../../../components/ScrollReveal';
+import ContactForm from '../../../../components/ContactForm';
+import JsonLd from '../../../../components/JsonLd';
+import { cityLocalBusinessSchema, faqSchema, breadcrumbSchema } from '../../../../data/schema';
+import { ServiceIcon } from '../../../../components/ServiceIcons';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { cities } from '../../../data/cities';
-import { services } from '../../../data/services';
+import { citiesEn } from '../../../../data/cities-en';
+import { cities } from '../../../../data/cities';
+import { servicesEn } from '../../../../data/services-en';
 
-// Map of city slugs to their image filenames
+// Map of city slugs to their image filenames (shared with FR)
 function getCityImage(slug) {
   const imageMap = {
     'laval': 'laval.jpg',
@@ -23,18 +24,18 @@ function getCityImage(slug) {
 }
 
 export async function generateStaticParams() {
-  return cities.map((c) => ({ city: c.slug }));
+  return citiesEn.map((c) => ({ city: c.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { city } = await params;
-  const cityData = cities.find(c => c.slug === city);
+  const cityData = citiesEn.find(c => c.slug === city);
   if (!cityData) return {};
   return {
     title: cityData.metaTitle,
     description: cityData.metaDescription,
     alternates: {
-      canonical: `https://vpourdesign.com/agence-web-${city}`,
+      canonical: `https://vpourdesign.com/en/web-agency-${city}`,
       languages: {
         'fr-CA': `https://vpourdesign.com/agence-web-${city}`,
         'en': `https://vpourdesign.com/en/web-agency-${city}`,
@@ -43,31 +44,29 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function CityPage({ params }) {
+export default async function CityPageEn({ params }) {
   const { city } = await params;
-  const cityData = cities.find(c => c.slug === city);
+  const cityData = citiesEn.find(c => c.slug === city);
   if (!cityData) notFound();
 
   const cityImage = getCityImage(city);
 
-  // Build clean H1 from the data h1 field
-  // h1 format: "Agence web à Laval — Sites web & intelligence artificielle"
   const h1Parts = cityData.h1.split(' — ');
-  const h1Line1 = h1Parts[0]; // "Agence web à Laval"
-  const h1Line2 = h1Parts.length > 1 ? h1Parts[1] : ''; // "Sites web & intelligence artificielle"
+  const h1Line1 = h1Parts[0];
+  const h1Line2 = h1Parts.length > 1 ? h1Parts[1] : '';
 
   return (
     <>
       <JsonLd data={cityLocalBusinessSchema(cityData)} />
       <JsonLd data={faqSchema(cityData.faq)} />
-      <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:cityData.name}])} />
+      <JsonLd data={breadcrumbSchema([{ name: 'Home', url: '/en' }, { name: cityData.name }])} />
       <Nav />
       <ScrollReveal />
 
       {/* HERO */}
       <section className="hero-grid">
         <div className="cell cell-a">
-          <div className="eyebrow">Agence web · {cityData.name}</div>
+          <div className="eyebrow">Web Agency · {cityData.name}</div>
           <h1 className="h1">{h1Line1.replace(cityData.name, '').trim()}<br/><em>{cityData.name}</em>{h1Line2 && <><br/><span style={{ fontSize: '0.5em', fontWeight: 300, color: 'var(--text-muted)' }}>{h1Line2}</span></>}</h1>
         </div>
         <div className="cell cell-b" style={cityImage ? { padding: 0, position: 'relative', overflow: 'hidden' } : {}}>
@@ -85,7 +84,7 @@ export default async function CityPage({ params }) {
                 <div className="accent-line" style={{ height: '80px' }}></div>
               </div>
               <div>
-                <div className="tag">Intelligence artificielle</div>
+                <div className="tag">Artificial Intelligence</div>
               </div>
             </>
           )}
@@ -95,15 +94,15 @@ export default async function CityPage({ params }) {
         </div>
         <div className="cell cell-d">
           <div className="deco-number" style={{ fontSize: 'clamp(36px, 5vw, 56px)' }}>{cityData.stats.population}</div>
-          <div className="body-text" style={{ marginTop: '8px' }}>résidents</div>
+          <div className="body-text" style={{ marginTop: '8px' }}>residents</div>
         </div>
       </section>
 
-      {/* ABOUT CITY */}
+      {/* CITY STATS + INTRO */}
       <section className="about-section">
         <div className="about-sidebar">
           <div>
-            <div className="eyebrow" style={{ marginBottom: '16px' }}>{cityData.name} en chiffres</div>
+            <div className="eyebrow" style={{ marginBottom: '16px' }}>{cityData.name} by the numbers</div>
             <div className="accent-line"></div>
           </div>
           <div style={{ marginTop: '40px' }}>
@@ -114,25 +113,25 @@ export default async function CityPage({ params }) {
               </div>
               <div className="about-stat">
                 <div className="about-stat-num">{cityData.stats.businesses}</div>
-                <div className="about-stat-label">Entreprises</div>
+                <div className="about-stat-label">Businesses</div>
               </div>
               <div className="about-stat">
                 <div className="about-stat-num" style={{ fontSize: 'clamp(18px, 2vw, 24px)' }}>{cityData.stats.growth}</div>
-                <div className="about-stat-label">Tendance</div>
+                <div className="about-stat-label">Trend</div>
               </div>
             </div>
           </div>
         </div>
         <div className="about-main">
           <div className="reveal">
-            <h2 className="about-title">Votre agence web à<br/><em>{cityData.name}</em></h2>
+            <h2 className="about-title">Your web agency in<br/><em>{cityData.name}</em></h2>
           </div>
           <div className="reveal">
             <p className="about-body">{cityData.intro}</p>
           </div>
           {cityData.clients && cityData.clients.length > 0 && (
             <div className="reveal">
-              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>Clients actifs à {cityData.name}</h3>
+              <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}>Active clients in {cityData.name}</h3>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {cityData.clients.map(c => (
                   <span key={c} style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-primary)', padding: '6px 12px', border: '0.5px solid var(--line)' }}>{c}</span>
@@ -167,12 +166,12 @@ export default async function CityPage({ params }) {
         </section>
       )}
 
-      {/* WHY US — only for cities with enriched content */}
+      {/* WHY US */}
       {cityData.whyUs && (
         <section style={{ borderTop: '0.5px solid var(--line)' }}>
           <div className="section-grid">
             <div className="section-header">
-              <div className="section-label">Pourquoi V pour Design à {cityData.name}</div>
+              <div className="section-label">Why V pour Design in {cityData.name}</div>
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', borderBottom: '0.5px solid var(--line)' }}>
@@ -187,25 +186,25 @@ export default async function CityPage({ params }) {
         </section>
       )}
 
-      {/* LOCAL SEO — only for cities with enriched content */}
+      {/* LOCAL SEO */}
       {cityData.localSeo && (
         <section className="about-section" style={{ borderTop: '0.5px solid var(--line)' }}>
           <div className="about-sidebar">
             <div>
-              <div className="eyebrow" style={{ marginBottom: '16px' }}>SEO local</div>
+              <div className="eyebrow" style={{ marginBottom: '16px' }}>Local SEO</div>
               <div className="accent-line"></div>
             </div>
           </div>
           <div className="about-main">
             <div className="reveal">
-              <h2 className="about-title">Référencement local à<br/><em>{cityData.name}</em></h2>
+              <h2 className="about-title">Local SEO in<br/><em>{cityData.name}</em></h2>
             </div>
             <div className="reveal">
               <p className="about-body">{cityData.localSeo}</p>
             </div>
             {cityData.landmarks && cityData.landmarks.length > 0 && (
               <div className="reveal">
-                <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px', marginTop: '24px' }}>Quartiers desservis</h3>
+                <h3 style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--text-muted)', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px', marginTop: '24px' }}>Areas served</h3>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                   {cityData.landmarks.map(l => (
                     <span key={l} style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--text-primary)', padding: '6px 12px', border: '0.5px solid var(--line)' }}>{l}</span>
@@ -217,13 +216,13 @@ export default async function CityPage({ params }) {
         </section>
       )}
 
-      {/* APPROACH — methodology for enriched cities */}
+      {/* APPROACH */}
       {cityData.approach && (
         <section style={{ borderTop: '0.5px solid var(--line)' }}>
           <div className="section-grid">
             <div className="section-header">
-              <div className="section-label">Notre approche à {cityData.name}</div>
-              <div className="section-num">{cityData.approach.length} étapes</div>
+              <div className="section-label">Our approach in {cityData.name}</div>
+              <div className="section-num">{cityData.approach.length} steps</div>
             </div>
           </div>
           <div className="services-list">
@@ -240,17 +239,17 @@ export default async function CityPage({ params }) {
         </section>
       )}
 
-      {/* SERVICES OFFERED */}
+      {/* SERVICES */}
       <section>
         <div className="section-grid">
           <div className="section-header">
-            <div className="section-label">Services à {cityData.name}</div>
-            <div className="section-num">{services.length} services</div>
+            <div className="section-label">Services in {cityData.name}</div>
+            <div className="section-num">{servicesEn.length} services</div>
           </div>
         </div>
         <div className="services-list">
-          {services.map((service) => (
-            <Link href={`/services/${service.id}`} key={service.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+          {servicesEn.map((service) => (
+            <Link href={`/en/services/${service.id}`} key={service.id} style={{ textDecoration: 'none', color: 'inherit' }}>
               <div className="service-item reveal">
                 <div className="service-num">{service.num}</div>
                 <div className="service-content">
@@ -258,7 +257,7 @@ export default async function CityPage({ params }) {
                   <div className="service-desc">{service.description}</div>
                 </div>
                 <div className="service-icon-cell">
-                  <ServiceIcon serviceId={service.id} />
+                  <ServiceIcon serviceId={service.frId} />
                 </div>
                 <div className="service-meta">
                   {service.tags.map(tag => <div key={tag} className="service-tag">{tag}</div>)}
@@ -279,7 +278,7 @@ export default async function CityPage({ params }) {
         </div>
         <div className="about-main">
           <div className="reveal">
-            <h2 className="about-title">Questions fréquentes<br/><em>{cityData.name}</em></h2>
+            <h2 className="about-title">Frequently asked<br/><em>questions</em></h2>
           </div>
           {cityData.faq.map((item, i) => (
             <div key={i} className="reveal" style={{ borderBottom: '0.5px solid var(--line)', paddingBottom: '24px' }}>
@@ -290,18 +289,18 @@ export default async function CityPage({ params }) {
         </div>
       </section>
 
-      {/* MAP — for Rosemère (home base) or enriched cities */}
+      {/* MAP — for Rosemère (home base) */}
       {city === 'rosemere' && (
         <section style={{ borderTop: '0.5px solid var(--line)' }}>
           <div className="section-grid">
             <div className="section-header">
-              <div className="section-label">Notre bureau à Rosemère</div>
+              <div className="section-label">Our office in Rosemère</div>
               <div className="section-num">400 Grande-Côte</div>
             </div>
           </div>
           <div style={{ borderTop: '0.5px solid var(--line)' }}>
             <iframe
-              src="https://www.google.com/maps?q=400+Grande-C%C3%B4te,+Rosem%C3%A8re,+QC,+Canada&output=embed&hl=fr"
+              src="https://www.google.com/maps?q=400+Grande-C%C3%B4te,+Rosem%C3%A8re,+QC,+Canada&output=embed&hl=en"
               width="100%"
               height="350"
               style={{ border: 0, display: 'block', filter: 'grayscale(100%) invert(92%) contrast(0.9)' }}
@@ -317,28 +316,28 @@ export default async function CityPage({ params }) {
       {/* CTA + CONTACT */}
       <section id="contact" className="contact-section">
         <div className="contact-left">
-          <h2 className="contact-title reveal">Votre projet à<br/><em>{cityData.name}</em></h2>
+          <h2 className="contact-title reveal">Your project in<br/><em>{cityData.name}</em></h2>
           <ContactForm />
         </div>
         <div className="contact-sidebar">
           <div className="contact-info">
             <div className="contact-info-item">
-              <div className="contact-info-label">Téléphone</div>
+              <div className="contact-info-label">Phone</div>
               <div className="contact-info-value"><a href="tel:5145675763">(514) 567-5763</a></div>
             </div>
             <div className="contact-info-item">
-              <div className="contact-info-label">Courriel</div>
+              <div className="contact-info-label">Email</div>
               <div className="contact-info-value"><a href="mailto:info@vpourdesign.com">info@vpourdesign.com</a></div>
             </div>
             <div className="contact-info-item">
-              <div className="contact-info-label">Bureau</div>
+              <div className="contact-info-label">Office</div>
               <div className="contact-info-value">400 Grande-Côte, Rosemère</div>
             </div>
           </div>
           {city !== 'rosemere' && (
             <div style={{ marginTop: '24px', border: '0.5px solid var(--line)' }}>
               <iframe
-                src="https://www.google.com/maps?q=400+Grande-C%C3%B4te,+Rosem%C3%A8re,+QC,+Canada&output=embed&hl=fr"
+                src="https://www.google.com/maps?q=400+Grande-C%C3%B4te,+Rosem%C3%A8re,+QC,+Canada&output=embed&hl=en"
                 width="100%"
                 height="180"
                 style={{ border: 0, display: 'block', filter: 'grayscale(100%) invert(92%) contrast(0.9)' }}
@@ -352,13 +351,23 @@ export default async function CityPage({ params }) {
         </div>
       </section>
 
+      {/* LANG SWITCH — FR counterpart */}
+      <section style={{ borderTop: '0.5px solid var(--line)', padding: '24px 32px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em' }}>Also available in</span>
+          <Link href={`/agence-web-${city}`} className="nav-link" style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: 'var(--accent)', letterSpacing: '0.1em' }}>
+            Version française — agence-web-{city}
+          </Link>
+        </div>
+      </section>
+
       {/* OTHER CITIES */}
       <section className="section-grid" style={{ borderTop: '0.5px solid var(--line)', padding: '32px' }}>
         <div style={{ gridColumn: '1 / -1' }}>
-          <div className="eyebrow" style={{ marginBottom: '20px' }}>Autres villes desservies</div>
+          <div className="eyebrow" style={{ marginBottom: '20px' }}>Other cities we serve</div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
             {cities.filter(c => c.slug !== city).map(c => (
-              <Link key={c.slug} href={`/agence-web-${c.slug}`} className="nav-link" style={{ padding: '8px 16px', border: '0.5px solid var(--line)', fontSize: '12px' }}>
+              <Link key={c.slug} href={`/en/web-agency-${c.slug}`} className="nav-link" style={{ padding: '8px 16px', border: '0.5px solid var(--line)', fontSize: '12px' }}>
                 {c.name}
               </Link>
             ))}
