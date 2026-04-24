@@ -137,6 +137,30 @@ export default async function CityPage({ params }) {
         </div>
       </section>
 
+      {/* EXTENDED INTRO — additional content sections for enriched cities */}
+      {cityData.introSections && (
+        <section style={{ borderTop: '0.5px solid var(--line)' }}>
+          {cityData.introSections.map((section, i) => (
+            <div key={i} className="about-section" style={{ borderTop: i > 0 ? '0.5px solid var(--line)' : 'none' }}>
+              <div className="about-sidebar">
+                <div>
+                  <div className="eyebrow" style={{ marginBottom: '16px' }}>0{i + 1}</div>
+                  <div className="accent-line"></div>
+                </div>
+              </div>
+              <div className="about-main">
+                <div className="reveal">
+                  <h2 className="about-title" style={{ fontSize: 'clamp(22px, 3vw, 32px)' }}>{section.title}</h2>
+                </div>
+                <div className="reveal">
+                  <p className="about-body">{section.text}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
+
       {/* WHY US — only for cities with enriched content */}
       {cityData.whyUs && (
         <section style={{ borderTop: '0.5px solid var(--line)' }}>
@@ -183,6 +207,29 @@ export default async function CityPage({ params }) {
                 </div>
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {/* APPROACH — methodology for enriched cities */}
+      {cityData.approach && (
+        <section style={{ borderTop: '0.5px solid var(--line)' }}>
+          <div className="section-grid">
+            <div className="section-header">
+              <div className="section-label">Notre approche à {cityData.name}</div>
+              <div className="section-num">{cityData.approach.length} étapes</div>
+            </div>
+          </div>
+          <div className="services-list">
+            {cityData.approach.map((step, i) => (
+              <div key={i} className="service-item reveal">
+                <div className="service-num">0{i + 1}</div>
+                <div className="service-content">
+                  <div className="service-title">{step.title}</div>
+                  <div className="service-desc">{step.text}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       )}
