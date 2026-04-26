@@ -64,6 +64,57 @@ const BLOG_POOL = [
   { title: 'Création de site web pour restaurants et services à Laval', keyword: 'création site web laval', type: 'Page verticale' },
 ];
 
+// ── SERP competitor positions (SerpAPI — free tier 100/month) ──
+// Cache module-level: survives warm serverless invocations (TTL 24h)
+const serpCache = { data: null, ts: 0 };
+const SERP_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+async function getSerpPositions(keywords, competitors) {
+  const apiKey = process.env.SERPAPI_KEY;
+  if (!apiKey) return null; // No key → return null (show — silently)
+
+  const now = Date.now();
+  if (serpCache.data && now - serpCache.ts < SERP_TTL_MS) {
+    return serpCache.data; // Return cached data
+  }
+
+  // Query the 10 most competitive keywords (saves API credits)
+  const keywordsToCheck = keywords.slice(0, 10);
+  const results = {};
+
+  await Promise.all(keywordsToCheck.map(async (kw) => {
+    try {
+      const params = new URLSearchParams({
+        engine: 'google',
+        q: kw,
+        gl: 'ca',
+        hl: 'fr',
+        num: '20',
+        api_key: apiKey,
+      });
+      const res = await fetch(`https://serpapi.com/search.json?${params}`);
+      const json = await res.json();
+      const organicResults = json.organic_results || [];
+
+      results[kw] = {};
+      for (let i = 0; i < organicResults.length; i++) {
+        const link = (organicResults[i].link || '').toLowerCase();
+        for (const comp of competitors) {
+          if (!results[kw][comp.key] && link.includes(comp.url)) {
+            results[kw][comp.key] = i + 1;
+          }
+        }
+      }
+    } catch (_) {
+      results[kw] = {};
+    }
+  }));
+
+  serpCache.data = results;
+  serpCache.ts = now;
+  return results;
+}
+
 // ── Search Console API ──
 async function getSearchConsoleData(auth, siteUrl, startDate, endDate, dimensions = ['query']) {
   const searchconsole = google.searchconsole({ version: 'v1', auth });
@@ -250,27 +301,38 @@ export async function POST(request) {
     ]);
 
     // ── Build competitive table ──
-    // Match each target keyword against broad GSC results
     const broadMap = {};
     for (const row of scBroadQueries) {
       broadMap[row.keys[0].toLowerCase()] = row;
     }
 
+    // Fetch SERP competitor positions (parallel with other calls, cached 24h)
+    const serpData = await getSerpPositions(TARGET_KEYWORDS, COMPETITORS);
+
     const competitiveRows = TARGET_KEYWORDS.map(kw => {
-      // Exact match first, then partial
       const exact = broadMap[kw];
       const partial = !exact
         ? scBroadQueries.find(r => r.keys[0].toLowerCase().includes(kw) || kw.includes(r.keys[0].toLowerCase()))
         : null;
       const match = exact || partial;
+
+      // Competitor positions from SERP (or — if no API key / not found)
+      const kwSerp = serpData ? (serpData[kw] || {}) : null;
+      const compPositions = COMPETITORS.map(c => ({
+        key: c.key,
+        position: kwSerp && kwSerp[c.key] ? String(kwSerp[c.key]) : '—',
+      }));
+
       return {
         keyword: kw,
         myPosition: match ? parseFloat(match.position).toFixed(1) : '50+',
         myClicks: match ? match.clicks : 0,
         myImpressions: match ? match.impressions : 0,
-        competitors: COMPETITORS.map(c => ({ key: c.key, position: '—' })),
+        competitors: compPositions,
       };
     });
+
+    const hasSerpData = !!process.env.SERPAPI_KEY;
 
     // ── Blog suggestions — 5 random from pool ──
     const shuffled = [...BLOG_POOL].sort(() => Math.random() - 0.5);
@@ -306,7 +368,8 @@ export async function POST(request) {
       competitive: {
         competitors: COMPETITORS,
         rows: competitiveRows,
-        note: 'Positions V pour Design : données GSC réelles (90 jours). Concurrents : intégration SERP à configurer.',
+        hasSerpData,
+        serpCacheAge: serpCache.ts ? Math.round((Date.now() - serpCache.ts) / 60000) : null,
       },
       blogSuggestions,
       blogPool: BLOG_POOL,

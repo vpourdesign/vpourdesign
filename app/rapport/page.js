@@ -250,7 +250,9 @@ export default function RapportPage() {
             <div style={{ ...styles.subLabel, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
               <span>Positions moyennes — 90 jours GSC</span>
               <span style={{ color: 'var(--text-ghost, #4a4438)', fontSize: '9px' }}>
-                VPD = données réelles · Concurrents = intégration SERP à configurer
+                {competitive.hasSerpData
+                  ? `Concurrents : SerpAPI · Cache ${competitive.serpCacheAge}min`
+                  : 'Concurrents : ajoutez SERPAPI_KEY dans Vercel pour activer'}
               </span>
             </div>
             <div style={styles.tableWrap}>
