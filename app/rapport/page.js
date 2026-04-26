@@ -9,6 +9,14 @@ export default function RapportPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // ── Blog suggestions seed (must be top-level, before any early return) ──
+  const [blogSeed, setBlogSeed] = useState(0);
+  const shownSuggestions = useMemo(() => {
+    if (!data?.blogPool) return data?.blogSuggestions || [];
+    const arr = [...data.blogPool].sort(() => (Math.sin(blogSeed * 7 + 13) - 0.5));
+    return arr.slice(0, 5);
+  }, [data, blogSeed]);
+
   async function fetchData(pwd) {
     setLoading(true);
     setError(null);
@@ -71,14 +79,6 @@ export default function RapportPage() {
       </div>
     );
   }
-
-  // ── Blog suggestions local state (refresh without API call) ──
-  const [blogSeed, setBlogSeed] = useState(0);
-  const shownSuggestions = useMemo(() => {
-    if (!data?.blogPool) return data?.blogSuggestions || [];
-    const arr = [...data.blogPool].sort(() => (Math.sin(blogSeed * 7 + 13) - 0.5));
-    return arr.slice(0, 5);
-  }, [data, blogSeed]);
 
   // ── Dashboard ──
   const { realtime, objectives, analytics, searchConsole, competitive, generatedAt } = data;
