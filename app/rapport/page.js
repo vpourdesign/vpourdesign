@@ -8,6 +8,10 @@ export default function RapportPage() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  // SERP state — loaded on demand only
+  const [serpData, setSerpData] = useState(null);
+  const [serpLoading, setSerpLoading] = useState(false);
+  const [serpUpdatedAt, setSerpUpdatedAt] = useState(null);
 
   // ── Blog suggestions seed (must be top-level, before any early return) ──
   const [blogSeed, setBlogSeed] = useState(0);
@@ -52,6 +56,23 @@ export default function RapportPage() {
 
   function refresh() {
     fetchData(password);
+  }
+
+  async function fetchSerpData() {
+    setSerpLoading(true);
+    try {
+      const res = await fetch('/api/rapport', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, type: 'serp' }),
+      });
+      const json = await res.json();
+      if (json.serpPositions) {
+        setSerpData(json.serpPositions);
+        setSerpUpdatedAt(new Date());
+      }
+    } catch (_) {}
+    setSerpLoading(false);
   }
 
   // ── Login screen ──
@@ -244,17 +265,29 @@ export default function RapportPage() {
         <section style={styles.section}>
           <div style={styles.sectionHeader}>
             <div style={styles.sectionLabel}>Positionnement VS compétiteurs</div>
-            <div style={styles.sectionNum}>20 mots-clés cibles · Rive-Nord</div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+              {serpUpdatedAt && (
+                <span style={{ fontFamily: "'DM Mono', monospace", fontSize: '9px', color: 'var(--text-ghost, #4a4438)' }}>
+                  Mis à jour {serpUpdatedAt.toLocaleTimeString('fr-CA', { hour: '2-digit', minute: '2-digit' })}
+                </span>
+              )}
+              <button
+                onClick={fetchSerpData}
+                disabled={serpLoading || !competitive.hasSerpKey}
+                style={{
+                  ...styles.refreshBtn,
+                  color: competitive.hasSerpKey ? 'var(--accent, #C9A84C)' : 'var(--text-ghost, #4a4438)',
+                  borderColor: competitive.hasSerpKey ? 'var(--accent, #C9A84C)' : 'var(--line, #2a2820)',
+                  opacity: serpLoading ? 0.5 : 1,
+                }}
+                title={competitive.hasSerpKey ? '10 crédits SerpAPI' : 'SERPAPI_KEY non configurée'}
+              >
+                {serpLoading ? '↻ Chargement...' : '↻ Rafraîchir concurrents'}
+              </button>
+            </div>
           </div>
           <div style={styles.subSection}>
-            <div style={{ ...styles.subLabel, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-              <span>Positions moyennes — 90 jours GSC</span>
-              <span style={{ color: 'var(--text-ghost, #4a4438)', fontSize: '9px' }}>
-                {competitive.hasSerpData
-                  ? `Concurrents : SerpAPI · Cache ${competitive.serpCacheAge}min`
-                  : 'Concurrents : ajoutez SERPAPI_KEY dans Vercel pour activer'}
-              </span>
-            </div>
+            <div style={styles.subLabel}>Positions moyennes — 90 jours GSC · Google.ca/fr</div>
             <div style={styles.tableWrap}>
               <table style={styles.table}>
                 <thead>
@@ -275,11 +308,14 @@ export default function RapportPage() {
                       <td style={{ ...styles.td, textAlign: 'center' }}>
                         <PositionBadge pos={row.myPosition} />
                       </td>
-                      {row.competitors.map(c => (
-                        <td key={c.key} style={{ ...styles.td, textAlign: 'center', color: 'var(--text-ghost, #4a4438)' }}>
-                          {c.position}
-                        </td>
-                      ))}
+                      {competitive.competitors.map(c => {
+                        const pos = serpData?.[row.keyword]?.[c.key];
+                        return (
+                          <td key={c.key} style={{ ...styles.td, textAlign: 'center' }}>
+                            {pos ? <PositionBadge pos={String(pos)} /> : <span style={{ color: 'var(--text-ghost, #4a4438)' }}>—</span>}
+                          </td>
+                        );
+                      })}
                       <td style={{ ...styles.td, textAlign: 'right' }}>{row.myClicks}</td>
                       <td style={{ ...styles.td, textAlign: 'right' }}>{row.myImpressions}</td>
                     </tr>

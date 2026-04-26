@@ -255,12 +255,23 @@ function daysAgo(n) {
 // ── Main handler ──
 export async function POST(request) {
   try {
-    const { password } = await request.json();
+    const { password, type } = await request.json();
 
     // Password check
     const validPassword = process.env.RAPPORT_PASSWORD || 'vpd2026';
     if (password !== validPassword) {
       return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+    }
+
+    // ── SERP-only request (on-demand, triggered by button) ──
+    if (type === 'serp') {
+      const serpPositions = await getSerpPositions(TARGET_KEYWORDS, COMPETITORS);
+      return NextResponse.json({
+        serpPositions,
+        hasSerpData: !!process.env.SERPAPI_KEY,
+        serpCacheAge: serpCache.ts ? Math.round((Date.now() - serpCache.ts) / 60000) : null,
+        fetchedAt: new Date().toISOString(),
+      });
     }
 
     const auth = getAuth();
@@ -306,33 +317,19 @@ export async function POST(request) {
       broadMap[row.keys[0].toLowerCase()] = row;
     }
 
-    // Fetch SERP competitor positions (parallel with other calls, cached 24h)
-    const serpData = await getSerpPositions(TARGET_KEYWORDS, COMPETITORS);
-
     const competitiveRows = TARGET_KEYWORDS.map(kw => {
       const exact = broadMap[kw];
       const partial = !exact
         ? scBroadQueries.find(r => r.keys[0].toLowerCase().includes(kw) || kw.includes(r.keys[0].toLowerCase()))
         : null;
       const match = exact || partial;
-
-      // Competitor positions from SERP (or — if no API key / not found)
-      const kwSerp = serpData ? (serpData[kw] || {}) : null;
-      const compPositions = COMPETITORS.map(c => ({
-        key: c.key,
-        position: kwSerp && kwSerp[c.key] ? String(kwSerp[c.key]) : '—',
-      }));
-
       return {
         keyword: kw,
         myPosition: match ? parseFloat(match.position).toFixed(1) : '50+',
         myClicks: match ? match.clicks : 0,
         myImpressions: match ? match.impressions : 0,
-        competitors: compPositions,
       };
     });
-
-    const hasSerpData = !!process.env.SERPAPI_KEY;
 
     // ── Blog suggestions — 5 random from pool ──
     const shuffled = [...BLOG_POOL].sort(() => Math.random() - 0.5);
@@ -368,8 +365,7 @@ export async function POST(request) {
       competitive: {
         competitors: COMPETITORS,
         rows: competitiveRows,
-        hasSerpData,
-        serpCacheAge: serpCache.ts ? Math.round((Date.now() - serpCache.ts) / 60000) : null,
+        hasSerpKey: !!process.env.SERPAPI_KEY,
       },
       blogSuggestions,
       blogPool: BLOG_POOL,
