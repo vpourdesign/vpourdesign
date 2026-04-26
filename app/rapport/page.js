@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 export default function RapportPage() {
   const [password, setPassword] = useState('');
@@ -72,8 +72,16 @@ export default function RapportPage() {
     );
   }
 
+  // ── Blog suggestions local state (refresh without API call) ──
+  const [blogSeed, setBlogSeed] = useState(0);
+  const shownSuggestions = useMemo(() => {
+    if (!data?.blogPool) return data?.blogSuggestions || [];
+    const arr = [...data.blogPool].sort(() => (Math.sin(blogSeed * 7 + 13) - 0.5));
+    return arr.slice(0, 5);
+  }, [data, blogSeed]);
+
   // ── Dashboard ──
-  const { realtime, objectives, analytics, searchConsole, generatedAt } = data;
+  const { realtime, objectives, analytics, searchConsole, competitive, generatedAt } = data;
   const genTime = new Date(generatedAt).toLocaleString('fr-CA');
 
   return (
@@ -230,6 +238,83 @@ export default function RapportPage() {
           </div>
         </div>
       </section>
+
+      {/* ── COMPETITIVE POSITIONING ── */}
+      {competitive && (
+        <section style={styles.section}>
+          <div style={styles.sectionHeader}>
+            <div style={styles.sectionLabel}>Positionnement VS compétiteurs</div>
+            <div style={styles.sectionNum}>20 mots-clés cibles · Rive-Nord</div>
+          </div>
+          <div style={styles.subSection}>
+            <div style={{ ...styles.subLabel, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+              <span>Positions moyennes — 90 jours GSC</span>
+              <span style={{ color: 'var(--text-ghost, #4a4438)', fontSize: '9px' }}>
+                VPD = données réelles · Concurrents = intégration SERP à configurer
+              </span>
+            </div>
+            <div style={styles.tableWrap}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={{ ...styles.th, minWidth: '200px' }}>Mot-clé</th>
+                    <th style={{ ...styles.th, textAlign: 'center', color: 'var(--accent, #C9A84C)', minWidth: '90px' }}>VPD</th>
+                    {competitive.competitors.map(c => (
+                      <th key={c.key} style={{ ...styles.th, textAlign: 'center', minWidth: '100px' }}>{c.label}</th>
+                    ))}
+                    <th style={{ ...styles.th, textAlign: 'right', minWidth: '60px' }}>Clics</th>
+                    <th style={{ ...styles.th, textAlign: 'right', minWidth: '70px' }}>Impr.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {competitive.rows.map((row, i) => (
+                    <tr key={i} style={{ background: i % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)' }}>
+                      <td style={{ ...styles.td, color: 'var(--text-primary, #F0EAD6)', fontWeight: 400 }}>{row.keyword}</td>
+                      <td style={{ ...styles.td, textAlign: 'center' }}>
+                        <PositionBadge pos={row.myPosition} />
+                      </td>
+                      {row.competitors.map(c => (
+                        <td key={c.key} style={{ ...styles.td, textAlign: 'center', color: 'var(--text-ghost, #4a4438)' }}>
+                          {c.position}
+                        </td>
+                      ))}
+                      <td style={{ ...styles.td, textAlign: 'right' }}>{row.myClicks}</td>
+                      <td style={{ ...styles.td, textAlign: 'right' }}>{row.myImpressions}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── BLOG / CONTENT SUGGESTIONS ── */}
+      {data.blogPool && (
+        <section style={styles.section}>
+          <div style={styles.sectionHeader}>
+            <div style={styles.sectionLabel}>Idées de contenu — boost SEO</div>
+            <button
+              onClick={() => setBlogSeed(s => s + 1)}
+              style={{ ...styles.refreshBtn, color: 'var(--accent, #C9A84C)', borderColor: 'var(--accent, #C9A84C)' }}
+            >
+              ↻ Nouvelles idées
+            </button>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+            {shownSuggestions.map((idea, i) => (
+              <div key={i} style={{ padding: 'clamp(20px, 3vw, 32px)', borderRight: '0.5px solid var(--line, #2a2820)', borderBottom: '0.5px solid var(--line, #2a2820)', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: '9px', letterSpacing: '0.15em', color: 'var(--accent, #C9A84C)', textTransform: 'uppercase' }}>0{i + 1}</span>
+                  <span style={{ fontFamily: "'DM Mono', monospace", fontSize: '9px', color: 'var(--text-ghost, #4a4438)', padding: '2px 8px', border: '0.5px solid var(--line, #2a2820)', textTransform: 'uppercase' }}>{idea.type}</span>
+                </div>
+                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(16px, 2vw, 20px)', fontWeight: 300, color: 'var(--text-primary, #F0EAD6)', lineHeight: 1.3 }}>{idea.title}</div>
+                <div style={{ fontFamily: "'DM Mono', monospace", fontSize: '10px', color: 'var(--text-ghost, #4a4438)' }}>Cible : <span style={{ color: 'var(--text-muted, #8a7e6a)' }}>{idea.keyword}</span></div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Footer */}
       <footer style={styles.footer}>

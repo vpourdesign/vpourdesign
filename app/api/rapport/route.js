@@ -13,6 +13,57 @@ function getAuth() {
   });
 }
 
+// ── 20 target keywords for competitive table ──
+const TARGET_KEYWORDS = [
+  'agence web laval',
+  'agence web rive-nord',
+  'agence web rosemère',
+  'création site web laval',
+  'agence web blainville',
+  'site web laval',
+  'seo laval',
+  'agence web basses-laurentides',
+  'création site web rive-nord',
+  'marketing numérique laval',
+  'agence web sainte-thérèse',
+  'intelligence artificielle web',
+  'google ads laval',
+  'référencement laval',
+  'agence web boisbriand',
+  'design web laval',
+  'identité visuelle laval',
+  'agence ia québec',
+  'création site web blainville',
+  'agence web terrebonne',
+];
+
+// ── Static competitor config (update manually or via SERP API) ──
+const COMPETITORS = [
+  { key: 'cyclone',  label: 'Cyclone Design',  url: 'cyclonedesign.ca'  },
+  { key: 'delisoft', label: 'Delisoft',         url: 'delisoft.com'      },
+  { key: 'agencelb', label: 'AgenceLB',         url: 'agencelb.ca'       },
+  { key: 'globalia', label: 'Globalia',          url: 'globalia.net'      },
+];
+
+// ── Blog/content suggestions pool (15 ideas) ──
+const BLOG_POOL = [
+  { title: 'Agence web sur la Rive-Nord : comment choisir (et pourquoi ça compte)', keyword: 'agence web rive-nord', type: 'Blog' },
+  { title: 'IA et création de sites web : ce qui change pour les PME en 2026', keyword: 'intelligence artificielle web', type: 'Blog' },
+  { title: 'Google Ads ou SEO local pour une PME lavalloise ?', keyword: 'google ads laval', type: 'Blog' },
+  { title: 'Comment dominer les résultats Google pour votre secteur à Laval', keyword: 'seo laval', type: 'Page pilier' },
+  { title: 'Refonte de site web en 2026 : les 7 signaux d\'alarme', keyword: 'création site web laval', type: 'Blog' },
+  { title: 'SEO local pour cliniques et professionnels de la santé à Laval', keyword: 'référencement laval', type: 'Page service' },
+  { title: 'Pourquoi votre site web ne génère pas de leads (et comment changer ça)', keyword: 'site web laval', type: 'Blog' },
+  { title: 'Blainville, Boisbriand, Sainte-Thérèse : stratégie web Rive-Nord', keyword: 'agence web blainville', type: 'Page ville' },
+  { title: 'ChatGPT et marketing local : ce que les PME de Laval doivent savoir', keyword: 'agence ia québec', type: 'Blog' },
+  { title: 'Google Business Profile 2026 : guide complet pour Laval', keyword: 'marketing numérique laval', type: 'Guide' },
+  { title: 'Facebook Ads vs Google Ads : quel réseau pour la Rive-Nord', keyword: 'google ads laval', type: 'Blog' },
+  { title: 'Stratégie de contenu avec IA pour PME québécoises', keyword: 'intelligence artificielle web', type: 'Guide' },
+  { title: 'Courtiers immobiliers Rive-Nord : doubler votre visibilité Google', keyword: 'agence web rive-nord', type: 'Page verticale' },
+  { title: 'Identité visuelle + site web : pourquoi l\'un sans l\'autre ne fonctionne pas', keyword: 'identité visuelle laval', type: 'Blog' },
+  { title: 'Création de site web pour restaurants et services à Laval', keyword: 'création site web laval', type: 'Page verticale' },
+];
+
 // ── Search Console API ──
 async function getSearchConsoleData(auth, siteUrl, startDate, endDate, dimensions = ['query']) {
   const searchconsole = google.searchconsole({ version: 'v1', auth });
@@ -40,6 +91,23 @@ async function getSearchConsoleQueryData(auth, siteUrl, startDate, endDate, quer
         filters: [{ dimension: 'query', operator: 'contains', expression: query }]
       }],
       rowLimit: 10,
+    },
+  });
+  return res.data.rows || [];
+}
+
+// ── Broad query pull for competitive table (top 200 queries, 90 days) ──
+async function getTopQueriesBroad(auth, siteUrl) {
+  const searchconsole = google.searchconsole({ version: 'v1', auth });
+  const endDate = formatDate(new Date());
+  const startDate = formatDate(new Date(Date.now() - 90 * 24 * 60 * 60 * 1000));
+  const res = await searchconsole.searchanalytics.query({
+    siteUrl,
+    requestBody: {
+      startDate,
+      endDate,
+      dimensions: ['query'],
+      rowLimit: 200,
     },
   });
   return res.data.rows || [];
@@ -159,7 +227,8 @@ export async function POST(request) {
       scMonthQueries,
       scWeekPages,
       scLavalQueries,
-      scRosemereQueries,
+      scAgenceWebQueries,
+      scBroadQueries,
       // GA4
       gaWeek,
       gaMonth,
@@ -171,13 +240,41 @@ export async function POST(request) {
       getSearchConsoleData(auth, siteUrl, monthStart, today, ['query']),
       getSearchConsoleData(auth, siteUrl, weekStart, today, ['page']),
       getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'laval'),
-      getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'rosem'),
+      getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'agence web'),
+      getTopQueriesBroad(auth, siteUrl),
       getAnalyticsData(auth, propertyId, weekStart, today),
       getAnalyticsData(auth, propertyId, monthStart, today),
       getAnalyticsTopPages(auth, propertyId, weekStart, today),
       getAnalyticsTrafficSources(auth, propertyId, weekStart, today),
       getAnalyticsRealtime(auth, propertyId),
     ]);
+
+    // ── Build competitive table ──
+    // Match each target keyword against broad GSC results
+    const broadMap = {};
+    for (const row of scBroadQueries) {
+      broadMap[row.keys[0].toLowerCase()] = row;
+    }
+
+    const competitiveRows = TARGET_KEYWORDS.map(kw => {
+      // Exact match first, then partial
+      const exact = broadMap[kw];
+      const partial = !exact
+        ? scBroadQueries.find(r => r.keys[0].toLowerCase().includes(kw) || kw.includes(r.keys[0].toLowerCase()))
+        : null;
+      const match = exact || partial;
+      return {
+        keyword: kw,
+        myPosition: match ? parseFloat(match.position).toFixed(1) : '50+',
+        myClicks: match ? match.clicks : 0,
+        myImpressions: match ? match.impressions : 0,
+        competitors: COMPETITORS.map(c => ({ key: c.key, position: '—' })),
+      };
+    });
+
+    // ── Blog suggestions — 5 random from pool ──
+    const shuffled = [...BLOG_POOL].sort(() => Math.random() - 0.5);
+    const blogSuggestions = shuffled.slice(0, 5);
 
     return NextResponse.json({
       generatedAt: new Date().toISOString(),
@@ -195,9 +292,9 @@ export async function POST(request) {
           })),
         },
         rosemere: {
-          label: 'Autorité — agence web rosemère',
+          label: 'Autorité — agence web rive-nord',
           target: 'Top 3',
-          queries: scRosemereQueries.map(r => ({
+          queries: scAgenceWebQueries.map(r => ({
             query: r.keys[0],
             clicks: r.clicks,
             impressions: r.impressions,
@@ -206,6 +303,13 @@ export async function POST(request) {
           })),
         },
       },
+      competitive: {
+        competitors: COMPETITORS,
+        rows: competitiveRows,
+        note: 'Positions V pour Design : données GSC réelles (90 jours). Concurrents : intégration SERP à configurer.',
+      },
+      blogSuggestions,
+      blogPool: BLOG_POOL,
       analytics: {
         week: gaWeek,
         month: gaMonth,
