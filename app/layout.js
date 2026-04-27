@@ -1,6 +1,7 @@
 import './globals.css';
 import Script from 'next/script';
 import JsonLd from '../components/JsonLd';
+import CookieBanner from '../components/CookieBanner';
 import { organizationSchema, websiteSchema } from '../data/schema';
 
 export const metadata = {
@@ -58,6 +59,20 @@ export default function RootLayout({ children }) {
         />
         <link rel="alternate" hrefLang="fr-CA" href="https://vpourdesign.com" />
         <link rel="alternate" hrefLang="en" href="https://vpourdesign.com/en" />
+        {/* Consent mode — default DENIED before user chooses (Loi 25 / PIPEDA) */}
+        <Script id="gtag-consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              analytics_storage: 'denied',
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              wait_for_update: 500,
+            });
+          `}
+        </Script>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-DBGGSR584C"
           strategy="afterInteractive"
@@ -75,6 +90,7 @@ export default function RootLayout({ children }) {
         <JsonLd data={organizationSchema} />
         <JsonLd data={websiteSchema} />
         {children}
+        <CookieBanner />
       </body>
     </html>
   );
