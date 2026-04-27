@@ -14,27 +14,31 @@ function getAuth() {
 }
 
 // ── 20 target keywords for competitive table ──
+// First 10 = queried via SerpAPI (broad/competitive → shows competitor positions)
+// Last 10  = GSC-only tracking (local niche — VPD's own territory)
 const TARGET_KEYWORDS = [
+  // ── Top 10 : broad keywords where competitors rank ──
+  'agence web montréal',
+  'agence web québec',
+  'création site web montréal',
+  'agence seo montréal',
+  'agence marketing numérique montréal',
+  'design web montréal',
+  'référencement naturel québec',
   'agence web laval',
   'agence web rive-nord',
-  'agence web rosemère',
-  'création site web laval',
-  'agence web blainville',
-  'site web laval',
-  'seo laval',
-  'agence web basses-laurentides',
-  'création site web rive-nord',
-  'marketing numérique laval',
-  'agence web sainte-thérèse',
-  'intelligence artificielle web',
-  'google ads laval',
-  'référencement laval',
+  'agence publicité montréal',
+  // ── Bottom 10 : local/niche — GSC position tracking ──
   'agence web boisbriand',
-  'design web laval',
-  'identité visuelle laval',
-  'agence ia québec',
-  'création site web blainville',
+  'seo laval',
+  'référencement laval',
+  'agence web sainte-thérèse',
+  'agence web blainville',
   'agence web terrebonne',
+  'création site web laval',
+  'marketing numérique laval',
+  'agence web rosemère',
+  'agence ia montréal',
 ];
 
 // ── Static competitor config (update manually or via SERP API) ──
@@ -66,7 +70,9 @@ const BLOG_POOL = [
 
 // ── SERP competitor positions (SerpAPI — free tier 100/month) ──
 // Cache module-level: survives warm serverless invocations (TTL 24h)
-const serpCache = { data: null, ts: 0 };
+// Version bump → forces cache bust when keywords change
+const SERP_CACHE_VERSION = 'v2-broad';
+const serpCache = { data: null, ts: 0, version: null };
 const SERP_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 async function getSerpPositions(keywords, competitors) {
@@ -74,7 +80,7 @@ async function getSerpPositions(keywords, competitors) {
   if (!apiKey) return { data: null, error: 'SERPAPI_KEY non configurée', totalFound: 0 };
 
   const now = Date.now();
-  if (serpCache.data && now - serpCache.ts < SERP_TTL_MS) {
+  if (serpCache.data && serpCache.version === SERP_CACHE_VERSION && now - serpCache.ts < SERP_TTL_MS) {
     return { data: serpCache.data, error: null, cached: true };
   }
 
@@ -123,6 +129,7 @@ async function getSerpPositions(keywords, competitors) {
 
   serpCache.data = results;
   serpCache.ts = now;
+  serpCache.version = SERP_CACHE_VERSION;
   return { data: results, error: firstError, totalFound };
 }
 
