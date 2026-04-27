@@ -14,39 +14,40 @@ function getAuth() {
 }
 
 // ── 20 target keywords for competitive table ──
-// First 10 = queried via SerpAPI (broad/competitive → shows competitor positions)
-// Last 10  = GSC-only tracking (local niche — VPD's own territory)
+// First 10 = queried via SerpAPI (Delisoft #1 sur villes QC → battle terrain)
+// Last 10  = GSC-only tracking (niche local — suivi VPD)
 const TARGET_KEYWORDS = [
-  // ── Top 10 : broad keywords where competitors rank ──
-  'agence web montréal',
-  'agence web québec',
-  'création site web montréal',
-  'agence seo montréal',
-  'agence marketing numérique montréal',
-  'design web montréal',
-  'référencement naturel québec',
+  // ── Top 10 : villes Laval/Rive-Nord où Delisoft domine ──
+  'agence web rosemère',       // priorité #1 — Delisoft #1 ici, objectif VPD
   'agence web laval',
-  'agence web rive-nord',
-  'agence publicité montréal',
-  // ── Bottom 10 : local/niche — GSC position tracking ──
+  'agence web blainville',
   'agence web boisbriand',
+  'agence web sainte-thérèse',
+  'agence web terrebonne',
+  'agence web rive-nord',
+  'création site web laval',
+  'agence web saint-eustache',
+  'agence web mirabel',
+  // ── Bottom 10 : suivi GSC uniquement ──
   'seo laval',
   'référencement laval',
-  'agence web sainte-thérèse',
-  'agence web blainville',
-  'agence web terrebonne',
-  'création site web laval',
+  'site web laval',
+  'création site web rive-nord',
+  'agence web basses-laurentides',
   'marketing numérique laval',
-  'agence web rosemère',
-  'agence ia montréal',
+  'design web laval',
+  'agence web mascouche',
+  'identité visuelle laval',
+  'agence ia québec',
 ];
 
-// ── Static competitor config (update manually or via SERP API) ──
+// ── Competitor config — agences qui ciblent Laval/Rive-Nord ──
 const COMPETITORS = [
-  { key: 'cyclone',  label: 'Cyclone Design',  url: 'cyclonedesign.ca'  },
-  { key: 'delisoft', label: 'Delisoft',         url: 'delisoft.com'      },
-  { key: 'agencelb', label: 'AgenceLB',         url: 'agencelb.ca'       },
-  { key: 'globalia', label: 'Globalia',          url: 'globalia.net'      },
+  { key: 'delisoft',   label: 'Delisoft',       url: 'delisoft.com'    }, // #1 sur ~30 villes QC
+  { key: 'effetweb',   label: 'Effet Web',      url: 'effetweb.com'    },
+  { key: 'effetfute',  label: "L'Effet Futé",   url: 'effetfute.com'   },
+  { key: 'bleu3',      label: 'Bleu 3',         url: 'bleu3.ca'        },
+  { key: 'voyou',      label: 'Voyou',          url: 'voyou.ca'        },
 ];
 
 // ── Blog/content suggestions pool (15 ideas) ──
@@ -71,7 +72,7 @@ const BLOG_POOL = [
 // ── SERP competitor positions (SerpAPI — free tier 100/month) ──
 // Cache module-level: survives warm serverless invocations (TTL 24h)
 // Version bump → forces cache bust when keywords change
-const SERP_CACHE_VERSION = 'v2-broad';
+const SERP_CACHE_VERSION = 'v3-rive-nord';
 const serpCache = { data: null, ts: 0, version: null };
 const SERP_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
