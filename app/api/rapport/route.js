@@ -71,16 +71,18 @@ const SERP_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 async function getSerpPositions(keywords, competitors) {
   const apiKey = process.env.SERPAPI_KEY;
-  if (!apiKey) return null; // No key → return null (show — silently)
+  if (!apiKey) return { data: null, error: 'SERPAPI_KEY non configurée', totalFound: 0 };
 
   const now = Date.now();
   if (serpCache.data && now - serpCache.ts < SERP_TTL_MS) {
-    return serpCache.data; // Return cached data
+    return { data: serpCache.data, error: null, cached: true };
   }
 
   // Query the 10 most competitive keywords (saves API credits)
   const keywordsToCheck = keywords.slice(0, 10);
   const results = {};
+  let firstError = null;
+  let totalFound = 0;
 
   await Promise.all(keywordsToCheck.map(async (kw) => {
     try {
@@ -94,25 +96,34 @@ async function getSerpPositions(keywords, competitors) {
       });
       const res = await fetch(`https://serpapi.com/search.json?${params}`);
       const json = await res.json();
-      const organicResults = json.organic_results || [];
 
+      // Surface SerpAPI errors (invalid key, quota exceeded, etc.)
+      if (json.error) {
+        if (!firstError) firstError = json.error;
+        results[kw] = {};
+        return;
+      }
+
+      const organicResults = json.organic_results || [];
       results[kw] = {};
       for (let i = 0; i < organicResults.length; i++) {
         const link = (organicResults[i].link || '').toLowerCase();
         for (const comp of competitors) {
           if (!results[kw][comp.key] && link.includes(comp.url)) {
             results[kw][comp.key] = i + 1;
+            totalFound++;
           }
         }
       }
-    } catch (_) {
+    } catch (e) {
+      if (!firstError) firstError = e.message;
       results[kw] = {};
     }
   }));
 
   serpCache.data = results;
   serpCache.ts = now;
-  return results;
+  return { data: results, error: firstError, totalFound };
 }
 
 // ── Search Console API ──
@@ -265,9 +276,12 @@ export async function POST(request) {
 
     // ── SERP-only request (on-demand, triggered by button) ──
     if (type === 'serp') {
-      const serpPositions = await getSerpPositions(TARGET_KEYWORDS, COMPETITORS);
+      const { data: serpPositions, error: serpError, cached, totalFound } = await getSerpPositions(TARGET_KEYWORDS, COMPETITORS);
       return NextResponse.json({
         serpPositions,
+        serpError: serpError || null,
+        serpCached: !!cached,
+        totalFound: totalFound || 0,
         hasSerpData: !!process.env.SERPAPI_KEY,
         serpCacheAge: serpCache.ts ? Math.round((Date.now() - serpCache.ts) / 60000) : null,
         fetchedAt: new Date().toISOString(),

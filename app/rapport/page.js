@@ -12,6 +12,8 @@ export default function RapportPage() {
   const [serpData, setSerpData] = useState(null);
   const [serpLoading, setSerpLoading] = useState(false);
   const [serpUpdatedAt, setSerpUpdatedAt] = useState(null);
+  const [serpError, setSerpError] = useState(null);
+  const [serpTotalFound, setSerpTotalFound] = useState(null);
 
   // ── Blog suggestions seed (must be top-level, before any early return) ──
   const [blogSeed, setBlogSeed] = useState(0);
@@ -60,6 +62,7 @@ export default function RapportPage() {
 
   async function fetchSerpData() {
     setSerpLoading(true);
+    setSerpError(null);
     try {
       const res = await fetch('/api/rapport', {
         method: 'POST',
@@ -67,11 +70,17 @@ export default function RapportPage() {
         body: JSON.stringify({ password, type: 'serp' }),
       });
       const json = await res.json();
+      if (json.serpError) {
+        setSerpError(json.serpError);
+      }
       if (json.serpPositions) {
         setSerpData(json.serpPositions);
         setSerpUpdatedAt(new Date());
+        setSerpTotalFound(json.totalFound ?? null);
       }
-    } catch (_) {}
+    } catch (e) {
+      setSerpError(e.message);
+    }
     setSerpLoading(false);
   }
 
@@ -286,6 +295,19 @@ export default function RapportPage() {
               </button>
             </div>
           </div>
+          {/* SERP diagnostic */}
+          {serpError && (
+            <div style={{ padding: '10px clamp(24px, 4vw, 48px)', borderTop: '0.5px solid var(--line, #2a2820)', fontFamily: "'DM Mono', monospace", fontSize: '11px', color: '#F44336' }}>
+              ⚠ Erreur SerpAPI : {serpError}
+            </div>
+          )}
+          {!serpError && serpTotalFound !== null && (
+            <div style={{ padding: '10px clamp(24px, 4vw, 48px)', borderTop: '0.5px solid var(--line, #2a2820)', fontFamily: "'DM Mono', monospace", fontSize: '10px', color: 'var(--text-ghost, #4a4438)' }}>
+              {serpTotalFound === 0
+                ? '⚠ Aucun concurrent trouvé dans le top 20 — ils ne se classent pas pour ces mots-clés.'
+                : `✓ ${serpTotalFound} position(s) trouvée(s) pour les concurrents`}
+            </div>
+          )}
           <div style={styles.subSection}>
             <div style={styles.subLabel}>Positions moyennes — 90 jours GSC · Google.ca/fr</div>
             <div style={styles.tableWrap}>
