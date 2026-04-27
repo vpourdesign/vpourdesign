@@ -43,11 +43,11 @@ const TARGET_KEYWORDS = [
 
 // ── Competitor config — agences qui ciblent Laval/Rive-Nord ──
 const COMPETITORS = [
-  { key: 'delisoft',   label: 'Delisoft',       url: 'delisoft.com'    }, // #1 sur ~30 villes QC
-  { key: 'effetweb',   label: 'Effet Web',      url: 'effetweb.com'    },
+  { key: 'delisoft',   label: 'Delisoft',       url: 'delisoft.ca'     }, // #1 sur ~30 villes QC
+  { key: 'effetweb',   label: 'Effet Web',      url: 'effetweb.ca'     },
   { key: 'effetfute',  label: "L'Effet Futé",   url: 'effetfute.com'   },
-  { key: 'bleu3',      label: 'Bleu 3',         url: 'bleu3.ca'        },
-  { key: 'voyou',      label: 'Voyou',          url: 'voyou.ca'        },
+  { key: 'bleu3',      label: 'Bleu 3',         url: 'bleu3.com'       },
+  { key: 'voyou',      label: 'Voyou',          url: 'voyou.com'       },
 ];
 
 // ── Blog/content suggestions pool (15 ideas) ──
@@ -72,7 +72,7 @@ const BLOG_POOL = [
 // ── SERP competitor positions (SerpAPI — free tier 100/month) ──
 // Cache module-level: survives warm serverless invocations (TTL 24h)
 // Version bump → forces cache bust when keywords change
-const SERP_CACHE_VERSION = 'v3-rive-nord';
+const SERP_CACHE_VERSION = 'v4-urls-fixed';
 const serpCache = { data: null, ts: 0, version: null };
 const SERP_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
