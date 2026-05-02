@@ -74,15 +74,28 @@ const copy = {
   },
 };
 
-// ── Apply consent to Google Tag Manager ────────────────────────────────────
-function applyGtag(prefs) {
-  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+// ── Apply consent to Google Tag Manager + Meta Pixel ───────────────────────
+function applyConsent(prefs) {
+  if (typeof window === 'undefined') return;
+
+  // Google Analytics consent mode
+  if (typeof window.gtag === 'function') {
     window.gtag('consent', 'update', {
       analytics_storage: prefs.analytics ? 'granted' : 'denied',
       ad_storage: prefs.marketing ? 'granted' : 'denied',
       ad_user_data: prefs.marketing ? 'granted' : 'denied',
       ad_personalization: prefs.marketing ? 'granted' : 'denied',
     });
+  }
+
+  // Meta Pixel consent + PageView (only fires if marketing accepted)
+  if (typeof window.fbq === 'function') {
+    if (prefs.marketing) {
+      window.fbq('consent', 'grant');
+      window.fbq('track', 'PageView');
+    } else {
+      window.fbq('consent', 'revoke');
+    }
   }
 }
 
@@ -102,7 +115,7 @@ export default function CookieBanner() {
       const stored = localStorage.getItem(CONSENT_KEY);
       if (stored) {
         const saved = JSON.parse(stored);
-        applyGtag(saved);
+        applyConsent(saved);
         setVisible(false);
       } else {
         setVisible(true);
@@ -116,7 +129,7 @@ export default function CookieBanner() {
     try {
       localStorage.setItem(CONSENT_KEY, JSON.stringify(selectedPrefs));
     } catch {}
-    applyGtag(selectedPrefs);
+    applyConsent(selectedPrefs);
     setVisible(false);
   }
 
