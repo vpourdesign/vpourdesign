@@ -53,27 +53,6 @@ export default function BlogPage() {
       status: 'New',
       slug: '/en/blog/website-cost-quebec-2026',
     },
-    {
-      id: 2,
-      num: '06',
-      title: 'Local SEO',
-      description: 'Complete guide to search engine optimization for Laval and North Shore businesses',
-      status: 'Coming soon',
-    },
-    {
-      id: 3,
-      num: '07',
-      title: 'Case Studies',
-      description: 'Real results: how we tripled our clients\' traffic',
-      status: 'Coming soon',
-    },
-    {
-      id: 5,
-      num: '08',
-      title: 'Web Trends',
-      description: 'The 10 web design trends to watch this year',
-      status: 'Coming soon',
-    },
   ];
 
   return (

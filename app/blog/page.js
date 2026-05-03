@@ -53,27 +53,6 @@ export default function BlogPage() {
       status: 'Nouveau',
       slug: '/blog/combien-coute-site-web-quebec-2026',
     },
-    {
-      id: 2,
-      num: '06',
-      title: 'SEO local',
-      description: 'Guide complet du référencement pour les entreprises de Laval et la Rive-Nord',
-      status: 'À venir',
-    },
-    {
-      id: 3,
-      num: '07',
-      title: 'Études de cas',
-      description: 'Résultats concrets : comment nous avons triplé le trafic de nos clients',
-      status: 'À venir',
-    },
-    {
-      id: 5,
-      num: '08',
-      title: 'Tendances web',
-      description: 'Les 10 tendances web design à surveiller cette année',
-      status: 'À venir',
-    },
   ];
 
   return (
