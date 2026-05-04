@@ -2,33 +2,36 @@ import Nav from '../../../components/Nav';
 import Footer from '../../../components/Footer';
 import ScrollReveal from '../../../components/ScrollReveal';
 import JsonLd from '../../../components/JsonLd';
-import { blogPostSchema, breadcrumbSchema } from '../../../data/schema';
+import { blogPostSchema, breadcrumbSchema, faqSchema } from '../../../data/schema';
 import Link from 'next/link';
 import Image from 'next/image';
 
 export const metadata = {
-  title: 'Loi 25 et intelligence artificielle au Québec : ce que ça change, et comment V pour Design protège vos données — V pour Design',
-  description: 'La Loi 25 encadre l\'usage de l\'IA dans les entreprises du Québec. Voici ce que ça implique concrètement — et comment V pour Design continue de livrer en toute conformité.',
+  title: 'Loi 25 et intelligence artificielle au Québec : ce que ça change pour votre entreprise — V pour Design',
+  description: 'La Loi 25 encadre l\'usage de l\'IA au Québec : EFVP, consentement, Shadow AI, transferts hors-Québec. Ce que ça implique concrètement et comment V pour Design livre en toute conformité.',
+  keywords: ['Loi 25', 'intelligence artificielle', 'EFVP', 'Shadow AI', 'protection renseignements personnels', 'conformité Québec', 'LPRPDE', 'agence web IA', 'IA conforme', 'projet de loi 64'],
   alternates: { canonical: 'https://vpourdesign.com/blog/loi-25-intelligence-artificielle-quebec' },
   openGraph: {
     title: 'Loi 25 et intelligence artificielle : ce que ça change pour votre entreprise',
-    description: 'Évaluation des facteurs vie privée, consentement, transferts hors-Québec, Shadow AI : V pour Design fait le tour de la Loi 25 et explique son cadre de travail.',
+    description: 'EFVP, consentement, Shadow AI, transferts hors-Québec : V pour Design fait le tour de la Loi 25 et explique son cadre de travail IA conforme.',
     type: 'article',
     publishedTime: '2026-05-04',
     authors: ['Vincent Lavoie'],
+    section: 'Conformité et intelligence artificielle',
+    tags: ['Loi 25', 'IA', 'conformité', 'Québec', 'EFVP', 'Shadow AI'],
     images: [
       {
         url: 'https://vpourdesign.com/images/blog/ia.jpg',
         width: 1200,
         height: 630,
-        alt: 'Loi 25 et intelligence artificielle au Québec',
+        alt: 'Loi 25 et intelligence artificielle au Québec — V pour Design',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Loi 25 et intelligence artificielle : ce que ça change pour votre entreprise',
-    description: 'V pour Design fait le tour de la Loi 25 et explique son cadre de travail en IA.',
+    title: 'Loi 25 et IA au Québec : ce que ça change pour votre entreprise',
+    description: 'EFVP, Shadow AI, transferts hors-Québec : V pour Design fait le tour complet de la Loi 25 appliquée à l\'intelligence artificielle.',
     images: ['https://vpourdesign.com/images/blog/ia.jpg'],
   },
 };
@@ -71,16 +74,105 @@ const faqs = [
   },
 ];
 
+// ── GEO Schema — optimisé pour moteurs IA (ChatGPT, Perplexity, Gemini, AI Overviews) ──
+const geoArticleSchema = {
+  "@context": "https://schema.org",
+  "@type": ["BlogPosting", "Article"],
+  "@id": "https://vpourdesign.com/blog/loi-25-intelligence-artificielle-quebec#article",
+  "headline": "Loi 25 et intelligence artificielle au Québec : ce que ça change pour votre entreprise",
+  "description": "La Loi 25 encadre l'usage de l'IA dans les entreprises du Québec : EFVP, consentement, Shadow AI, transferts hors-Québec. V pour Design explique ce que ça implique concrètement.",
+  "url": "https://vpourdesign.com/blog/loi-25-intelligence-artificielle-quebec",
+  "datePublished": "2026-05-04",
+  "dateModified": "2026-05-04",
+  "inLanguage": "fr-CA",
+  "author": {
+    "@type": "Person",
+    "name": "Vincent Lavoie",
+    "@id": "https://vpourdesign.com/#founder",
+    "jobTitle": "Président fondateur, V pour Design",
+    "knowsAbout": ["Intelligence artificielle", "Loi 25", "Conformité web", "SEO", "Design web"]
+  },
+  "publisher": { "@id": "https://vpourdesign.com/#organization" },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://vpourdesign.com/images/blog/ia.jpg",
+    "width": 1200,
+    "height": 630
+  },
+  "keywords": "Loi 25, intelligence artificielle, EFVP, Shadow AI, protection des renseignements personnels, conformité Québec, LPRPDE, projet de loi 64, agence web IA conforme",
+  "articleSection": "Conformité et intelligence artificielle",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "PME, entrepreneurs et dirigeants au Québec"
+  },
+  "teaches": "Comment une PME québécoise peut utiliser l'intelligence artificielle en conformité avec la Loi 25 sur la protection des renseignements personnels.",
+  // Entités nommées — signaux d'autorité pour les moteurs IA
+  "about": [
+    {
+      "@type": "Legislation",
+      "name": "Loi 25 — Loi modernisant des dispositions législatives en matière de protection des renseignements personnels",
+      "alternateName": "Projet de loi 64",
+      "jurisdiction": { "@type": "AdministrativeArea", "name": "Québec, Canada" },
+      "url": "https://www.legisquebec.gouv.qc.ca/fr/document/lc/P-39.1"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "EFVP",
+      "alternateName": "Évaluation des facteurs relatifs à la vie privée",
+      "description": "Analyse obligatoire prévue par la Loi 25 avant tout projet impliquant des renseignements personnels, notamment ceux utilisant l'IA."
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Shadow AI",
+      "description": "Usage non déclaré de l'intelligence artificielle par des employés, sans connaissance de l'employeur ou des TI, exposant potentiellement des données confidentielles."
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Intelligence artificielle",
+      "description": "Ensemble de technologies permettant à des systèmes informatiques de simuler des capacités humaines comme la compréhension du langage, la reconnaissance d'images ou la prise de décision."
+    }
+  ],
+  "mentions": [
+    {
+      "@type": "Organization",
+      "name": "Commission d'accès à l'information du Québec",
+      "alternateName": "CAI",
+      "url": "https://www.cai.gouv.qc.ca/"
+    },
+    {
+      "@type": "Organization",
+      "name": "Commission des droits de la personne du Québec",
+      "url": "https://www.cdpdj.qc.ca/"
+    },
+    {
+      "@type": "Legislation",
+      "name": "LPRPDE — Loi sur la protection des renseignements personnels et les documents électroniques",
+      "jurisdiction": { "@type": "Country", "name": "Canada" }
+    }
+  ],
+  // Speakable — indique aux assistants IA quelles sections sont les plus importantes à lire/citer
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".blog-lead", "#shadow-ai p", "#faq", "#vpd-cadre ul"]
+  },
+  "citation": [
+    { "@type": "CreativeWork", "name": "Cloud Security Alliance — AI Shadow Usage Report 2026" },
+    { "@type": "CreativeWork", "name": "La Presse — Votre recours à l'IA pourrait être illégal (1er mai 2026)" }
+  ],
+  "isPartOf": { "@id": "https://vpourdesign.com/#website" },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vpourdesign.com/blog/loi-25-intelligence-artificielle-quebec"
+  }
+};
+
 export default function BlogLoi25IA() {
   return (
     <>
-      <JsonLd data={blogPostSchema({
-        title: 'Loi 25 et intelligence artificielle au Québec : ce que ça change, et comment V pour Design protège vos données',
-        description: 'La Loi 25 encadre l\'usage de l\'IA dans les entreprises du Québec. Voici ce que ça implique concrètement — et comment V pour Design continue de livrer en toute conformité.',
-        slug: 'loi-25-intelligence-artificielle-quebec',
-        datePublished: '2026-05-04',
-        keywords: ['Loi 25', 'intelligence artificielle', 'protection des renseignements personnels', 'EFVP', 'conformité', 'Québec'],
-      })} />
+      {/* BlogPosting GEO-optimisé pour moteurs IA */}
+      <JsonLd data={geoArticleSchema} />
+      {/* FAQPage — extrait direct par ChatGPT, Perplexity, Google AI Overviews */}
+      <JsonLd data={faqSchema(faqs.map(f => ({ q: f.q, a: f.r })))} />
       <JsonLd data={breadcrumbSchema([{ name: 'Accueil', url: '/' }, { name: 'Blog', url: '/blog' }, { name: 'Loi 25 et intelligence artificielle' }])} />
       <Nav />
       <ScrollReveal />
@@ -151,7 +243,7 @@ export default function BlogLoi25IA() {
               <div style={{ border: '0.5px solid #5080b0', background: 'rgba(80, 128, 176, 0.07)', padding: '28px', margin: '32px 0' }}>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: '#4070a0', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '14px' }}>Le rappel rapide</div>
                 <p style={{ margin: 0 }}>
-                  La <strong>Loi 25</strong> (anciennement projet de loi 64) modernise les r&egrave;gles qu&eacute;b&eacute;coises sur la protection des renseignements personnels. En vigueur progressivement depuis 2022, elle impose &agrave; toute organisation qui traite des donn&eacute;es de personnes au Qu&eacute;bec un cadre clair&nbsp;: consentement, transparence, &eacute;valuations d&apos;impact, transferts contr&ocirc;l&eacute;s. L&apos;IA n&apos;est pas exclue &mdash; elle est explicitement vis&eacute;e quand elle traite des renseignements personnels.
+                  La <strong>Loi 25</strong>{' '}(anciennement projet de loi 64) modernise les r&egrave;gles qu&eacute;b&eacute;coises sur la protection des renseignements personnels. En vigueur progressivement depuis 2022, elle impose &agrave; toute organisation qui traite des donn&eacute;es de personnes au Qu&eacute;bec un cadre clair&nbsp;: consentement, transparence, &eacute;valuations d&apos;impact, transferts contr&ocirc;l&eacute;s. L&apos;IA n&apos;est pas exclue &mdash; elle est explicitement vis&eacute;e quand elle traite des renseignements personnels.
                 </p>
               </div>
             </section>
