@@ -14,8 +14,16 @@ export const metadata = {
 export default function BlogPage() {
   const articles = [
     {
-      id: 8,
+      id: 9,
       num: '01',
+      title: 'Conformité · Intelligence artificielle',
+      description: 'Loi 25 et IA au Québec : ce que ça change, et comment V pour Design protège vos données',
+      status: 'Nouveau',
+      slug: '/blog/loi-25-intelligence-artificielle-quebec',
+    },
+    {
+      id: 8,
+      num: '02',
       title: 'SEO local · Basses-Laurentides',
       description: 'Mon commerce est à Rosemère — pourquoi mes clients de Lorraine ne me trouvent pas sur Google ?',
       status: 'Nouveau',
@@ -23,7 +31,7 @@ export default function BlogPage() {
     },
     {
       id: 7,
-      num: '02',
+      num: '03',
       title: 'Intelligence artificielle · Réseaux sociaux',
       description: 'L\'IA pour les réseaux sociaux : arrêtez de poster dans le vide',
       status: 'Nouveau',
@@ -31,7 +39,7 @@ export default function BlogPage() {
     },
     {
       id: 6,
-      num: '03',
+      num: '04',
       title: 'Marketing web',
       description: 'Février a tout changé : bienvenue dans la nouvelle ère du marketing web',
       status: 'Nouveau',
@@ -39,7 +47,7 @@ export default function BlogPage() {
     },
     {
       id: 1,
-      num: '04',
+      num: '05',
       title: 'Intelligence artificielle',
       description: 'Comment l\'IA transforme le web design pour les PME de la Rive-Nord',
       status: 'Nouveau',
@@ -47,7 +55,7 @@ export default function BlogPage() {
     },
     {
       id: 4,
-      num: '05',
+      num: '06',
       title: 'Guides pratiques',
       description: 'Combien coûte un site web au Québec en 2026?',
       status: 'Nouveau',

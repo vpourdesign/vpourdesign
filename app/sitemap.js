@@ -31,6 +31,7 @@ export default function sitemap() {
     { slug: 'fevrier-nouvelle-ere-marketing-web',     date: '2026-03-30' },
     { slug: 'ia-pain-points-reseaux-sociaux',         date: '2026-04-07' },
     { slug: 'seo-local-rosemere-villes-voisines',     date: '2026-04-11' },
+    { slug: 'loi-25-intelligence-artificielle-quebec', date: '2026-05-04' },
   ].map(post => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),
