@@ -10,7 +10,13 @@ export const metadata = {
   title: 'Loi 25 et intelligence artificielle au Québec : ce que ça change pour votre entreprise — V pour Design',
   description: 'La Loi 25 encadre l\'usage de l\'IA au Québec : EFVP, consentement, Shadow AI, transferts hors-Québec. Ce que ça implique concrètement et comment V pour Design livre en toute conformité.',
   keywords: ['Loi 25', 'intelligence artificielle', 'EFVP', 'Shadow AI', 'protection renseignements personnels', 'conformité Québec', 'LPRPDE', 'agence web IA', 'IA conforme', 'projet de loi 64'],
-  alternates: { canonical: 'https://vpourdesign.com/blog/loi-25-intelligence-artificielle-quebec' },
+  alternates: {
+    canonical: 'https://vpourdesign.com/blog/loi-25-intelligence-artificielle-quebec',
+    languages: {
+      'fr-CA': 'https://vpourdesign.com/blog/loi-25-intelligence-artificielle-quebec',
+      'en': 'https://vpourdesign.com/en/blog/law-25-artificial-intelligence-quebec',
+    },
+  },
   openGraph: {
     title: 'Loi 25 et intelligence artificielle : ce que ça change pour votre entreprise',
     description: 'EFVP, consentement, Shadow AI, transferts hors-Québec : V pour Design fait le tour de la Loi 25 et explique son cadre de travail IA conforme.',

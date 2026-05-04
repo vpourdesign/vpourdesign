@@ -89,6 +89,7 @@ export default function sitemap() {
     { slug: 'february-changed-everything-new-era-web-marketing', date: '2026-03-30' },
     { slug: 'ai-pain-points-social-media',                       date: '2026-04-07' },
     { slug: 'local-seo-rosemere-nearby-cities',                  date: '2026-04-11' },
+    { slug: 'law-25-artificial-intelligence-quebec',             date: '2026-05-04' },
   ].map(post => ({
     url: `${baseUrl}/en/blog/${post.slug}`,
     lastModified: new Date(post.date),

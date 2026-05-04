@@ -14,8 +14,16 @@ export const metadata = {
 export default function BlogPage() {
   const articles = [
     {
-      id: 8,
+      id: 9,
       num: '01',
+      title: 'Compliance · Artificial Intelligence',
+      description: 'Quebec Law 25 and AI: What Changes for Your Business — and How V pour Design Protects Your Data',
+      status: 'New',
+      slug: '/en/blog/law-25-artificial-intelligence-quebec',
+    },
+    {
+      id: 8,
+      num: '02',
       title: 'Local SEO · Basses-Laurentides',
       description: 'My Business Is in Rosemère — Why Can\'t My Clients in Lorraine Find Me on Google?',
       status: 'New',
@@ -23,7 +31,7 @@ export default function BlogPage() {
     },
     {
       id: 7,
-      num: '02',
+      num: '03',
       title: 'Artificial Intelligence · Social Media',
       description: 'AI for Social Media: Stop Posting Into the Void',
       status: 'New',
@@ -31,7 +39,7 @@ export default function BlogPage() {
     },
     {
       id: 6,
-      num: '03',
+      num: '04',
       title: 'Web Marketing',
       description: 'February Changed Everything: Welcome to the New Era of Web Marketing',
       status: 'New',
@@ -39,7 +47,7 @@ export default function BlogPage() {
     },
     {
       id: 1,
-      num: '04',
+      num: '05',
       title: 'Artificial Intelligence',
       description: 'How AI Transforms Web Design for North Shore SMEs',
       status: 'New',
@@ -47,7 +55,7 @@ export default function BlogPage() {
     },
     {
       id: 4,
-      num: '05',
+      num: '06',
       title: 'Practical Guides',
       description: 'How Much Does a Website Cost in Quebec in 2026?',
       status: 'New',
