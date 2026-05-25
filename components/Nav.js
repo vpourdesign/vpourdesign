@@ -15,6 +15,7 @@ export default function Nav() {
   // Navigation links per locale
   const links = isEn
     ? [
+        { href: '/en', label: 'Home' },
         { href: '/en/services', label: 'Services' },
         { href: '/en/about', label: 'About' },
         { href: '/en/projects', label: 'Projects' },
@@ -22,6 +23,7 @@ export default function Nav() {
         { href: '/en/contact', label: 'Contact' },
       ]
     : [
+        { href: '/', label: 'Accueil' },
         { href: '/services', label: 'Services' },
         { href: '/a-propos', label: 'À propos' },
         { href: '/projets', label: 'Projets' },
@@ -85,6 +87,28 @@ export default function Nav() {
       {/* Mobile menu overlay */}
       <div className={`mobile-menu${open ? ' mobile-menu--open' : ''}`}>
         <div className="mobile-menu-inner">
+          {/* Close button */}
+          <button
+            onClick={() => setOpen(false)}
+            aria-label="Fermer le menu"
+            style={{
+              position: 'absolute',
+              top: '24px',
+              right: '24px',
+              background: 'none',
+              border: 'none',
+              cursor: 'crosshair',
+              padding: '8px',
+              color: 'var(--text-primary)',
+              lineHeight: 1,
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="square">
+              <line x1="4" y1="4" x2="20" y2="20" />
+              <line x1="20" y1="4" x2="4" y2="20" />
+            </svg>
+          </button>
+
           <div className="mobile-menu-links">
             {links.map((link) => (
               <Link key={link.href} href={link.href} className="mobile-menu-link">{link.label}</Link>
