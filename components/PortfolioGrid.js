@@ -59,7 +59,7 @@ export default function PortfolioGrid() {
           z-index: 2;
         }
       `}</style>
-      <div style={{
+      <div className="portfolio-grid-container" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
         gridTemplateRows: 'auto',

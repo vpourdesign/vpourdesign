@@ -40,7 +40,7 @@ export default function StrategieIAPage() {
       </section>
 
       {/* MANIFESTO GRID */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderTop: '0.5px solid var(--line)' }}>
+      <section className="svc-manifesto">
         <div style={{ padding: 'clamp(32px, 4vw, 64px)', borderRight: '0.5px solid var(--line)' }}>
           <p style={{
             fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
@@ -68,7 +68,7 @@ export default function StrategieIAPage() {
       {/* BIG NUMBERS — IMPACT STATEMENTS */}
       <section style={{ borderTop: '0.5px solid var(--line)' }}>
         {/* Statement 1 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(48px, 6vw, 72px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>5x</span>
           </div>
@@ -83,7 +83,7 @@ export default function StrategieIAPage() {
         </div>
 
         {/* Statement 2 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(48px, 6vw, 72px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>24/7</span>
           </div>
@@ -98,7 +98,7 @@ export default function StrategieIAPage() {
         </div>
 
         {/* VISUAL BREAK — Image 1 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderBottom: '0.5px solid var(--line)', minHeight: '320px' }}>
+        <div className="svc-manifesto-bb" style={{ minHeight: '320px' }}>
           <div style={{ position: 'relative', overflow: 'hidden', borderRight: '0.5px solid var(--line)' }}>
             <Image src="/images/services/ai/1.jpg" alt="Intelligence artificielle appliquée" fill sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(40%) contrast(1.1)', opacity: 0.6 }} />
           </div>
@@ -111,7 +111,7 @@ export default function StrategieIAPage() {
         </div>
 
         {/* Statement 3 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Auto</span>
           </div>
@@ -126,7 +126,7 @@ export default function StrategieIAPage() {
         </div>
 
         {/* Statement 4 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Apps</span>
           </div>
@@ -141,7 +141,7 @@ export default function StrategieIAPage() {
         </div>
 
         {/* Statement 5 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Data</span>
           </div>
@@ -184,7 +184,7 @@ export default function StrategieIAPage() {
       </section>
 
       {/* CTA — FREE SESSION */}
-      <section style={{ borderTop: '0.5px solid var(--line)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+      <section className="svc-manifesto">
         <div style={{ padding: 'clamp(40px, 5vw, 80px)', borderRight: '0.5px solid var(--line)' }}>
           <div className="eyebrow" style={{ marginBottom: '24px', color: 'var(--accent)' }}>Offre exclusive</div>
           <h2 style={{

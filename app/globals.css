@@ -2171,3 +2171,72 @@ textarea.form-input {
     padding: 16px 20px;
   }
 }
+
+/* ---- SERVICE PAGE RESPONSIVE GRIDS ---- */
+.svc-manifesto {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 0.5px solid var(--line);
+}
+
+.svc-manifesto-bb {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 0.5px solid var(--line);
+}
+
+.svc-stat-row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  border-bottom: 0.5px solid var(--line);
+}
+
+@media (max-width: 768px) {
+  /* 2-col manifesto sections → single column */
+  .svc-manifesto,
+  .svc-manifesto-bb {
+    grid-template-columns: 1fr;
+  }
+
+  /* Remove right border on left cell, add bottom border instead */
+  .svc-manifesto > div:first-child,
+  .svc-manifesto-bb > div:first-child {
+    border-right: none !important;
+    border-bottom: 0.5px solid var(--line);
+    padding: clamp(24px, 5vw, 40px) 20px !important;
+  }
+
+  .svc-manifesto > div:last-child,
+  .svc-manifesto-bb > div:last-child {
+    padding: clamp(24px, 5vw, 40px) 20px !important;
+    min-height: 200px;
+  }
+
+  /* Stat rows (200px + 1fr) → stacked */
+  .svc-stat-row {
+    grid-template-columns: 1fr;
+  }
+
+  .svc-stat-row > div:first-child {
+    border-right: none !important;
+    border-bottom: 0.5px solid var(--line);
+    padding: 20px !important;
+    justify-content: flex-start !important;
+  }
+
+  .svc-stat-row > div:last-child {
+    padding: 24px 20px !important;
+  }
+}
+
+/* ---- PORTFOLIO GRID — mobile ---- */
+@media (max-width: 768px) {
+  .portfolio-grid-container {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .portfolio-grid-container > a {
+    grid-column: span 1 !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+}

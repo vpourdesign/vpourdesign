@@ -39,7 +39,7 @@ export default function IdentiteVisuellePage() {
       </section>
 
       {/* MANIFESTO GRID */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderTop: '0.5px solid var(--line)' }}>
+      <section className="svc-manifesto">
         <div style={{ padding: 'clamp(32px, 4vw, 64px)', borderRight: '0.5px solid var(--line)' }}>
           <p style={{
             fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
@@ -70,7 +70,7 @@ export default function IdentiteVisuellePage() {
       {/* BIG NUMBERS — IMPACT STATEMENTS */}
       <section style={{ borderTop: '0.5px solid var(--line)' }}>
         {/* Statement 1 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Logo</span>
           </div>
@@ -85,7 +85,7 @@ export default function IdentiteVisuellePage() {
         </div>
 
         {/* Statement 2 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Charte</span>
           </div>
@@ -100,7 +100,7 @@ export default function IdentiteVisuellePage() {
         </div>
 
         {/* Statement 3 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Print</span>
           </div>
@@ -115,7 +115,7 @@ export default function IdentiteVisuellePage() {
         </div>
 
         {/* Statement 4 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Social</span>
           </div>
@@ -130,7 +130,7 @@ export default function IdentiteVisuellePage() {
         </div>
 
         {/* Statement 5 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>IA</span>
           </div>

@@ -38,7 +38,7 @@ export default function SeoReferencementPage() {
       </section>
 
       {/* MANIFESTO GRID */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderTop: '0.5px solid var(--line)' }}>
+      <section className="svc-manifesto">
         <div style={{ padding: 'clamp(32px, 4vw, 64px)', borderRight: '0.5px solid var(--line)' }}>
           <p style={{
             fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
@@ -64,7 +64,7 @@ export default function SeoReferencementPage() {
       {/* BIG NUMBERS — IMPACT STATEMENTS */}
       <section style={{ borderTop: '0.5px solid var(--line)' }}>
         {/* Statement 1 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Local</span>
           </div>
@@ -79,7 +79,7 @@ export default function SeoReferencementPage() {
         </div>
 
         {/* Statement 2 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Tech</span>
           </div>
@@ -94,7 +94,7 @@ export default function SeoReferencementPage() {
         </div>
 
         {/* Statement 3 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(24px, 3.5vw, 40px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Contenu</span>
           </div>
@@ -109,7 +109,7 @@ export default function SeoReferencementPage() {
         </div>
 
         {/* Statement 4 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Ads</span>
           </div>
@@ -124,7 +124,7 @@ export default function SeoReferencementPage() {
         </div>
 
         {/* Statement 5 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Data</span>
           </div>
@@ -160,7 +160,7 @@ export default function SeoReferencementPage() {
       </section>
 
       {/* CTA — FREE SESSION */}
-      <section style={{ borderTop: '0.5px solid var(--line)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+      <section className="svc-manifesto">
         <div style={{ padding: 'clamp(40px, 5vw, 80px)', borderRight: '0.5px solid var(--line)' }}>
           <div className="eyebrow" style={{ marginBottom: '24px', color: 'var(--accent)' }}>Offre exclusive</div>
           <h2 style={{

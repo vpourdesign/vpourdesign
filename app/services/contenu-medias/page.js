@@ -39,7 +39,7 @@ export default function ContenuMediasPage() {
       </section>
 
       {/* MANIFESTO GRID */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderTop: '0.5px solid var(--line)' }}>
+      <section className="svc-manifesto">
         <div style={{ padding: 'clamp(32px, 4vw, 64px)', borderRight: '0.5px solid var(--line)' }}>
           <p style={{
             fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
@@ -69,7 +69,7 @@ export default function ContenuMediasPage() {
       {/* BIG NUMBERS — IMPACT STATEMENTS */}
       <section style={{ borderTop: '0.5px solid var(--line)' }}>
         {/* Statement 1 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Vid&eacute;o</span>
           </div>
@@ -84,7 +84,7 @@ export default function ContenuMediasPage() {
         </div>
 
         {/* Statement 2 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Photo</span>
           </div>
@@ -99,7 +99,7 @@ export default function ContenuMediasPage() {
         </div>
 
         {/* Statement 3 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Social</span>
           </div>
@@ -114,7 +114,7 @@ export default function ContenuMediasPage() {
         </div>
 
         {/* Statement 4 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Pub</span>
           </div>
@@ -129,7 +129,7 @@ export default function ContenuMediasPage() {
         </div>
 
         {/* Statement 5 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>IA</span>
           </div>
@@ -165,7 +165,7 @@ export default function ContenuMediasPage() {
       </section>
 
       {/* CTA — FREE SESSION */}
-      <section style={{ borderTop: '0.5px solid var(--line)', display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+      <section className="svc-manifesto">
         <div style={{ padding: 'clamp(40px, 5vw, 80px)', borderRight: '0.5px solid var(--line)' }}>
           <div className="eyebrow" style={{ marginBottom: '24px', color: 'var(--accent)' }}>Offre exclusive</div>
           <h2 style={{

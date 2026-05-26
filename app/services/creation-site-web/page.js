@@ -40,7 +40,7 @@ export default function CreationSiteWebPage() {
       </section>
 
       {/* MANIFESTO GRID */}
-      <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', borderTop: '0.5px solid var(--line)' }}>
+      <section className="svc-manifesto">
         <div style={{ padding: 'clamp(32px, 4vw, 64px)', borderRight: '0.5px solid var(--line)' }}>
           <p style={{
             fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
@@ -71,7 +71,7 @@ export default function CreationSiteWebPage() {
       {/* BIG NUMBERS — IMPACT STATEMENTS */}
       <section style={{ borderTop: '0.5px solid var(--line)' }}>
         {/* Statement 1 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>100%</span>
           </div>
@@ -86,7 +86,7 @@ export default function CreationSiteWebPage() {
         </div>
 
         {/* Statement 2 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>SEO</span>
           </div>
@@ -101,7 +101,7 @@ export default function CreationSiteWebPage() {
         </div>
 
         {/* Statement 3 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>Mobile</span>
           </div>
@@ -116,7 +116,7 @@ export default function CreationSiteWebPage() {
         </div>
 
         {/* Statement 5 */}
-        <div style={{ display: 'grid', gridTemplateColumns: '200px 1fr', borderBottom: '0.5px solid var(--line)' }}>
+        <div className="svc-stat-row">
           <div style={{ padding: '48px 32px', borderRight: '0.5px solid var(--line)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 300, color: 'var(--accent)', lineHeight: 1 }}>IA</span>
           </div>
