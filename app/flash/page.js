@@ -1,5 +1,6 @@
 'use client';
 
+import PhoneLink from '../../components/PhoneLink';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 // ── CONFIG ──
@@ -393,7 +394,7 @@ export default function FlashPage() {
           <a href="/flash" className="nav-link" style={{ color: 'var(--accent)' }}>Flash</a>
           <a href="/contact" className="nav-link">Contact</a>
         </div>
-        <a href="tel:5145675763" className="nav-phone">(514) 567-5763</a>
+        <PhoneLink className="nav-phone" />
       </nav>
 
       {/* HERO */}

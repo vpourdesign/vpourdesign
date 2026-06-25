@@ -1298,7 +1298,7 @@
       <a href="#contact" class="nav-link">Contact</a>
       <a href="/en" class="nav-link nav-lang">EN</a>
     </div>
-    <a href="tel:5145675763" class="nav-phone">(514) 567-5763</a>
+    <a class="nav-phone" data-tel aria-label="Téléphone"></a>
   </nav>
 
   <!-- ============ HERO GRID ============ -->
@@ -1749,7 +1749,7 @@
       <div class="contact-info">
         <div class="contact-info-item">
           <div class="contact-info-label">Téléphone</div>
-          <div class="contact-info-value"><a href="tel:5145675763">(514) 567-5763</a></div>
+          <div class="contact-info-value"><a data-tel aria-label="Téléphone"></a></div>
         </div>
         <div class="contact-info-item">
           <div class="contact-info-label">Courriel</div>
@@ -1833,6 +1833,18 @@
         }
       });
     }
+  </script>
+
+  <!-- Numéro de téléphone anti-scraping : reconstruit côté client, absent du HTML statique -->
+  <script>
+    (function () {
+      var n = atob('NTE0NTY3NTc2Mw==');
+      var pretty = '(' + n.slice(0, 3) + ') ' + n.slice(3, 6) + '-' + n.slice(6);
+      document.querySelectorAll('a[data-tel]').forEach(function (a) {
+        a.setAttribute('href', 'tel:' + n);
+        a.textContent = pretty;
+      });
+    })();
   </script>
 
 </body>

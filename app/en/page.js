@@ -1,3 +1,4 @@
+import PhoneLink from '../../components/PhoneLink';
 import Image from 'next/image';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
@@ -232,7 +233,7 @@ export default function HomePageEn() {
             </div>
             <div className="contact-info-item">
               <div className="contact-info-label">Phone</div>
-              <div className="contact-info-value"><a href="tel:5145675763">(514) 567-5763</a></div>
+              <div className="contact-info-value"><PhoneLink /></div>
             </div>
             <div className="contact-info-item">
               <div className="contact-info-label">Email</div>

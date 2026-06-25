@@ -21,7 +21,6 @@ export const organizationSchema = {
   },
   "image": `${BASE_URL}/logo-vpourdesign.png`,
   "description": "Agence web spécialisée en intelligence artificielle sur la Rive-Nord de Montréal. Création de sites web, SEO local, stratégie IA, identité visuelle et production de contenu.",
-  "telephone": "+15145675763",
   "email": "info@vpourdesign.com",
   "foundingDate": "2009",
   "founder": {
@@ -109,7 +108,6 @@ export const localBusinessSchema = {
   "name": "V pour Design",
   "image": `${BASE_URL}/logo-vpourdesign.png`,
   "url": BASE_URL,
-  "telephone": "+15145675763",
   "email": "info@vpourdesign.com",
   "priceRange": "$$",
   "address": {
@@ -227,7 +225,6 @@ export function cityLocalBusinessSchema(cityData) {
     "name": `V pour Design — Agence web à ${cityData.name}`,
     "description": `Agence web spécialisée en intelligence artificielle à ${cityData.name}. Création de sites web, SEO local, stratégie IA pour les PME de ${cityData.name} et la Rive-Nord.`,
     "url": `${BASE_URL}/agence-web-${cityData.slug}`,
-    "telephone": "+15145675763",
     "email": "info@vpourdesign.com",
     "address": {
       "@type": "PostalAddress",
@@ -309,11 +306,9 @@ export const contactPageSchema = {
   "mainEntity": {
     "@type": "LocalBusiness",
     "name": "V pour Design",
-    "telephone": "+15145675763",
     "email": "info@vpourdesign.com",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+15145675763",
       "contactType": "customer service",
       "availableLanguage": ["French", "English"],
       "areaServed": "CA"

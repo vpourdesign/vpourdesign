@@ -1,4 +1,5 @@
 'use client';
+import PhoneLink from './PhoneLink';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
@@ -69,7 +70,7 @@ export default function Nav() {
             {langLabel}
           </Link>
         </div>
-        <a href="tel:5145675763" className="nav-phone">(514) 567-5763</a>
+        <PhoneLink className="nav-phone" />
 
         {/* Hamburger button — mobile only */}
         <button
@@ -131,7 +132,7 @@ export default function Nav() {
             >
               {langLabel === 'EN' ? 'English version' : 'Version française'}
             </Link>
-            <a href="tel:5145675763" className="mobile-menu-phone">(514) 567-5763</a>
+            <PhoneLink className="mobile-menu-phone" />
             <a href="mailto:info@vpourdesign.com" className="mobile-menu-email">info@vpourdesign.com</a>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import PhoneLink from '../../../../components/PhoneLink';
 import Nav from '../../../../components/Nav';
 import Footer from '../../../../components/Footer';
 import ScrollReveal from '../../../../components/ScrollReveal';
@@ -168,7 +169,7 @@ export default function WebsiteCreationPage() {
           <div className="contact-info">
             <div className="contact-info-item">
               <div className="contact-info-label">Phone</div>
-              <div className="contact-info-value"><a href="tel:5145675763">(514) 567-5763</a></div>
+              <div className="contact-info-value"><PhoneLink /></div>
             </div>
             <div className="contact-info-item">
               <div className="contact-info-label">Email</div>
