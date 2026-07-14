@@ -9,6 +9,23 @@ const nextConfig = {
       },
     ],
   },
+  // La grille BICOM est lue au runtime avec fs — sans ceci, le traceur de fichiers
+  // ne l'embarque pas dans le bundle serverless et la route renvoie 500 en production.
+  outputFileTracingIncludes: {
+    '/api/bicom/grille': ['./content/bicom/**'],
+  },
+  async headers() {
+    return [
+      {
+        source: '/bicom',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' }],
+      },
+      {
+        source: '/api/bicom/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' }],
+      },
+    ];
+  },
   async rewrites() {
     return [
       {

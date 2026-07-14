@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grille tarifaire — Médias sociaux &amp; création de contenu · V pour Design</title>
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=playfair-display:400,500,600i|inter:400,500,600,700" rel="stylesheet">
+<style>
+  @layer reset, base, comp;
+
+  @layer reset {
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  }
+
+  @layer base {
+    :root {
+      --bg:        #0C0B09;
+      --bg-2:      #111009;
+      --bg-3:      #17150e;
+      --line:      #3d3a30;
+      --line-soft: #2a2721;
+      --accent:    #f7cd46;
+      --accent-dk: #C9A84C;
+      --cream:     #F5F0E0;
+      --sand:      #b8ac96;
+      --ghost:     #7a7060;
+      --ultra:     #4a4438;
+
+      --s-1: clamp(.5rem, .4rem + .3vw, .75rem);
+      --s-2: clamp(.9rem, .7rem + .5vw, 1.25rem);
+      --s-3: clamp(1.4rem, 1.1rem + .9vw, 2rem);
+      --s-4: clamp(2.2rem, 1.6rem + 2vw, 3.5rem);
+      --s-5: clamp(3.5rem, 2.4rem + 3.5vw, 6rem);
+
+      --shadow-lift:
+        0 1px 2px oklch(20% .04 85 / .5),
+        0 6px 16px oklch(15% .04 85 / .45),
+        0 20px 48px oklch(10% .03 85 / .35);
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: "Helvetica Neue", Inter, -apple-system, sans-serif;
+      font-size: clamp(.9rem, .85rem + .2vw, 1rem);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Grain — texture, pas de bruit visible */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    h1, h2, h3 { font-family: "Woodland", "Playfair Display", Georgia, serif; font-weight: 500; line-height: 1.05; letter-spacing: -.02em; }
+    em { font-style: italic; color: var(--accent); }
+    a { color: var(--accent); }
+  }
+
+  @layer comp {
+    .wrap { max-width: 1180px; margin-inline: auto; padding-inline: var(--s-3); }
+
+    /* ---------- Header ---------- */
+    header {
+      padding-block: var(--s-5) var(--s-4);
+      border-bottom: 1px solid var(--line-soft);
+      background:
+        radial-gradient(120% 90% at 12% 0%,  oklch(72% .14 88 / .10), transparent 58%),
+        radial-gradient(90%  70% at 88% 10%, oklch(60% .06 70 / .10), transparent 62%);
+    }
+    .kicker { font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ghost); }
+    h1 { font-size: clamp(2.1rem, 1.4rem + 3.2vw, 4rem); margin-block: var(--s-2) var(--s-2); max-width: 20ch; }
+    .lede { color: var(--sand); max-width: 62ch; }
+    .meta { margin-top: var(--s-3); font-size: .78rem; color: var(--ultra); letter-spacing: .04em; }
+
+    /* ---------- Sections ---------- */
+    section { padding-block: var(--s-5); border-bottom: 1px solid var(--line-soft); }
+    .sec-head { display: grid; grid-template-columns: 4.5rem 1fr; gap: var(--s-2); align-items: baseline; margin-bottom: var(--s-3); }
+    .sec-num { font-family: "Playfair Display", serif; font-size: 2.2rem; color: var(--ultra); line-height: 1; }
+    h2 { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2.3rem); }
+    .sec-sub { color: var(--sand); max-width: 68ch; margin-top: var(--s-1); }
+
+    /* ---------- Tables ---------- */
+    .tbl { width: 100%; border-collapse: collapse; margin-top: var(--s-2); }
+    .tbl caption { text-align: left; font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; color: var(--ghost); padding-bottom: var(--s-1); }
+    .tbl th, .tbl td { text-align: left; padding: .8rem .9rem; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
+    .tbl thead th { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ghost); font-weight: 500; border-bottom-color: var(--line); }
+    .tbl td.num, .tbl th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .tbl td.price { color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+    .tbl tbody tr { transition: background .35s var(--ease); }
+    .tbl tbody tr:hover { background: oklch(72% .14 88 / .035); }
+    .tbl small { color: var(--ghost); display: block; font-size: .78rem; line-height: 1.5; }
+    .scroll-x { overflow-x: auto; }
+
+    /* ---------- Forfaits ---------- */
+    .packs { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--s-2); margin-top: var(--s-3); }
+    .pack {
+      background: var(--bg-2);
+      border: 1px solid var(--line-soft);
+      border-radius: 3px;
+      padding: var(--s-3) var(--s-2);
+      display: flex; flex-direction: column;
+      transition: transform .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
+    }
+    .pack:hover { transform: translateY(-4px); border-color: var(--line); box-shadow: var(--shadow-lift); }
+    .pack--hero { border-color: var(--accent-dk); background: var(--bg-3); }
+    .pack-name { font-family: "Playfair Display", serif; font-size: 1.35rem; }
+    .pack-for { font-size: .78rem; color: var(--ghost); margin-top: .35rem; min-height: 2.6em; line-height: 1.4; }
+    .pack-price { font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem); color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; margin-block: var(--s-2) .1rem; letter-spacing: -.02em; }
+    .pack-per { font-size: .74rem; color: var(--ultra); letter-spacing: .1em; text-transform: uppercase; }
+    .pack ul { list-style: none; margin-top: var(--s-2); padding-top: var(--s-2); border-top: 1px solid var(--line-soft); font-size: .84rem; }
+    .pack li { padding-block: .3rem; color: var(--sand); }
+    .pack li[data-no] { color: var(--ultra); text-decoration: line-through; text-decoration-color: var(--ultra); }
+
+    /* ---------- Calculateur ---------- */
+    .calc { display: grid; grid-template-columns: 1fr; gap: var(--s-3); margin-top: var(--s-3); }
+    @media (min-width: 900px) { .calc { grid-template-columns: 1.15fr .85fr; align-items: start; } }
+
+    fieldset { border: 0; margin-bottom: var(--s-3); }
+    legend { font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ghost); margin-bottom: .7rem; }
+    .opts { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .opt input { position: absolute; opacity: 0; pointer-events: none; }
+    .opt span {
+      display: block;
+      border: 1px solid var(--line-soft);
+      background: var(--bg-2);
+      padding: .5rem .85rem;
+      border-radius: 2px;
+      font-size: .82rem;
+      cursor: pointer;
+      color: var(--sand);
+      transition: border-color .3s var(--ease), color .3s var(--ease), background .3s var(--ease);
+      user-select: none;
+    }
+    .opt span:hover { border-color: var(--ghost); color: var(--cream); }
+    .opt input:checked + span { border-color: var(--accent); color: var(--bg); background: var(--accent); font-weight: 600; }
+    .opt input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .field { display: flex; align-items: center; gap: .6rem; }
+    .field input[type=number] {
+      background: var(--bg-2); border: 1px solid var(--line-soft); color: var(--cream);
+      padding: .5rem .7rem; border-radius: 2px; width: 10rem; font: inherit; font-size: .9rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .field input[type=number]:focus-visible { outline: none; border-color: var(--accent); }
+    .field label { font-size: .82rem; color: var(--ghost); }
+
+    .toggle { display: inline-flex; align-items: center; gap: .6rem; cursor: pointer; font-size: .84rem; color: var(--sand); }
+    .toggle input { accent-color: var(--accent); width: 1rem; height: 1rem; }
+
+    /* ---------- Résultat ---------- */
+    .col-right { display: flex; flex-direction: column; gap: var(--s-2); }
+    .out {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      padding: var(--s-3) var(--s-2);
+      box-shadow: var(--shadow-lift);
+    }
+    .out h3 { font-size: 1.15rem; margin-bottom: var(--s-2); }
+
+    /* Carte BICOM */
+    .out--client { border-color: var(--accent-dk); background: var(--bg-3); }
+    .out--client h3 { color: var(--accent); margin-bottom: .4rem; }
+    .cc-sub { font-size: .78rem; color: var(--ghost); line-height: 1.55; }
+    .cc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-top: var(--s-2); }
+    .btn {
+      font: inherit; font-size: .8rem; font-weight: 600;
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent-dk); border-radius: 2px;
+      padding: .5rem .9rem; cursor: pointer;
+      transition: background .3s var(--ease), color .3s var(--ease);
+    }
+    .btn:hover { background: var(--accent); color: var(--bg); }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn:active { transform: translateY(1px); }
+    .cc-flash { font-size: .76rem; color: var(--accent); opacity: 0; transition: opacity .4s var(--ease); }
+    .cc-flash[data-on] { opacity: 1; }
+    .cc-prev {
+      margin-top: var(--s-2); padding: var(--s-2);
+      background: var(--bg); border: 1px solid var(--line-soft); border-radius: 2px;
+      font-family: ui-monospace, "SF Mono", Menlo, monospace;
+      font-size: .6rem; line-height: 1.6; color: var(--sand);
+      white-space: pre; max-height: 19rem; overflow: auto;
+    }
+    .line { display: flex; justify-content: space-between; gap: 1rem; padding-block: .38rem; font-size: .85rem; border-bottom: 1px solid var(--line-soft); }
+    .line span:first-child { color: var(--sand); }
+    .line span:last-child { color: var(--cream); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .line[data-dim] span { color: var(--ultra); }
+    .total { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; margin-top: var(--s-2); padding-top: var(--s-2); border-top: 1px solid var(--line); }
+    .total-lbl { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--ghost); }
+    .total-val { font-size: clamp(1.7rem, 1.4rem + 1.2vw, 2.3rem); color: var(--accent); font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+    .out-note { margin-top: var(--s-2); font-size: .76rem; color: var(--ultra); line-height: 1.6; }
+
+    .internal {
+      margin-top: var(--s-2); padding-top: var(--s-2); border-top: 1px dashed var(--line-soft);
+      font-size: .76rem; color: var(--ghost);
+    }
+    .internal strong { color: var(--sand); font-weight: 600; }
+
+    /* ---------- Encadrés ---------- */
+    .note {
+      background: var(--bg-2);
+      border: 1px solid var(--line-soft);
+      border-radius: 3px;
+      padding: var(--s-2);
+      margin-top: var(--s-2);
+      font-size: .86rem;
+      color: var(--sand);
+    }
+    .note h4 { font-family: inherit; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-dk); font-weight: 600; margin-bottom: .5rem; }
+    .note p + p { margin-top: .6rem; }
+
+    .grid-2 { display: grid; gap: var(--s-2); grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+    footer { padding-block: var(--s-4); color: var(--ultra); font-size: .78rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2); }
+
+    @media print {
+      body { background: #fff; color: #111; }
+      body::before { display: none; }
+      .out { position: static; }
+      section { break-inside: avoid; }
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="kicker">V pour Design × BICOM — document de travail</p>
+    <h1>Grille tarifaire <em>médias sociaux</em> &amp; création de contenu</h1>
+    <p class="lede">Le pendant du 500&nbsp;$ + 15&nbsp;% de la pub numérique : une carte de tarifs fixe, lisible, qui se glisse telle quelle dans une proposition. Rien n'est réinventé — la grille part des trois tarifs déjà en vigueur (500&nbsp;$ de démarrage pub, 15&nbsp;% avec plancher de 450&nbsp;$, 1&nbsp;000&nbsp;$/mois pour 9-10 publications) et déplie ce qu'il y a autour. Chaque prix est adossé à un taux de 120&nbsp;$/h et à un nombre d'heures assumé — donc défendable, et ajustable en connaissance de cause.</p>
+    <p class="meta">Version 1 · 14 juillet 2026 · Prix en CAD, avant taxes · Engagement 3 mois minimum sur les blocs récurrents</p>
+  </div>
+</header>
+
+<!-- ============ 1. LE MODÈLE ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">01</div>
+      <div>
+        <h2>Le modèle en cinq blocs</h2>
+        <p class="sec-sub">La confusion vient de ce que « RS » et « création de contenu » sont traités comme un seul bloc. Ce sont cinq charges distinctes. Séparées, on voit immédiatement ce qui s'externalise et ce qui reste à l'interne.</p>
+      </div>
+    </div>
+
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Bloc</th>
+            <th>Ce que ça couvre</th>
+            <th>Ce que ça ne couvre pas</th>
+            <th class="num">Nature</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>A · Calendrier &amp; publication</strong></td>
+            <td>Ligne éditoriale, calendrier mensuel, <strong>images</strong> montées à partir des gabarits de marque et de la banque d'actifs, idées et rédaction des textes, hashtags, stories, programmation, rapport mensuel.<small>C'est le 1 000 $/mois actuel : 9-10 publications images + les textes.</small></td>
+            <td>Reels, motion design, carrousels narratifs. Toute réponse aux abonnés.</td>
+            <td class="num">Mensuel</td>
+          </tr>
+          <tr>
+            <td><strong>B · Vidéo &amp; formats avancés</strong></td>
+            <td>Ce qui ne se monte pas dans un gabarit : reels, motion design, carrousels narratifs, concepts publicitaires dédiés. Concept, production, révisions.<small>Tarifé en crédits — voir bloc 03.</small></td>
+            <td>Le tournage sur mesure (bloc E).</td>
+            <td class="num">Mensuel</td>
+          </tr>
+          <tr>
+            <td><strong>C · Gestion de communauté</strong></td>
+            <td>Réponses aux commentaires et messages privés, modération, remontée des demandes qualifiées.</td>
+            <td>Service à la clientèle de fond, gestion de crise, réponses techniques produit.</td>
+            <td class="num">Option</td>
+          </tr>
+          <tr>
+            <td><strong>D · Pub numérique</strong></td>
+            <td>Stratégie, audiences, structure de campagne, budgets, ton, optimisation, rapport. Visuels publicitaires facturés à part.</td>
+            <td>Le budget média lui-même (payé par le client à Meta/Google).</td>
+            <td class="num">Mensuel</td>
+          </tr>
+          <tr>
+            <td><strong>E · Shooting</strong></td>
+            <td>Direction artistique, coordination, présence sur place, sous-traitant photo/vidéo, post-production, livraison.</td>
+            <td>Cachets de mannequins, locations de lieu, accessoires.</td>
+            <td class="num">Ponctuel</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <h4>La règle qui tranche « création vs adaptation »</h4>
+      <p><strong>Adaptation</strong> — l'actif visuel existe déjà. On le recadre, on le décline en story, on réécrit le texte, on l'ajuste au format pub. Charge : environ 25 minutes. Le client fournit la matière ; le bloc A tombe alors à la moitié de son prix.</p>
+      <p><strong>Image montée</strong> — l'image n'existe pas, mais le gabarit de marque et les actifs existent. On assemble, on adapte, on écrit. Charge : environ 55 minutes. C'est le cœur du bloc A à 1 000 $/mois.</p>
+      <p><strong>Création avancée</strong> — ni l'actif ni le gabarit ne suffisent : reel, motion, carrousel narratif, concept pub dédié. Charge : de 1,5 h à 3 h. C'est le bloc B, en crédits.</p>
+      <p>Le même visuel n'est jamais facturé deux fois : une image RS déclinée ensuite en pub est une adaptation à 55 $, pas une seconde création.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. BLOC A ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">02</div>
+      <div>
+        <h2>Bloc A — Calendrier &amp; publication</h2>
+        <p class="sec-sub">Le palier se lit en publications par semaine, comme dans une propal. Deux colonnes, parce que tout se joue là : le client fournit-il les visuels, ou est-ce nous qui montons les images ? L'écart est exactement du simple au double.</p>
+      </div>
+    </div>
+
+    <div class="scroll-x">
+      <table class="tbl">
+        <caption>Bloc A · mensuel · démarrage 300 $ une fois</caption>
+        <thead>
+          <tr>
+            <th>Palier</th>
+            <th class="num">Publications</th>
+            <th class="num">Stories</th>
+            <th class="num">Adaptation seule<small style="text-transform:none;letter-spacing:0">Le client fournit les visuels</small></th>
+            <th class="num">Images + textes inclus<small style="text-transform:none;letter-spacing:0">Nous montons tout</small></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ponctuel</strong><small>Le tarif de référence. Ce qu'achète Oceania aujourd'hui.</small></td>
+            <td class="num">2-3 / sem · 9-10 / mois</td>
+            <td class="num">4</td>
+            <td class="num" style="color:var(--sand)">500 $<small>4,2 h</small></td>
+            <td class="price">1 000 $<small style="color:var(--ultra)">8,3 h</small></td>
+          </tr>
+          <tr>
+            <td><strong>Régulier</strong><small>Le rythme que BICOM décrit dans ses propales</small></td>
+            <td class="num">3-4 / sem · 13-17 / mois</td>
+            <td class="num">8</td>
+            <td class="num" style="color:var(--sand)">750 $<small>6,3 h</small></td>
+            <td class="price">1 450 $<small style="color:var(--ultra)">12,1 h</small></td>
+          </tr>
+          <tr>
+            <td><strong>Soutenu</strong><small>Marque en croissance, deux plateformes actives</small></td>
+            <td class="num">5-6 / sem · 20-26 / mois</td>
+            <td class="num">12</td>
+            <td class="num" style="color:var(--sand)">1 000 $<small>8,3 h</small></td>
+            <td class="price">2 000 $<small style="color:var(--ultra)">16,7 h</small></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <h4>La ligne la plus utile de la grille</h4>
+      <p>Une publication montée par nous (image + texte) coûte environ <strong>100 $</strong>. La même publication, quand le visuel est fourni et qu'il n'y a qu'à adapter et écrire, coûte environ <strong>50 $</strong>. Tout le reste de la grille découle de cet écart.</p>
+      <p>C'est aussi la réponse à « qu'est-ce qu'on garde à l'interne ». Un client qui a déjà une banque d'images vivante paie la moitié — et c'est un argument de vente, pas une concession.</p>
+    </div>
+
+    <div class="note">
+      <h4>Démarrage — 300 $, une seule fois</h4>
+      <p>Prise de contrôle des comptes, accès et permissions, mise en place des outils de programmation et d'approbation, gabarits de marque, ligne éditoriale de départ. Le pendant du 500&nbsp;$ de la pub, côté RS.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. BLOC B ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03</div>
+      <div>
+        <h2>Bloc B — Vidéo &amp; formats avancés</h2>
+        <p class="sec-sub">Les images de base sont déjà dans le bloc A. Le bloc B, c'est ce qui ne rentre pas dans un gabarit : un reel motion ne coûte pas ce que coûte une image montée. Les crédits absorbent cette variance sans forcer une grille à quinze lignes — le client achète un bloc mensuel, on pige dedans selon ce que le mois demande.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="scroll-x">
+        <table class="tbl">
+          <caption>Ce que vaut chaque livrable · 1 crédit = 1 h</caption>
+          <thead><tr><th>Livrable</th><th class="num">Charge</th><th class="num">Crédits</th></tr></thead>
+          <tbody>
+            <tr><td>Image montée · texte<small>Gabarit de marque + banque d'actifs</small></td><td class="num">≈ 1 h</td><td class="num" style="color:var(--accent-dk)">Bloc A</td></tr>
+            <tr><td>Reel — montage simple<small>Clips fournis, coupe, sous-titres, musique</small></td><td class="num">1,5 h</td><td class="num">1,5</td></tr>
+            <tr><td>Image publicitaire dédiée<small>Concept neuf, hors gabarit de marque</small></td><td class="num">1,5 h</td><td class="num">1,5</td></tr>
+            <tr><td>Carrousel narratif<small>3 à 5 diapos, fil conducteur</small></td><td class="num">2 h</td><td class="num">2</td></tr>
+            <tr><td>Reel — motion design<small>Animation graphique complète, type Oceania</small></td><td class="num">3 h</td><td class="num">3</td></tr>
+            <tr><td>Vidéo — production<small>Tournage sur mesure</small></td><td class="num">—</td><td class="num" style="color:var(--accent-dk)">Bloc E</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="scroll-x">
+        <table class="tbl">
+          <caption>Blocs mensuels · dégressif</caption>
+          <thead><tr><th>Bloc</th><th class="num">Crédit</th><th class="num">Prix / mois</th></tr></thead>
+          <tbody>
+            <tr><td><strong>4 crédits</strong><small>p. ex. 2 reels simples + 1 carrousel</small></td><td class="num">120 $</td><td class="price">480 $</td></tr>
+            <tr><td><strong>8 crédits</strong><small>p. ex. 2 motion + 1 carrousel + 1 reel simple</small></td><td class="num">110 $</td><td class="price">880 $</td></tr>
+            <tr><td><strong>12 crédits</strong><small>p. ex. 3 motion + 2 reels + 1 carrousel</small></td><td class="num">105 $</td><td class="price">1 260 $</td></tr>
+            <tr><td><strong>20 crédits</strong><small>Production continue, deux marques ou deux langues</small></td><td class="num">100 $</td><td class="price">2 000 $</td></tr>
+            <tr><td><strong>À l'unité</strong><small>Hors bloc, ponctuel</small></td><td class="num">140 $</td><td class="price">—</td></tr>
+          </tbody>
+        </table>
+        <div class="note">
+          <h4>Règles des crédits</h4>
+          <p>Report d'un mois maximum, jusqu'à 25 % du bloc. Dépassement facturé à 120 $ le crédit. Deux rondes de révision incluses par livrable ; la troisième entame un demi-crédit.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. BLOC C ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">04</div>
+      <div>
+        <h2>Bloc C — Gestion de communauté</h2>
+        <p class="sec-sub">Volontairement en option : c'est le bloc que BICOM garde le plus souvent à l'interne. Sorti du forfait, il devient un choix explicite plutôt qu'une charge invisible.</p>
+      </div>
+    </div>
+
+    <div class="scroll-x">
+      <table class="tbl">
+        <caption>Bloc C · mensuel · optionnel</caption>
+        <thead><tr><th>Niveau</th><th class="num">Volume</th><th class="num">Délai de réponse</th><th class="num">Heures/mois</th><th class="num">Prix / mois</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Léger</strong><small>Communauté calme, peu de messages privés</small></td><td class="num">≤ 20 interactions / sem</td><td class="num">24 h ouvrables</td><td class="num">3 h</td><td class="price">350 $</td></tr>
+          <tr><td><strong>Standard</strong><small>Le niveau actuel de WfE</small></td><td class="num">≤ 50 interactions / sem</td><td class="num">4 h ouvrables</td><td class="num">4,2 h</td><td class="price">500 $</td></tr>
+          <tr><td><strong>Soutenu</strong><small>Campagne active, volume élevé, surveillance fin de semaine</small></td><td class="num">≤ 120 interactions / sem</td><td class="num">2 h · 7 j</td><td class="num">7,5 h</td><td class="price">900 $</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <h4>Au-delà du volume</h4>
+      <p>Un dépassement ponctuel est absorbé. Un dépassement sur deux mois consécutifs déclenche le passage au niveau supérieur, annoncé avant d'être facturé. Les pics de crise se facturent à 120 $/h.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. BLOC D ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">05</div>
+      <div>
+        <h2>Bloc D — Pub numérique</h2>
+        <p class="sec-sub">Rigoureusement inchangé — c'est la partie qui fonctionne déjà et que BICOM trouve claire. Elle est reprise ici seulement pour que la carte soit complète, avec une seule précision ajoutée : le sort des visuels publicitaires.</p>
+      </div>
+    </div>
+
+    <div class="scroll-x">
+      <table class="tbl">
+        <caption>Bloc D · en vigueur</caption>
+        <thead><tr><th>Poste</th><th>Détail</th><th class="num">Prix</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Démarrage de campagne</strong></td><td>Stratégie et mise en place des audiences. Uniquement.<small>Structure de compte, pixel et suivi devisés à part s'ils n'existent pas.</small></td><td class="price">500 $</td></tr>
+          <tr><td><strong>Gestion mensuelle</strong></td><td>15 % du montant investi, plancher de 450 $/mois<small>Le plancher existe parce que la charge de gestion est la même à 1 500 $ de budget qu'à 3 000 $.</small></td><td class="price">15 % · min 450 $</td></tr>
+          <tr><td><strong>Visuel pub — adapté</strong><small>Précision ajoutée</small></td><td>Un visuel RS existant décliné en formats pub (1:1, 4:5, story)</td><td class="price">55 $ / visuel</td></tr>
+          <tr><td><strong>Visuel pub — créé</strong><small>Précision ajoutée</small></td><td>Concept publicitaire dédié — puise dans les crédits du bloc B</td><td class="price">Crédits</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <h4>Là où le plancher mord</h4>
+      <p>Sous 3 000 $ de budget média mensuel, c'est le plancher de 450 $ qui s'applique, pas les 15 %. À 2 000 $ de budget : 300 $ en pourcentage, donc <strong>450 $ facturés</strong>. Le pourcentage ne reprend le dessus qu'au-delà de 3 000 $.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. BLOC E ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">06</div>
+      <div>
+        <h2>Bloc E — Shooting</h2>
+        <p class="sec-sub">Une journée alimente environ deux mois de publications. C'est le seul poste où le sous-traitant est la charge dominante — d'où la décomposition, pour que le prix ne ressemble pas à un chiffre rond sorti du chapeau.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="scroll-x">
+        <table class="tbl">
+          <caption>Bloc E · ponctuel</caption>
+          <thead><tr><th>Format</th><th class="num">Plans</th><th class="num">Livrables</th><th class="num">Couvre</th><th class="num">Prix</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Demi-journée</strong></td><td class="num">8</td><td class="num">15 images / vidéos</td><td class="num">≈ 1 mois</td><td class="price">2 800 $</td></tr>
+            <tr><td><strong>Journée complète</strong><small>Le meilleur rapport — la logistique est déjà payée</small></td><td class="num">15</td><td class="num">30 images / vidéos</td><td class="num">≈ 2 mois</td><td class="price">5 000 $</td></tr>
+            <tr><td><strong>Journée additionnelle</strong><small>Consécutive, même montage</small></td><td class="num">15</td><td class="num">30 images / vidéos</td><td class="num">≈ 2 mois</td><td class="price">4 400 $</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="scroll-x">
+        <table class="tbl">
+          <caption>Décomposition — journée complète</caption>
+          <thead><tr><th>Poste</th><th class="num">Montant</th></tr></thead>
+          <tbody>
+            <tr><td>Sous-traitant photo / vidéo<small>Cachet, matériel, éclairage</small></td><td class="price">1 800 $</td></tr>
+            <tr><td>Direction artistique sur place<small>8 h · présence V pour Design</small></td><td class="price">960 $</td></tr>
+            <tr><td>Post-production<small>30 livrables · sélection, retouche, étalonnage, formats</small></td><td class="price">1 800 $</td></tr>
+            <tr><td>Préparation &amp; logistique<small>Découpage de plans, repérage, coordination, livraison</small></td><td class="price">440 $</td></tr>
+            <tr><td><strong>Total</strong></td><td class="price">5 000 $</td></tr>
+          </tbody>
+        </table>
+        <div class="note">
+          <h4>À la charge du client</h4>
+          <p>Lieu, mannequins, accessoires, produits, déplacements hors du Grand Montréal. Devisés séparément quand ils s'appliquent.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. FORFAITS ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">07</div>
+      <div>
+        <h2>Les quatre forfaits à présenter</h2>
+        <p class="sec-sub">Les blocs assemblés d'avance, avec un rabais de 5 % dès que les trois blocs RS sont pris ensemble. C'est la page à insérer telle quelle dans une proposition. Le premier forfait est le tarif déjà en vigueur — il n'y a rien à renégocier pour l'utiliser.</p>
+      </div>
+    </div>
+
+    <div class="packs">
+      <div class="pack">
+        <div class="pack-name">Présence</div>
+        <p class="pack-for">Le tarif actuel, sans changement. La marque publie, images et textes compris.</p>
+        <div class="pack-price">1 000 $</div>
+        <div class="pack-per">par mois</div>
+        <ul>
+          <li>9-10 publications / mois</li>
+          <li>Images montées + idées de textes</li>
+          <li>Calendrier, stories, programmation</li>
+          <li data-no>Reels et motion design</li>
+          <li data-no>Gestion de communauté</li>
+        </ul>
+      </div>
+
+      <div class="pack">
+        <div class="pack-name">Présence +<br>communauté</div>
+        <p class="pack-for">La marque publie et répond. Le forfait le plus demandé.</p>
+        <div class="pack-price">1 500 $</div>
+        <div class="pack-per">par mois</div>
+        <ul>
+          <li>Tout Présence</li>
+          <li>Gestion de communauté — standard</li>
+          <li>≤ 50 interactions / semaine</li>
+          <li data-no>Reels et motion design</li>
+        </ul>
+      </div>
+
+      <div class="pack">
+        <div class="pack-name">Présence +<br>vidéo</div>
+        <p class="pack-for">La direction que vise Oceania. Du mouvement chaque mois, communauté à l'interne.</p>
+        <div class="pack-price">1 880 $</div>
+        <div class="pack-per">par mois</div>
+        <ul>
+          <li>Tout Présence</li>
+          <li>8 crédits vidéo / mois</li>
+          <li>≈ 2 motion + 1 carrousel + 1 reel</li>
+          <li data-no>Gestion de communauté</li>
+        </ul>
+      </div>
+
+      <div class="pack pack--hero">
+        <div class="pack-name">Complet</div>
+        <p class="pack-for">« Si Maeva prenait tout. » Le forfait à offrir direct au client, sans découpage.</p>
+        <div class="pack-price">2 690 $</div>
+        <div class="pack-per">par mois</div>
+        <ul>
+          <li>13-17 publications / mois · 3-4 / sem</li>
+          <li>Images montées + idées de textes</li>
+          <li>8 crédits vidéo / mois</li>
+          <li>Gestion de communauté — standard</li>
+          <li>Rabais 3 blocs — 5 %</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note">
+      <h4>Complet + pub numérique = l'offre 360</h4>
+      <p>Complet à 2 690 $ + démarrage de campagne 500 $ (une fois) + 15 % du montant investi, plancher 450 $ + les visuels publicitaires. Sur un budget média de 3 000 $/mois : <strong>2 690 $ + 450 $ = 3 140 $/mois</strong>, plus les adaptations pub à 55 $ l'unité.</p>
+      <p>Le rabais de 5 % ne touche jamais le bloc pub — les 15 % restent les 15 %.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. CALCULATEUR ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">08</div>
+      <div>
+        <h2>Simulateur</h2>
+        <p class="sec-sub">Pour trancher, mandat par mandat, ce qui s'externalise et ce qui reste à l'interne selon le budget disponible.</p>
+      </div>
+    </div>
+
+    <div class="calc">
+      <form id="f">
+        <fieldset>
+          <legend>Bloc A — Volume de publications</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="av" value="0"><span>Aucun</span></label>
+            <label class="opt"><input type="radio" name="av" value="1" checked><span>9-10 / mois · 2-3 par sem</span></label>
+            <label class="opt"><input type="radio" name="av" value="2"><span>13-17 / mois · 3-4 par sem</span></label>
+            <label class="opt"><input type="radio" name="av" value="3"><span>20-26 / mois · 5-6 par sem</span></label>
+          </div>
+          <div class="opts" style="margin-top:.6rem">
+            <label class="opt"><input type="radio" name="am" value="adapt"><span>Le client fournit les visuels</span></label>
+            <label class="opt"><input type="radio" name="am" value="full" checked><span>Images + textes inclus</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Bloc B — Vidéo &amp; formats avancés</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="b" value="0" checked><span>Aucun</span></label>
+            <label class="opt"><input type="radio" name="b" value="480"><span>4 crédits — 480 $</span></label>
+            <label class="opt"><input type="radio" name="b" value="880"><span>8 crédits — 880 $</span></label>
+            <label class="opt"><input type="radio" name="b" value="1260"><span>12 crédits — 1 260 $</span></label>
+            <label class="opt"><input type="radio" name="b" value="2000"><span>20 crédits — 2 000 $</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Bloc C — Gestion de communauté</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="c" value="0" checked><span>Interne / aucune</span></label>
+            <label class="opt"><input type="radio" name="c" value="350"><span>Léger — 350 $</span></label>
+            <label class="opt"><input type="radio" name="c" value="500"><span>Standard — 500 $</span></label>
+            <label class="opt"><input type="radio" name="c" value="900"><span>Soutenu — 900 $</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Bloc D — Pub numérique</legend>
+          <div class="field">
+            <input type="number" id="media" min="0" step="250" value="0" placeholder="0">
+            <label for="media">Budget média $ / mois — 0 = pas de pub</label>
+          </div>
+          <div class="field" style="margin-top:.7rem">
+            <input type="number" id="adapt" min="0" step="1" value="0">
+            <label for="adapt">Visuels pub adaptés / mois — 55 $ ch.</label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Bloc E — Shooting</legend>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="e" value="0" checked><span>Aucun</span></label>
+            <label class="opt"><input type="radio" name="e" value="2800"><span>Demi-journée — 2 800 $</span></label>
+            <label class="opt"><input type="radio" name="e" value="5000"><span>Journée — 5 000 $</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Modificateurs</legend>
+          <label class="toggle"><input type="checkbox" id="bil"> Bilingue FR / EN — supplément 20 % sur les blocs A, B et C</label>
+          <br>
+          <label class="toggle" style="margin-top:.5rem"><input type="checkbox" id="start" checked> Inclure les frais de démarrage (300 $ RS · 500 $ pub)</label>
+        </fieldset>
+      </form>
+
+      <div class="col-right">
+        <aside class="out">
+          <h3>Ce que ça donne</h3>
+          <div id="lines"></div>
+          <div class="total">
+            <span class="total-lbl">Récurrent<br>mensuel</span>
+            <span class="total-val" id="tot">—</span>
+          </div>
+          <div class="total" style="border-top-color:var(--line-soft)">
+            <span class="total-lbl">Ponctuel<br>au démarrage</span>
+            <span class="total-val" id="once" style="font-size:1.4rem">—</span>
+          </div>
+          <p class="out-note" id="note"></p>
+          <div class="internal" id="int"></div>
+        </aside>
+
+        <aside class="out out--client">
+          <h3>Pour la soumission BICOM</h3>
+          <p class="cc-sub">Votre commission s'ajoute par-dessus les montants ci-dessus. La ventilation se copie telle quelle dans la soumission — aucune mention de sous-traitance, aucun taux horaire.</p>
+
+          <fieldset style="margin-block:var(--s-2)">
+            <legend>Commission BICOM</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="comm" value="0"><span>0 %</span></label>
+              <label class="opt"><input type="radio" name="comm" value="10"><span>10 %</span></label>
+              <label class="opt"><input type="radio" name="comm" value="15"><span>15 %</span></label>
+              <label class="opt"><input type="radio" name="comm" value="20" checked><span>20 %</span></label>
+              <label class="opt"><input type="radio" name="comm" value="x"><span>Autre</span></label>
+            </div>
+            <div class="field" id="commX" hidden style="margin-top:.6rem">
+              <input type="number" id="commVal" min="0" max="200" step="1" value="25">
+              <label for="commVal">% par-dessus le montant V pour Design</label>
+            </div>
+            <label class="toggle" style="margin-top:.7rem"><input type="checkbox" id="commPub" checked> Appliquer aussi la commission au bloc pub</label>
+          </fieldset>
+
+          <div class="total">
+            <span class="total-lbl">Prix client<br>mensuel</span>
+            <span class="total-val" id="cTot">—</span>
+          </div>
+          <div class="total" style="border-top-color:var(--line-soft)">
+            <span class="total-lbl">Prix client<br>ponctuel</span>
+            <span class="total-val" id="cOnce" style="font-size:1.4rem">—</span>
+          </div>
+
+          <div class="internal" id="cComm"></div>
+
+          <div class="cc-actions">
+            <button type="button" class="btn" data-copy="txt">Copier — texte</button>
+            <button type="button" class="btn" data-copy="tsv">Copier — tableau</button>
+            <span class="cc-flash" id="flash" aria-live="polite"></span>
+          </div>
+          <pre class="cc-prev" id="prev"></pre>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 9. CE QUE ÇA CHANGE ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">09</div>
+      <div>
+        <h2>Ce que la grille révèle sur les mandats actuels</h2>
+        <p class="sec-sub">Les deux mandats à 1 000 $/mois n'achètent pas la même chose. C'est toute la source de la confusion — et la grille le rend visible en une ligne.</p>
+      </div>
+    </div>
+
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead><tr><th>Mandat</th><th>Ce qui est facturé</th><th>Ce que dit la grille</th><th class="num">Écart</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Oceania</strong></td>
+            <td>1 000 $ / mois — calendrier + création de contenu, communauté chez Julia</td>
+            <td>Bloc A · 9-10 pubs / mois, images + textes inclus = <strong>1 000 $</strong><small>Le mandat est exactement au tarif. C'est lui qui sert d'ancre à toute la grille.</small></td>
+            <td class="num" style="color:var(--accent)">Conforme</td>
+          </tr>
+          <tr>
+            <td><strong>WfE</strong></td>
+            <td>1 000 $ / mois — calendrier 3-4/sem, adaptation seulement, + gestion de communauté</td>
+            <td>750 $ (bloc A · 13-17 pubs, adaptation) + 500 $ (bloc C standard) = <strong>1 250 $</strong><small>Le mandat tient dans le 1 000 $ tant qu'il reste en adaptation pure. Dès qu'on monte des images, il bascule à 1 950 $.</small></td>
+            <td class="num" style="color:var(--accent)">− 250 $</td>
+          </tr>
+          <tr>
+            <td><strong>Riviera · Wampole</strong></td>
+            <td>À clarifier</td>
+            <td>Passer chaque mandat dans le simulateur, puis fixer le palier<small>Les deux premiers à cadrer avec la grille, avant les prochains mandats.</small></td>
+            <td class="num">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <h4>Les deux phrases à retenir</h4>
+      <p><strong>Un.</strong> À 1 000 $/mois, un mandat achète <em>ou bien</em> 9-10 publications avec images et textes (Oceania), <em>ou bien</em> un calendrier en adaptation avec la communauté (WfE) — jamais les deux. C'est exactement la ligne qui manquait pour arbitrer entre l'interne et l'externe.</p>
+      <p><strong>Deux.</strong> WfE est à 250 $/mois sous la grille. Rien ne presse : ne pas rouvrir à mi-mandat, appliquer au renouvellement ou au prochain changement de portée. Mais l'appliquer intégralement dès Riviera, Wampole et tout nouveau mandat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. CONDITIONS ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">10</div>
+      <div>
+        <h2>Conditions</h2>
+      </div>
+    </div>
+    <div class="scroll-x">
+      <table class="tbl">
+        <tbody>
+          <tr><td style="width:26%"><strong>Engagement</strong></td><td>3 mois minimum sur les blocs récurrents. Un mois de préavis ensuite.</td></tr>
+          <tr><td><strong>Facturation</strong></td><td>Le 1<sup>er</sup> du mois, d'avance. Ponctuels facturés à la livraison. Net 30.</td></tr>
+          <tr><td><strong>Taux horaire</strong></td><td>120 $/h — tout ce qui sort de la portée, les urgences et les dépassements.</td></tr>
+          <tr><td><strong>Approbations</strong></td><td>Calendrier soumis le 20 du mois précédent. Sans retour sous 5 jours ouvrables, il est réputé approuvé.</td></tr>
+          <tr><td><strong>Bilingue</strong></td><td>+ 20 % sur les blocs A, B et C. La stratégie et le concept ne sont pas dédoublés — seuls la rédaction, les déclinaisons visuelles et les réponses le sont.</td></tr>
+          <tr><td><strong>Plateformes</strong></td><td>Deux plateformes incluses (Facebook + Instagram). Chaque plateforme additionnelle : + 15 % sur le bloc A.</td></tr>
+          <tr><td><strong>Budget média</strong></td><td>Payé directement par le client à la régie. Jamais avancé par V pour Design ni par BICOM.</td></tr>
+          <tr><td><strong>Validité</strong></td><td>Grille valide jusqu'au 31 décembre 2026.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong style="color:var(--sand)">V pour Design</strong><br>
+      400 Grande-Côte, Rosemère QC · (514) 567-5763 · info@vpourdesign.com
+    </div>
+    <div style="text-align:right">
+      Grille tarifaire médias sociaux — v1 · 14 juillet 2026<br>
+      Document de travail BICOM × V pour Design
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var f = document.getElementById('f');
+  var fmt = function (n) {
+    return new Intl.NumberFormat('fr-CA', { maximumFractionDigits: 0 }).format(Math.round(n)) + ' $';
+  };
+  var val = function (name) { return +f.querySelector('input[name="' + name + '"]:checked').value; };
+
+  // Bloc A : [palier][mode]
+  var GRILLE_A = {
+    0: { adapt: 0,    full: 0    },
+    1: { adapt: 500,  full: 1000 },
+    2: { adapt: 750,  full: 1450 },
+    3: { adapt: 1000, full: 2000 }
+  };
+  var LIB_A   = { 0: '', 1: '9-10 / mois', 2: '13-17 / mois', 3: '20-26 / mois' };
+  var LIB_PUB = { 0: '', 1: '9 à 10 publications par mois', 2: '13 à 17 publications par mois · 3-4 par semaine', 3: '20 à 26 publications par mois · 5-6 par semaine' };
+  var LIB_CRED = { 480: '4 crédits', 880: '8 crédits', 1260: '12 crédits', 2000: '20 crédits' };
+  var LIB_CM  = { 350: 'léger — jusqu’à 20 interactions par semaine', 500: 'standard — jusqu’à 50 interactions par semaine', 900: 'soutenu — volume élevé, 7 jours sur 7' };
+
+  var etat = {};   // partagé avec l'export
+
+  function run() {
+    var av = val('av'), mode = f.querySelector('input[name="am"]:checked').value;
+    var a = GRILLE_A[av][mode];
+    var b = val('b'), c = val('c'), e = val('e');
+    var media = +document.getElementById('media').value || 0;
+    var nAdapt = +document.getElementById('adapt').value || 0;
+    var bil = document.getElementById('bil').checked;
+    var start = document.getElementById('start').checked;
+
+    var mult = bil ? 1.2 : 1;
+    var aP = a * mult, bP = b * mult, cP = c * mult;
+    var supp = (a + b + c) * (mult - 1);
+
+    // Bloc D — gestion : 15 % du montant investi, plancher 450 $. Jamais escompté.
+    var d = media > 0 ? Math.max(450, media * 0.15) : 0;
+    var plancher = media > 0 && media * 0.15 < 450;
+    var adaptP = nAdapt * 55;
+
+    // Rabais 5 % sur les blocs RS seulement (A, B, C) quand les trois sont pris.
+    // Le net RS est arrondi au 5 $ le plus proche pour ne jamais facturer un prix
+    // qui diffère d'un dollar de la carte des forfaits.
+    var blocs = [aP, bP, cP].filter(function (x) { return x > 0; }).length;
+    var subRS = aP + bP + cP;
+    var netRS = blocs >= 3 ? Math.round(subRS * 0.95 / 5) * 5 : subRS;
+    var rabais = subRS - netRS;
+    var total = netRS + d + adaptP;
+
+    // ---- Lignes structurées : servent à l'affichage ET à l'export ----
+    // « pub » marque les lignes du bloc D, que la commission peut épargner.
+    var moisL = [], ponctL = [];
+    if (a) moisL.push({ t: 'Calendrier & publication', d: LIB_PUB[av] + (mode === 'full' ? ', images et textes inclus' : ', adaptation des visuels fournis'), v: a });
+    if (b) moisL.push({ t: 'Vidéo & formats avancés', d: LIB_CRED[b] + ' par mois — reels, motion design, carrousels', v: b });
+    if (c) moisL.push({ t: 'Gestion de communauté', d: LIB_CM[c], v: c });
+    if (supp) moisL.push({ t: 'Supplément bilingue FR / EN', d: '20 % sur les services de contenu', v: supp });
+    if (rabais) moisL.push({ t: 'Rabais — trois services combinés', d: '5 %', v: -rabais });
+    // pct : le pourcentage affiché doit suivre la commission — 15 % majoré de 20 % se présente
+    // au client comme 18 %, sinon le montant ne correspond pas au pourcentage annoncé.
+    if (d) moisL.push({ t: 'Gestion publicitaire', d: plancher ? 'forfait mensuel minimum' : '15 % du montant investi', v: d, pub: 1, pct: plancher ? 0 : 15 });
+    if (adaptP) moisL.push({ t: 'Visuels publicitaires adaptés', d: nAdapt + ' par mois — déclinaison 1:1, 4:5, story', v: adaptP, pub: 1 });
+
+    if (start && a) ponctL.push({ t: 'Démarrage — médias sociaux', d: 'prise en charge des comptes, outils, gabarits, ligne éditoriale', v: 300 });
+    if (start && media) ponctL.push({ t: 'Démarrage — campagne publicitaire', d: 'stratégie et mise en place des audiences', v: 500, pub: 1 });
+    if (e) ponctL.push({ t: 'Shooting', d: e === 5000 ? 'journée complète — 15 plans, environ 30 livrables (2 mois de contenu)' : 'demi-journée — 8 plans, environ 15 livrables (1 mois de contenu)', v: e });
+
+    var once = ponctL.reduce(function (s, l) { return s + l.v; }, 0);
+
+    // ---- Affichage V pour Design ----
+    var L = [];
+    var add = function (label, amount, dim) {
+      L.push('<div class="line"' + (dim ? ' data-dim' : '') + '><span>' + label + '</span><span>' + (typeof amount === 'string' ? amount : fmt(amount)) + '</span></div>');
+    };
+    if (a) add('A · ' + LIB_A[av] + (mode === 'full' ? ' — images incluses' : ' — adaptation'), a);
+    else add('A · Calendrier', '—', 1);
+    if (b) add('B · Vidéo &amp; formats avancés', b); else add('B · Vidéo', '—', 1);
+    if (c) add('C · Gestion de communauté', c); else add('C · Communauté', '—', 1);
+    if (supp) add('Supplément bilingue — 20 %', supp);
+    if (rabais) add('Rabais 3 blocs RS — 5 %', '− ' + fmt(rabais));
+    if (d) add('D · Gestion pub' + (plancher ? ' — plancher' : ' — 15 %'), d);
+    if (adaptP) add('D · ' + nAdapt + ' visuel' + (nAdapt > 1 ? 's' : '') + ' pub adapté' + (nAdapt > 1 ? 's' : ''), adaptP);
+
+    document.getElementById('lines').innerHTML = L.join('');
+    document.getElementById('tot').textContent = total > 0 ? fmt(total) : '—';
+    document.getElementById('once').textContent = once > 0 ? fmt(once) : '—';
+
+    var notes = [];
+    if (media > 0) notes.push('Budget média de ' + fmt(media) + '/mois payé directement par le client à la régie — non inclus ci-dessus.');
+    if (plancher) notes.push('À ' + fmt(media) + ' de budget, les 15 % donnent ' + fmt(media * 0.15) + ' — sous le plancher de 450 $.');
+    document.getElementById('note').innerHTML = notes.join(' ');
+
+    var h = total / 120;
+    var cost = e === 5000 ? 1800 : (e === 2800 ? 1000 : 0);
+    document.getElementById('int').innerHTML =
+      'Lecture interne — récurrent : <strong>' + h.toFixed(1) + ' h/mois</strong> à 120 $/h' +
+      (rabais ? ' (rabais absorbé)' : '') +
+      (cost ? ' · shooting : <strong>' + fmt(cost) + '</strong> de sous-traitance à décaisser.' : '.');
+
+    etat = { moisL: moisL, ponctL: ponctL, total: total, once: once, media: media, plancher: plancher };
+    runComm();
+  }
+
+  // ================= Commission BICOM =================
+  function tauxComm() {
+    var r = f2.querySelector('input[name="comm"]:checked').value;
+    var libre = r === 'x';
+    document.getElementById('commX').hidden = !libre;
+    var v = libre ? (+document.getElementById('commVal').value || 0) : +r;
+    return Math.max(0, v) / 100;
+  }
+
+  function majore(l, k, surPub) {
+    // La commission ne touche pas le bloc pub si la case est décochée.
+    return (l.pub && !surPub) ? l.v : l.v * (1 + k);
+  }
+
+  function runComm() {
+    var k = tauxComm();
+    var surPub = document.getElementById('commPub').checked;
+    var cM = etat.moisL.reduce(function (s, l) { return s + majore(l, k, surPub); }, 0);
+    var cO = etat.ponctL.reduce(function (s, l) { return s + majore(l, k, surPub); }, 0);
+
+    document.getElementById('cTot').textContent = cM > 0 ? fmt(cM) : '—';
+    document.getElementById('cOnce').textContent = cO > 0 ? fmt(cO) : '—';
+
+    var gainM = cM - etat.total, gainO = cO - etat.once;
+    document.getElementById('cComm').innerHTML = k > 0
+      ? 'Commission BICOM — <strong>' + fmt(gainM) + ' / mois</strong>' + (gainO > 0 ? ' · <strong>' + fmt(gainO) + '</strong> au démarrage' : '') +
+        (!surPub && etat.moisL.some(function (l) { return l.pub; }) ? ' · bloc pub épargné' : '')
+      : 'Aucune commission — le client paie le tarif V pour Design.';
+
+    document.getElementById('prev').textContent = texte(k, surPub);
+    etat.k = k; etat.surPub = surPub;
+  }
+
+  // ---------- Exports ----------
+  var W = 70;
+  var fmtS = function (n) { return n < 0 ? '− ' + fmt(-n) : fmt(n); };
+  var somme = function (arr, k, sp) { return arr.reduce(function (s, l) { return s + majore(l, k, sp); }, 0); };
+
+  // Le détail d'une ligne au pourcentage suit la commission : 15 % majoré de 20 % s'annonce 18 %.
+  function detail(l, k, surPub) {
+    if (!l.pct) return l.d;
+    var p = l.pct * (surPub ? 1 + k : 1);
+    return (Math.round(p * 100) / 100).toString().replace('.', ',') + ' % du montant investi';
+  }
+
+  function texte(k, surPub) {
+    var o = [];
+    var rangee = function (label, montant) {
+      var m = typeof montant === 'string' ? montant : fmtS(montant);
+      var g = '  ' + label;
+      o.push(g + ' '.repeat(Math.max(2, W - g.length - m.length)) + m);
+    };
+    var bloc = function (titre, lignes, libTotal) {
+      if (!lignes.length) return;
+      o.push(titre);
+      lignes.forEach(function (l) {
+        rangee(l.t, majore(l, k, surPub));
+        var dd = detail(l, k, surPub);
+        if (dd) o.push('    ' + dd);
+      });
+      o.push('  ' + '─'.repeat(W - 2));
+      rangee(libTotal, somme(lignes, k, surPub));
+      o.push('');
+    };
+
+    o.push('SERVICES — MÉDIAS SOCIAUX & PUBLICITÉ NUMÉRIQUE');
+    o.push('');
+    bloc('RÉCURRENT MENSUEL', etat.moisL, 'TOTAL MENSUEL');
+    bloc('PONCTUEL AU DÉMARRAGE', etat.ponctL, 'TOTAL PONCTUEL');
+    if (etat.media > 0) o.push('À prévoir en sus : budget média de ' + fmt(etat.media) + '/mois, payé directement à la régie.');
+    o.push('Prix en CAD, avant taxes. Engagement de 3 mois minimum sur les services récurrents.');
+    o.push('Deux plateformes incluses (Facebook + Instagram).');
+    return o.join('\n');
+  }
+
+  function tsv(k, surPub) {
+    var r = [['Section', 'Service', 'Détail', 'Montant']];
+    var pousse = function (sec, lignes, libTotal) {
+      if (!lignes.length) return;
+      lignes.forEach(function (l) { r.push([sec, l.t, detail(l, k, surPub) || '', Math.round(majore(l, k, surPub))]); });
+      r.push([sec, libTotal, '', Math.round(somme(lignes, k, surPub))]);
+    };
+    pousse('Récurrent mensuel', etat.moisL, 'TOTAL MENSUEL');
+    pousse('Ponctuel au démarrage', etat.ponctL, 'TOTAL PONCTUEL');
+    if (etat.media > 0) r.push(['En sus', 'Budget média', 'Payé directement à la régie', Math.round(etat.media)]);
+    return r.map(function (x) { return x.join('\t'); }).join('\n');
+  }
+
+  var f2 = document.querySelector('.out--client');
+  var flash = document.getElementById('flash');
+
+  document.querySelectorAll('.btn[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.dataset.copy === 'tsv' ? tsv(etat.k, etat.surPub) : texte(etat.k, etat.surPub);
+      var done = function () {
+        flash.textContent = btn.dataset.copy === 'tsv' ? 'Tableau copié — collez dans Excel ou Sheets' : 'Texte copié';
+        flash.setAttribute('data-on', '');
+        setTimeout(function () { flash.removeAttribute('data-on'); }, 2600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(t).then(done, fallback);
+      } else { fallback(); }
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (err) {
+          flash.textContent = 'Sélectionnez le texte ci-dessous pour le copier';
+          flash.setAttribute('data-on', '');
+        }
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
+  f.addEventListener('input', run);
+  f.addEventListener('change', run);
+  f2.addEventListener('input', runComm);
+  f2.addEventListener('change', runComm);
+  run();
+})();
+</script>
+</body>
+</html>
