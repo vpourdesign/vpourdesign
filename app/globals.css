@@ -304,6 +304,52 @@ a {
   padding: 24px 28px;
 }
 
+/* ---- PAGE HEADER — variante simple : eyebrow, titre, sous-titre.
+   Une seule cellule pleine largeur, texte ancré en bas comme le veut
+   la grille. À utiliser quand la sidebar et le nombre décoratif
+   n'apportent rien. ---- */
+.page-header {
+  background: var(--bg-primary);
+  border-top: 0.5px solid var(--line);
+  border-bottom: 0.5px solid var(--line);
+  padding: clamp(64px, 9vw, 128px) 32px clamp(44px, 6vw, 76px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.page-header .h1 {
+  max-width: 18ch;
+}
+
+.page-header .subline {
+  margin-top: 28px;
+  max-width: 56ch;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 40px 20px 32px;
+  }
+  .page-header .subline {
+    margin-top: 20px;
+  }
+}
+
+/* ---- LIEN CONTEXTUEL DANS UN PARAGRAPHE ---- */
+.inline-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.inline-link:hover {
+  color: var(--text-primary);
+}
+
 /* ---- TYPOGRAPHY ---- */
 .eyebrow {
   font-family: var(--font-mono);

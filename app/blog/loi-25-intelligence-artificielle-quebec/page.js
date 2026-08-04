@@ -410,6 +410,9 @@ export default function BlogLoi25IA() {
               <p>
                 Vous utilisez d&eacute;j&agrave; l&apos;IA dans votre entreprise, ou vous voulez l&apos;int&eacute;grer correctement&nbsp;? On peut vous accompagner sur trois fronts&nbsp;: cartographier vos usages actuels, mettre en place un cadre conforme &agrave; la Loi 25, et continuer &agrave; livrer des r&eacute;sultats web et marketing au m&ecirc;me rythme.
               </p>
+              <p className="body-text" style={{ marginBottom: '24px' }}>
+                Pour un accompagnement conforme pr&egrave;s de chez vous, parlez &agrave; <Link href="/agence-web-laval" className="inline-link">notre équipe à Laval</Link>.
+              </p>
               <div className="blog-cta">
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 300, color: '#F0EAD6', marginBottom: '16px' }}>Vous voulez utiliser l&apos;IA dans votre entreprise &mdash; sans entorse &agrave; la Loi 25&nbsp;?</h3>
                 <p>On commence par une discussion gratuite. On regarde vos outils actuels, on identifie les zones &agrave; risque, et on vous propose un cadre simple, sign&eacute;, qui vous permet de continuer &agrave; livrer sans inqui&eacute;tude juridique.</p>

@@ -69,7 +69,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="cell cell-c">
-          <p className="subline">Spécialistes en <strong>intelligence artificielle appliquée au web</strong>, nous concevons des sites web performants et des publicités web ciblées qui génèrent de vrais résultats pour les entreprises de la <strong>Rive-Nord et Laval.</strong></p>
+          <p className="subline">Spécialistes en <strong>intelligence artificielle appliquée au web</strong>, nous concevons des sites web performants et des publicités web ciblées qui génèrent de vrais résultats pour les entreprises de la <strong>Rive-Nord</strong> et de <strong><Link href="/agence-web-laval" style={{ color: 'inherit' }}>Laval</Link></strong>.</p>
         </div>
         <div className="cell cell-d">
           <div className="body-text" style={{ marginBottom: '8px' }}>Spécialiste web depuis</div>

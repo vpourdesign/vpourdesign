@@ -13,8 +13,11 @@ export function middleware(request) {
   // Handles: http://vpourdesign.com  http://www.vpourdesign.com  https://www.vpourdesign.com
   const isWww = hostname.startsWith('www.');
   const isHttp = proto === 'http';
+  // En local il n'y a pas de TLS : rediriger vers https rendrait le site
+  // impossible à ouvrir en dev. Aucun effet en production.
+  const isLocal = hostname.startsWith('localhost') || hostname.startsWith('127.0.0.1');
 
-  if (isWww || isHttp) {
+  if (!isLocal && (isWww || isHttp)) {
     const canonicalHost = hostname.replace(/^www\./, '');
     const newUrl = new URL(request.url);
     newUrl.protocol = 'https:';

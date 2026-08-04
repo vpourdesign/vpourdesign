@@ -20,27 +20,11 @@ export default function ServicesPage() {
       <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Services'}])} />
       <Nav />
       <ScrollReveal />
-      <section className="hero-grid">
-        <div className="cell cell-a">
-          <div className="eyebrow">Nos expertises</div>
-          <h1 className="h1">Des services web<br/>augmentés par l&apos;<em>IA</em></h1>
-        </div>
-        <div className="cell cell-b">
-          <div><div className="page-num">Services</div></div>
-          <div className="ai-icon-wrap">
-            <div className="accent-line" style={{ height: '80px' }}></div>
-          </div>
-          <div>
-            <div className="tag">V pour Design</div>
-          </div>
-        </div>
-        <div className="cell cell-c">
-          <p className="subline">Chaque service bénéficie de notre expertise en intelligence artificielle pour des résultats supérieurs, plus rapides et plus intelligents.</p>
-        </div>
-        <div className="cell cell-d">
-          <div className="deco-number">Sur<span>mesure</span></div>
-        </div>
-      </section>
+      <header className="page-header">
+        <div className="eyebrow">Nos expertises</div>
+        <h1 className="h1">Des services web<br/>augmentés par l&apos;<em>IA</em></h1>
+        <p className="subline">Chaque service bénéficie de notre expertise en intelligence artificielle pour des résultats supérieurs, plus rapides et plus intelligents.</p>
+      </header>
 
       <section>
         <div className="services-list">

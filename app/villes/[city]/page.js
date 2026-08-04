@@ -31,15 +31,33 @@ export async function generateMetadata({ params }) {
   const { city } = await params;
   const cityData = cities.find(c => c.slug === city);
   if (!cityData) return {};
+  const url = `https://vpourdesign.com/agence-web-${city}`;
   return {
-    title: cityData.metaTitle,
+    // `absolute` court-circuite le template du layout racine : sans lui le
+    // titre porte deux fois la marque.
+    title: { absolute: cityData.metaTitle },
     description: cityData.metaDescription,
     alternates: {
-      canonical: `https://vpourdesign.com/agence-web-${city}`,
+      canonical: url,
       languages: {
-        'fr-CA': `https://vpourdesign.com/agence-web-${city}`,
+        'fr-CA': url,
         'en': `https://vpourdesign.com/en/web-agency-${city}`,
       },
+    },
+    // Sans ce bloc, la page hérite des balises OG de l'accueil et Google la
+    // rattache à l'entité « V pour Design » plutôt qu'à la ville.
+    openGraph: {
+      title: cityData.metaTitle,
+      description: cityData.metaDescription,
+      url,
+      siteName: 'V pour Design',
+      locale: 'fr_CA',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: cityData.metaTitle,
+      description: cityData.metaDescription,
     },
   };
 }

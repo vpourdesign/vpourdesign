@@ -74,7 +74,7 @@ export default function SeoReferencementPage() {
               SEO local <em style={{ color: 'var(--accent)' }}>dominant</em>
             </h2>
             <p style={{ fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif', fontWeight: 300, fontSize: '16px', color: 'var(--text-muted)', lineHeight: 1.7, maxWidth: '60ch' }}>
-              Pages d&eacute;di&eacute;es par ville (Laval, Blainville, Terrebonne, Boisbriand, Sainte-Th&eacute;r&egrave;se), Google Business Profile optimis&eacute;, citations NAP coh&eacute;rentes — vous apparaissez l&agrave; o&ugrave; vos clients cherchent.
+              Une page d&eacute;di&eacute;e par ville : <Link href="/agence-web-laval" className="inline-link">agence web Laval</Link>, Blainville, Terrebonne, Boisbriand, Sainte-Th&eacute;r&egrave;se. Google Business Profile optimis&eacute;, citations NAP coh&eacute;rentes — vous apparaissez l&agrave; o&ugrave; vos clients cherchent.
             </p>
           </div>
         </div>

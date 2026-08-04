@@ -188,6 +188,9 @@ export default function BlogArticleCout() {
               <p>
                 L&apos;important, ce n&apos;est pas de trouver le prix le plus bas — c&apos;est de trouver le meilleur retour sur investissement. Un site à 8 000$ qui génère 50 000$ de revenus vaut infiniment plus qu&apos;un site à 1 500$ qui ne génère rien.
               </p>
+              <p className="body-text" style={{ marginBottom: '24px' }}>
+                Vous cherchez un prix pour un projet dans la r&eacute;gion&nbsp;? Consultez notre <Link href="/agence-web-laval" className="inline-link">agence web Laval</Link>.
+              </p>
               <div className="blog-cta">
                 <p><strong>Besoin d&apos;une soumission pour votre projet?</strong> On offre une consultation gratuite pour évaluer vos besoins et vous proposer une solution adaptée à votre budget et vos objectifs.</p>
                 <Link href="/contact" className="blog-cta-link">Demander une soumission gratuite →</Link>

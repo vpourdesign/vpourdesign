@@ -52,6 +52,15 @@ export default function CreationSiteWebPage() {
           }}>
             Chaque pixel, chaque ligne de code, chaque interaction est pens&eacute;e pour convertir vos visiteurs en clients. Pas un site vitrine. Un outil de croissance.
           </p>
+          <p style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '13px',
+            color: 'var(--text-muted)',
+            lineHeight: 1.75,
+            marginTop: '24px',
+          }}>
+            Vous &ecirc;tes dans la r&eacute;gion&nbsp;? Voyez notre <Link href="/agence-web-laval" className="inline-link">agence web Laval</Link>.
+          </p>
         </div>
         <div style={{ padding: 'clamp(32px, 4vw, 64px)', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '300px' }}>
           <svg viewBox="0 0 80 80" fill="none" style={{ width: '200px', height: '200px' }}>

@@ -366,6 +366,9 @@ export default function BlogSeoLocalRosemere() {
               <p>
                 Si vous n&apos;&ecirc;tes pas certain de savoir comment votre commerce appara&icirc;t (ou n&apos;appara&icirc;t pas) dans les recherches locales autour de Rosem&egrave;re, la premi&egrave;re &eacute;tape est simple&nbsp;: faites le test vous-m&ecirc;me. Prenez votre t&eacute;l&eacute;phone, activez la localisation, et cherchez votre type de service depuis Lorraine ou Boisbriand. Si vous n&apos;apparaissez pas dans les premiers r&eacute;sultats &mdash; ou pas du tout &mdash; c&apos;est qu&apos;il y a du travail &agrave; faire.
               </p>
+              <p className="body-text" style={{ marginBottom: '24px' }}>
+                Le m&ecirc;me travail de r&eacute;f&eacute;rencement local s&apos;applique plus &agrave; l&apos;ouest&nbsp;: notre <Link href="/agence-web-laval" className="inline-link">agence web Laval</Link>.
+              </p>
               <div className="blog-cta">
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(20px, 2.5vw, 28px)', fontWeight: 300, color: '#F0EAD6', marginBottom: '16px' }}>Vous voulez savoir comment votre commerce appara&icirc;t sur Google dans les villes voisines&nbsp;?</h3>
                 <p>On commence par un diagnostic gratuit de votre visibilit&eacute; locale. On regarde o&ugrave; vous en &ecirc;tes, on identifie les lacunes concr&egrave;tes, et on b&acirc;tit une strat&eacute;gie qui refl&egrave;te r&eacute;ellement la zone que vous servez.</p>

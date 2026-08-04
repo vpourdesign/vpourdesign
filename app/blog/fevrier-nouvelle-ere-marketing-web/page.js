@@ -272,6 +272,9 @@ export default function BlogArticleFevrier() {
               <p>
                 <strong>Bienvenue dans la nouvelle &egrave;re.</strong>
               </p>
+              <p className="body-text" style={{ marginBottom: '24px' }}>
+                On accompagne aussi les commerces lavallois&nbsp;: <Link href="/agence-web-laval" className="inline-link">notre agence web à Laval</Link>.
+              </p>
               <div className="blog-cta">
                 <p><strong>Envie d&apos;en discuter?</strong> On offre une consultation gratuite pour analyser votre pr&eacute;sence web actuelle et identifier comment l&apos;IA peut transformer votre marketing.</p>
                 <Link href="/contact" className="blog-cta-link">R&eacute;server une consultation gratuite &rarr;</Link>

@@ -193,6 +193,9 @@ export default function BlogArticleIA() {
               <p>
                 On ne parle pas de refaire votre site avec des robots. On parle de construire une présence numérique stratégique, optimisée pour attirer les bons clients dans votre région, avec un design qui inspire confiance dès le premier clic.
               </p>
+              <p className="body-text" style={{ marginBottom: '24px' }}>
+                Une PME &agrave; Laval&nbsp;? Voyez ce qu&apos;on fait comme <Link href="/agence-web-laval" className="inline-link">agence web Laval</Link>.
+              </p>
               <div className="blog-cta">
                 <p><strong>Envie d&apos;en discuter?</strong> On offre une consultation gratuite pour analyser votre présence web actuelle et identifier les opportunités d&apos;amélioration grâce à l&apos;IA.</p>
                 <Link href="/contact" className="blog-cta-link">Réserver une consultation gratuite →</Link>
