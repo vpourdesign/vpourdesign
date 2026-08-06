@@ -14,8 +14,16 @@ export const metadata = {
 export default function BlogPage() {
   const articles = [
     {
-      id: 9,
+      id: 10,
       num: '01',
+      title: 'Intelligence artificielle · Performance',
+      description: 'Même prix, 4 fois plus de performance : ce que l’IA change vraiment pour votre site web',
+      status: 'Nouveau',
+      slug: '/blog/meme-prix-4x-plus-performance-site-web',
+    },
+    {
+      id: 9,
+      num: '02',
       title: 'Conformité · Intelligence artificielle',
       description: 'Loi 25 et IA au Québec : ce que ça change, et comment V pour Design protège vos données',
       status: 'Nouveau',
@@ -23,7 +31,7 @@ export default function BlogPage() {
     },
     {
       id: 8,
-      num: '02',
+      num: '03',
       title: 'SEO local · Basses-Laurentides',
       description: 'Mon commerce est à Rosemère — pourquoi mes clients de Lorraine ne me trouvent pas sur Google ?',
       status: 'Nouveau',
@@ -31,7 +39,7 @@ export default function BlogPage() {
     },
     {
       id: 7,
-      num: '03',
+      num: '04',
       title: 'Intelligence artificielle · Réseaux sociaux',
       description: 'L\'IA pour les réseaux sociaux : arrêtez de poster dans le vide',
       status: 'Nouveau',
@@ -39,7 +47,7 @@ export default function BlogPage() {
     },
     {
       id: 6,
-      num: '04',
+      num: '05',
       title: 'Marketing web',
       description: 'Février a tout changé : bienvenue dans la nouvelle ère du marketing web',
       status: 'Nouveau',
@@ -47,7 +55,7 @@ export default function BlogPage() {
     },
     {
       id: 1,
-      num: '05',
+      num: '06',
       title: 'Intelligence artificielle',
       description: 'Comment l\'IA transforme le web design pour les PME de la Rive-Nord',
       status: 'Nouveau',
@@ -55,7 +63,7 @@ export default function BlogPage() {
     },
     {
       id: 4,
-      num: '06',
+      num: '07',
       title: 'Guides pratiques',
       description: 'Combien coûte un site web au Québec en 2026?',
       status: 'Nouveau',
@@ -65,7 +73,7 @@ export default function BlogPage() {
 
   return (
     <>
-      <JsonLd data={collectionSchema({name:'Blog',description:'Articles et ressources sur l\u0027intelligence artificielle, le web design, le SEO local et les tendances num\u00e9riques pour les PME de la Rive-Nord.',url:'/blog',items:articles.filter(a => a.slug).map(a => ({name:a.description,url:a.slug}))})} />
+      <JsonLd data={collectionSchema({name:'Blog',description:'Articles et ressources sur l’intelligence artificielle, le web design, le SEO local et les tendances numériques pour les PME de la Rive-Nord.',url:'/blog',items:articles.filter(a => a.slug).map(a => ({name:a.description,url:a.slug}))})} />
       <JsonLd data={breadcrumbSchema([{name:'Accueil',url:'/'},{name:'Blog'}])} />
       <Nav />
       <ScrollReveal />

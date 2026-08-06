@@ -32,6 +32,7 @@ export default function sitemap() {
     { slug: 'ia-pain-points-reseaux-sociaux',         date: '2026-04-07' },
     { slug: 'seo-local-rosemere-villes-voisines',     date: '2026-04-11' },
     { slug: 'loi-25-intelligence-artificielle-quebec', date: '2026-05-04' },
+    { slug: 'meme-prix-4x-plus-performance-site-web', date: '2026-08-04' },
   ].map(post => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.date),
