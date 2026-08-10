@@ -1,9 +1,22 @@
 import { google } from 'googleapis';
 import { NextResponse } from 'next/server';
 
+// Le rapport interroge Search Console + GA4 en direct : jamais de cache statique,
+// et il faut plus que les 10 s par défaut de l'hébergeur pour agréger 11 appels.
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+export const maxDuration = 60;
+
 // Auth via service account
 function getAuth() {
-  const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY || '{}');
+  let credentials;
+  try {
+    credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY || '{}');
+  } catch {
+    // Cause habituelle : la clé JSON a été collée sur plusieurs lignes. Elle doit
+    // tenir sur une seule ligne, avec les sauts de ligne de la clé privée en \n.
+    throw new Error('GOOGLE_SERVICE_ACCOUNT_KEY illisible — le JSON doit être sur une seule ligne (\\n échappés dans private_key).');
+  }
   return new google.auth.GoogleAuth({
     credentials,
     scopes: [
@@ -271,6 +284,210 @@ function daysAgo(n) {
   return formatDate(d);
 }
 
+// ── Résilience : un appel Google qui échoue ou traîne ne doit pas vider le rapport ──
+// Chaque source a un délai maximal et une valeur de repli ; l'erreur est collectée
+// et renvoyée dans `errors[]` au lieu de faire planter toute la réponse.
+const SOURCE_TIMEOUT_MS = 20000;
+
+async function safeSource(label, fallback, fn, errors) {
+  try {
+    let timer;
+    const timeout = new Promise((_, reject) => {
+      timer = setTimeout(() => reject(new Error(`délai dépassé (${SOURCE_TIMEOUT_MS} ms)`)), SOURCE_TIMEOUT_MS);
+    });
+    try {
+      return await Promise.race([fn(), timeout]);
+    } finally {
+      clearTimeout(timer);
+    }
+  } catch (error) {
+    console.error(`Rapport — source « ${label} » indisponible :`, error.message);
+    errors.push({ source: label, message: error.message });
+    return fallback;
+  }
+}
+
+// Cache mémoire : survit aux invocations chaudes. Le rapport hebdo et le dashboard
+// tapent les mêmes données ; inutile de refaire 11 appels Google à chaque fois.
+const REPORT_TTL_MS = 60 * 60 * 1000; // 1 h
+const reportCache = { data: null, ts: 0 };
+
+// ── Shared: build the full report payload via the service account ──
+// Used by both POST (dashboard) and GET (automated feed for the SEO report).
+async function generateReportPayload({ useCache = false } = {}) {
+  if (useCache && reportCache.data && Date.now() - reportCache.ts < REPORT_TTL_MS) {
+    return { ...reportCache.data, cached: true, cacheAgeMinutes: Math.round((Date.now() - reportCache.ts) / 60000) };
+  }
+
+  const errors = [];
+  const auth = getAuth();
+  const siteUrl = 'sc-domain:vpourdesign.com';
+  const propertyId = process.env.GA4_PROPERTY_ID || '374889119';
+
+  const today = formatDate(new Date());
+  const weekStart = daysAgo(7);
+  const monthStart = daysAgo(30);
+
+  const emptyGa = { activeUsers: '0', newUsers: '0', sessions: '0', pageViews: '0', avgSessionDuration: '0', bounceRate: '0' };
+
+  const [
+    scWeekQueries,
+    scMonthQueries,
+    scWeekPages,
+    scLavalQueries,
+    scAgenceWebQueries,
+    scBroadQueries,
+    gaWeek,
+    gaMonth,
+    gaTopPagesWeek,
+    gaTrafficWeek,
+    gaRealtime,
+  ] = await Promise.all([
+    safeSource('gsc:requêtes 7j', [], () => getSearchConsoleData(auth, siteUrl, weekStart, today, ['query']), errors),
+    safeSource('gsc:requêtes 30j', [], () => getSearchConsoleData(auth, siteUrl, monthStart, today, ['query']), errors),
+    safeSource('gsc:pages 7j', [], () => getSearchConsoleData(auth, siteUrl, weekStart, today, ['page']), errors),
+    safeSource('gsc:laval', [], () => getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'laval'), errors),
+    safeSource('gsc:agence web', [], () => getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'agence web'), errors),
+    safeSource('gsc:top 200 / 90j', [], () => getTopQueriesBroad(auth, siteUrl), errors),
+    safeSource('ga4:7j', emptyGa, () => getAnalyticsData(auth, propertyId, weekStart, today), errors),
+    safeSource('ga4:30j', emptyGa, () => getAnalyticsData(auth, propertyId, monthStart, today), errors),
+    safeSource('ga4:top pages', [], () => getAnalyticsTopPages(auth, propertyId, weekStart, today), errors),
+    safeSource('ga4:sources', [], () => getAnalyticsTrafficSources(auth, propertyId, weekStart, today), errors),
+    safeSource('ga4:temps réel', '0', () => getAnalyticsRealtime(auth, propertyId), errors),
+  ]);
+
+  const broadMap = {};
+  for (const row of scBroadQueries) {
+    broadMap[row.keys[0].toLowerCase()] = row;
+  }
+
+  const competitiveRows = TARGET_KEYWORDS.map(kw => {
+    const exact = broadMap[kw];
+    const partial = !exact
+      ? scBroadQueries.find(r => r.keys[0].toLowerCase().includes(kw) || kw.includes(r.keys[0].toLowerCase()))
+      : null;
+    const match = exact || partial;
+    return {
+      keyword: kw,
+      myPosition: match ? parseFloat(match.position).toFixed(1) : '50+',
+      myClicks: match ? match.clicks : 0,
+      myImpressions: match ? match.impressions : 0,
+    };
+  });
+
+  const shuffled = [...BLOG_POOL].sort(() => Math.random() - 0.5);
+  const blogSuggestions = shuffled.slice(0, 5);
+
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    // `ok: false` = données partielles. Le rapport doit le dire au lieu de faire semblant.
+    ok: errors.length === 0,
+    errors,
+    realtime: { activeUsers: gaRealtime },
+    objectives: {
+      laval: {
+        label: 'Grimper — agence web laval',
+        target: 'Top 5',
+        queries: scLavalQueries.map(r => ({
+          query: r.keys[0],
+          clicks: r.clicks,
+          impressions: r.impressions,
+          ctr: (r.ctr * 100).toFixed(1),
+          position: r.position.toFixed(1),
+        })),
+      },
+      rosemere: {
+        label: 'Autorité — agence web rive-nord',
+        target: 'Top 3',
+        queries: scAgenceWebQueries.map(r => ({
+          query: r.keys[0],
+          clicks: r.clicks,
+          impressions: r.impressions,
+          ctr: (r.ctr * 100).toFixed(1),
+          position: r.position.toFixed(1),
+        })),
+      },
+    },
+    competitive: {
+      competitors: COMPETITORS,
+      rows: competitiveRows,
+      hasSerpKey: !!process.env.SERPAPI_KEY,
+    },
+    blogSuggestions,
+    blogPool: BLOG_POOL,
+    analytics: {
+      week: gaWeek,
+      month: gaMonth,
+      topPages: gaTopPagesWeek,
+      trafficSources: gaTrafficWeek,
+    },
+    searchConsole: {
+      weekQueries: scWeekQueries.slice(0, 15).map(r => ({
+        query: r.keys[0],
+        clicks: r.clicks,
+        impressions: r.impressions,
+        ctr: (r.ctr * 100).toFixed(1),
+        position: r.position.toFixed(1),
+      })),
+      monthQueries: scMonthQueries.slice(0, 15).map(r => ({
+        query: r.keys[0],
+        clicks: r.clicks,
+        impressions: r.impressions,
+        ctr: (r.ctr * 100).toFixed(1),
+        position: r.position.toFixed(1),
+      })),
+      weekPages: scWeekPages.slice(0, 10).map(r => ({
+        page: r.keys[0],
+        clicks: r.clicks,
+        impressions: r.impressions,
+        ctr: (r.ctr * 100).toFixed(1),
+        position: r.position.toFixed(1),
+      })),
+    },
+  };
+
+  // On ne met en cache qu'un rapport complet — jamais des données partielles.
+  if (errors.length === 0) {
+    reportCache.data = payload;
+    reportCache.ts = Date.now();
+  }
+
+  return payload;
+}
+
+// ── Automated feed (GET) — service-account only, token-protected ──
+// Called by the scheduled SEO-report task via a simple GET (no browser, no login).
+// Auth: ?token=<RAPPORT_FEED_TOKEN>. Falls back to RAPPORT_PASSWORD if the
+// dedicated token isn't set. Read-only; returns the same JSON as the dashboard.
+// Toujours 200 avec un corps JSON — même en cas de panne, pour que la tâche
+// planifiée reçoive un diagnostic lisible plutôt qu'une réponse vide.
+export async function GET(request) {
+  try {
+    const token = new URL(request.url).searchParams.get('token');
+    const validToken = process.env.RAPPORT_FEED_TOKEN || process.env.RAPPORT_PASSWORD || 'vpd2026';
+    if (!token || token !== validToken) {
+      return NextResponse.json(
+        { ok: false, error: 'unauthorized', message: 'Token invalide ou absent — vérifier RAPPORT_FEED_TOKEN sur l\'hébergeur.' },
+        { status: 401 }
+      );
+    }
+    if (!process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+      return NextResponse.json(
+        { ok: false, error: 'missing_credentials', message: 'GOOGLE_SERVICE_ACCOUNT_KEY absente de l\'environnement de production.' },
+        { status: 200 }
+      );
+    }
+    const payload = await generateReportPayload({ useCache: true });
+    return NextResponse.json(payload, { headers: { 'Cache-Control': 'no-store' } });
+  } catch (error) {
+    console.error('Rapport feed (GET) error:', error);
+    return NextResponse.json(
+      { ok: false, error: 'api_error', message: error.message },
+      { status: 200, headers: { 'Cache-Control': 'no-store' } }
+    );
+  }
+}
+
 // ── Main handler ──
 export async function POST(request) {
   try {
@@ -296,131 +513,8 @@ export async function POST(request) {
       });
     }
 
-    const auth = getAuth();
-    const siteUrl = 'sc-domain:vpourdesign.com';
-    const propertyId = process.env.GA4_PROPERTY_ID || '374889119';
-
-    const today = formatDate(new Date());
-    const weekStart = daysAgo(7);
-    const monthStart = daysAgo(30);
-
-    // Parallel API calls
-    const [
-      // Search Console
-      scWeekQueries,
-      scMonthQueries,
-      scWeekPages,
-      scLavalQueries,
-      scAgenceWebQueries,
-      scBroadQueries,
-      // GA4
-      gaWeek,
-      gaMonth,
-      gaTopPagesWeek,
-      gaTrafficWeek,
-      gaRealtime,
-    ] = await Promise.all([
-      getSearchConsoleData(auth, siteUrl, weekStart, today, ['query']),
-      getSearchConsoleData(auth, siteUrl, monthStart, today, ['query']),
-      getSearchConsoleData(auth, siteUrl, weekStart, today, ['page']),
-      getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'laval'),
-      getSearchConsoleQueryData(auth, siteUrl, monthStart, today, 'agence web'),
-      getTopQueriesBroad(auth, siteUrl),
-      getAnalyticsData(auth, propertyId, weekStart, today),
-      getAnalyticsData(auth, propertyId, monthStart, today),
-      getAnalyticsTopPages(auth, propertyId, weekStart, today),
-      getAnalyticsTrafficSources(auth, propertyId, weekStart, today),
-      getAnalyticsRealtime(auth, propertyId),
-    ]);
-
-    // ── Build competitive table ──
-    const broadMap = {};
-    for (const row of scBroadQueries) {
-      broadMap[row.keys[0].toLowerCase()] = row;
-    }
-
-    const competitiveRows = TARGET_KEYWORDS.map(kw => {
-      const exact = broadMap[kw];
-      const partial = !exact
-        ? scBroadQueries.find(r => r.keys[0].toLowerCase().includes(kw) || kw.includes(r.keys[0].toLowerCase()))
-        : null;
-      const match = exact || partial;
-      return {
-        keyword: kw,
-        myPosition: match ? parseFloat(match.position).toFixed(1) : '50+',
-        myClicks: match ? match.clicks : 0,
-        myImpressions: match ? match.impressions : 0,
-      };
-    });
-
-    // ── Blog suggestions — 5 random from pool ──
-    const shuffled = [...BLOG_POOL].sort(() => Math.random() - 0.5);
-    const blogSuggestions = shuffled.slice(0, 5);
-
-    return NextResponse.json({
-      generatedAt: new Date().toISOString(),
-      realtime: { activeUsers: gaRealtime },
-      objectives: {
-        laval: {
-          label: 'Grimper — agence web laval',
-          target: 'Top 5',
-          queries: scLavalQueries.map(r => ({
-            query: r.keys[0],
-            clicks: r.clicks,
-            impressions: r.impressions,
-            ctr: (r.ctr * 100).toFixed(1),
-            position: r.position.toFixed(1),
-          })),
-        },
-        rosemere: {
-          label: 'Autorité — agence web rive-nord',
-          target: 'Top 3',
-          queries: scAgenceWebQueries.map(r => ({
-            query: r.keys[0],
-            clicks: r.clicks,
-            impressions: r.impressions,
-            ctr: (r.ctr * 100).toFixed(1),
-            position: r.position.toFixed(1),
-          })),
-        },
-      },
-      competitive: {
-        competitors: COMPETITORS,
-        rows: competitiveRows,
-        hasSerpKey: !!process.env.SERPAPI_KEY,
-      },
-      blogSuggestions,
-      blogPool: BLOG_POOL,
-      analytics: {
-        week: gaWeek,
-        month: gaMonth,
-        topPages: gaTopPagesWeek,
-        trafficSources: gaTrafficWeek,
-      },
-      searchConsole: {
-        weekQueries: scWeekQueries.slice(0, 15).map(r => ({
-          query: r.keys[0],
-          clicks: r.clicks,
-          impressions: r.impressions,
-          ctr: (r.ctr * 100).toFixed(1),
-          position: r.position.toFixed(1),
-        })),
-        monthQueries: scMonthQueries.slice(0, 15).map(r => ({
-          query: r.keys[0],
-          clicks: r.clicks,
-          impressions: r.impressions,
-          ctr: (r.ctr * 100).toFixed(1),
-          position: r.position.toFixed(1),
-        })),
-        weekPages: scWeekPages.slice(0, 10).map(r => ({
-          page: r.keys[0],
-          clicks: r.clicks,
-          impressions: r.impressions,
-          ctr: (r.ctr * 100).toFixed(1),
-          position: r.position.toFixed(1),
-        })),
-      },
-    });
+    // Même source que le flux automatisé (GET) — un seul chemin de données.
+    return NextResponse.json(await generateReportPayload());
   } catch (error) {
     console.error('Rapport API error:', error);
     return NextResponse.json(
