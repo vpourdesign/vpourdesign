@@ -13,6 +13,7 @@ const nextConfig = {
   // ne l'embarque pas dans le bundle serverless et la route renvoie 500 en production.
   outputFileTracingIncludes: {
     '/api/bicom/grille': ['./content/bicom/**'],
+    '/api/atelierjacob-seo/plan': ['./content/atelierjacob/**'],
   },
   async headers() {
     return [
@@ -22,6 +23,14 @@ const nextConfig = {
       },
       {
         source: '/api/bicom/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' }],
+      },
+      {
+        source: '/atelierjacob-seo',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' }],
+      },
+      {
+        source: '/api/atelierjacob-seo/:path*',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' }],
       },
     ];
