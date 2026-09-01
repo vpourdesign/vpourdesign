@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agency Killer — V pour Design</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&family=Inter:wght@400;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grenadine:#D44720; --beeswax:#E9A752; --darlington:#ACCAB2;
+  --marine:#10394B; --marine-800:#0B2836; --azur:#3E7C99; --brume:#CFE1E6;
+  --latte:#3A3A3A; --cream:#F7F5F2; --ink:#111111; --night:#0D0D0D;
+  --radius:4px;
+  --border-light:rgba(58,58,58,.25);
+  --border-dark:rgba(247,245,242,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:var(--night);overflow:hidden}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);font-size:clamp(16px,1.35vw,26px);line-height:1.7}
+h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:-0.015em;line-height:1.0}
+.mono{font-family:'Roboto Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;font-size:clamp(11px,0.85vw,16px);font-weight:500}
+.num{font-variant-numeric:tabular-nums}
+strong{font-weight:700}
+
+/* ---- deck ---- */
+.slide{position:fixed;inset:0;display:none;flex-direction:column;padding:clamp(32px,5vw,96px);overflow:hidden}
+.slide.active{display:flex}
+
+/* grounds */
+.g-cream{background:var(--cream);color:var(--ink)}
+.g-night{background:var(--night);color:var(--cream)}
+.g-marine{background:var(--marine-800);color:var(--cream)}
+.g-grenadine{background:var(--grenadine);color:var(--cream)}
+.g-beeswax{background:var(--beeswax);color:var(--ink)}
+.g-brume{background:var(--brume);color:var(--ink)}
+
+.label{margin-bottom:clamp(16px,2vh,32px)}
+.g-cream .label,.g-brume .label{color:var(--grenadine)}
+.g-beeswax .label{color:var(--ink)}
+.g-night .label,.g-marine .label{color:var(--beeswax)}
+.g-grenadine .label{color:var(--cream)}
+
+.h-xl{font-size:clamp(48px,7.2vw,150px)}
+.h-lg{font-size:clamp(36px,5vw,100px)}
+.h-md{font-size:clamp(26px,3.2vw,64px)}
+.h-sm{font-size:clamp(18px,1.9vw,38px)}
+.accent{color:var(--grenadine)}
+.g-night .accent,.g-marine .accent{color:var(--beeswax)}
+
+.body-col{max-width:68ch}
+.lead{font-size:clamp(18px,1.7vw,34px);line-height:1.6}
+
+.footerline{position:absolute;left:clamp(32px,5vw,96px);right:clamp(32px,5vw,96px);bottom:clamp(20px,3vh,40px);display:flex;justify-content:space-between;align-items:center;opacity:.75}
+.footerline img{height:clamp(18px,2vh,30px)}
+
+/* cards / blocks */
+.grid{display:grid;gap:clamp(12px,1.4vw,28px)}
+.card{border:1px solid var(--border-light);border-radius:var(--radius);padding:clamp(14px,1.6vw,32px);background:var(--cream)}
+.g-night .card,.g-marine .card{background:transparent;border-color:var(--border-dark)}
+.card .mono{display:block;margin-bottom:.6em}
+.card p{line-height:1.5;font-size:clamp(13px,1.05vw,21px)}
+.card h3{font-size:clamp(15px,1.35vw,28px);margin-bottom:.35em;line-height:1.1}
+
+.kv{display:flex;gap:.7em;align-items:baseline}
+.kv .n{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(24px,2.6vw,52px);color:var(--grenadine)}
+
+img.frame{border-radius:var(--radius);display:block;max-width:100%;height:auto}
+video{border-radius:var(--radius);display:block;background:var(--night)}
+
+.pill{display:inline-block;border:1px solid var(--border-light);border-radius:var(--radius);padding:.25em .7em}
+.g-night .pill,.g-marine .pill{border-color:var(--border-dark)}
+
+/* les étiquettes en haut à droite laissent la place au compteur */
+.slide > div:first-child > span.mono{margin-right:clamp(70px,6.5vw,130px)}
+
+/* counter + hint */
+#counter{position:fixed;right:clamp(20px,2.5vw,44px);top:clamp(18px,2.5vh,36px);z-index:50;color:var(--cream);mix-blend-mode:difference;font-family:'Roboto Mono',monospace;font-size:clamp(11px,0.85vw,16px);letter-spacing:0.08em;font-variant-numeric:tabular-nums}
+#hint{position:fixed;left:50%;transform:translateX(-50%);bottom:10px;z-index:50;color:var(--cream);mix-blend-mode:difference;font-family:'Roboto Mono',monospace;font-size:11px;letter-spacing:0.08em;opacity:.55}
+
+/* pipeline */
+.pipe{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(10px,1vw,22px);align-items:stretch}
+.pipe .card{display:flex;flex-direction:column;gap:.4em}
+.pipe .step{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(20px,2vw,40px);color:var(--grenadine)}
+.g-marine .pipe .step{color:var(--beeswax)}
+
+.two{display:grid;grid-template-columns:1.35fr .65fr;gap:clamp(24px,3vw,64px);flex:1;min-height:0;align-items:start}
+
+ul.clean{list-style:none}
+ul.clean li{padding-left:1.4em;position:relative;margin-bottom:.45em;line-height:1.45;font-size:clamp(14px,1.15vw,23px)}
+ul.clean li::before{content:"";position:absolute;left:0;top:.55em;width:.6em;height:2px;background:var(--grenadine)}
+.g-night ul.clean li::before,.g-marine ul.clean li::before{background:var(--beeswax)}
+
+.quotebox{border-left:none;border:1px solid var(--border-light);border-radius:var(--radius);padding:clamp(16px,2vw,36px);font-family:'Roboto Mono',monospace;font-size:clamp(13px,1.05vw,20px);line-height:1.6;letter-spacing:0;text-transform:none;background:var(--cream)}
+.g-night .quotebox,.g-marine .quotebox{background:rgba(247,245,242,.04);border-color:var(--border-dark);color:var(--cream)}
+</style>
+</head>
+<body>
+
+<div id="counter" class="num">01 / 18</div>
+<div id="hint">FLÈCHES OU CLIC POUR AVANCER · F POUR PLEIN ÉCRAN</div>
+
+<!-- 01 · COVER -->
+<section class="slide g-night" style="background:linear-gradient(rgba(13,13,13,.68),rgba(13,13,13,.68)),url('assets/bg4.jpg') center/cover">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <img src="assets/logo-vpourdesign-creme.png" alt="V pour Design" style="height:clamp(110px,19vh,280px);width:auto;align-self:flex-start;margin-bottom:clamp(28px,5vh,64px)">
+    <h1 style="font-size:clamp(56px,8.6vw,190px);white-space:nowrap">Agency Killer.</h1>
+    <p style="margin-top:clamp(20px,3vh,44px);color:var(--cream);font-size:clamp(30px,5.1vw,112px);line-height:1.15;font-weight:600">Mon stack Claude pour tuer l'agence créative traditionnelle.</p>
+  </div>
+</section>
+
+<!-- 02 · DYNAMO -->
+<section class="slide g-cream">
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr .82fr;gap:0">
+    <div style="min-width:0;display:flex;flex-direction:column;justify-content:center;padding-right:calc(clamp(240px,21vw,400px) * .45 + clamp(20px,2vw,44px))">
+      <div class="mono label">Introduction · Paul A. David, 1990</div>
+      <h2 class="h-md" style="max-width:20ch">La dynamo et l'ordinateur.</h2>
+      <div style="margin-top:clamp(16px,2.6vh,36px);max-width:58ch;font-size:clamp(14px,1.15vw,23px);line-height:1.6">
+        <p>Quand l'électricité arrive, les usines ne se transforment pas. Tout le monde court <strong>brancher la dynamo sur les machines à vapeur existantes</strong> : même bâtiment, même arbre de transmission central, mêmes courroies.</p>
+        <p style="margin-top:.9em">Les gains de productivité n'apparaissent que <strong>des décennies plus tard</strong>, quand on repense l'usine autour du moteur : un petit moteur par machine, l'atelier réorganisé autour du travail, pas autour de la source d'énergie.</p>
+        <p style="margin-top:.9em">C'est le paradoxe de productivité que Paul A. David décrit dans <em>The Dynamo and the Computer</em>. Et c'est exactement où on est rendus avec l'intelligence artificielle.</p>
+      </div>
+    </div>
+    <div style="position:relative;min-width:0;margin:calc(-1 * clamp(32px,5vw,96px)) calc(-1 * clamp(32px,5vw,96px)) calc(-1 * clamp(32px,5vw,96px)) 0">
+      <img src="assets/vapeur.jpg" alt="Salle des machines à vapeur, vers 1900" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center">
+      <span class="mono" style="position:absolute;right:clamp(16px,1.6vw,32px);bottom:clamp(14px,1.6vh,28px);color:var(--cream);background:rgba(13,13,13,.55);padding:.35em .8em;border-radius:var(--radius)">Salle des machines, vers 1900</span>
+      <div style="position:absolute;left:0;top:50%;transform:translate(-45%,-50%);display:flex;flex-direction:column;gap:clamp(10px,1.4vh,20px);width:clamp(240px,21vw,400px)">
+        <div class="card" style="border-color:var(--latte)"><span class="mono num">1890</span><p>La dynamo remplace la vapeur. Rien ne change dans l'usine.</p></div>
+        <div class="card" style="border-color:var(--latte)"><span class="mono num">1920</span><p>L'usine est repensée autour du moteur. La productivité explose.</p></div>
+        <div class="card" style="border-color:var(--grenadine);border-width:2px"><span class="mono num" style="color:var(--grenadine)">2026</span><p>On est à l'étape de la dynamo. Ceux qui repensent leur métier autour de l'IA prennent l'avance.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02b · LES DÉPARTEMENTS -->
+<section class="slide g-night">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em;margin-bottom:clamp(14px,2vh,30px)">
+    <div>
+      <div class="mono label" style="margin-bottom:.5em">L'agence, repensée autour du moteur</div>
+      <h2 class="h-md">Quatre départements à automatiser.</h2>
+    </div>
+  </div>
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(12px,1.4vw,28px)">
+    <div style="position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <img src="assets/dept-web.jpg" alt="Site web" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;inset:0;background:rgba(13,13,13,.58)"></div>
+      <span class="mono num" style="position:relative;color:var(--beeswax);margin-bottom:.5em;font-size:clamp(13px,1.1vw,22px)">01</span>
+      <h3 style="position:relative;font-size:clamp(26px,2.8vw,60px);line-height:1.05;color:#ffffff;text-align:center">Site web</h3>
+    </div>
+    <div style="position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <img src="assets/dept-creatif.jpg" alt="Création publicitaire" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;inset:0;background:rgba(13,13,13,.58)"></div>
+      <span class="mono num" style="position:relative;color:var(--beeswax);margin-bottom:.5em;font-size:clamp(13px,1.1vw,22px)">02</span>
+      <h3 style="position:relative;font-size:clamp(26px,2.8vw,60px);line-height:1.05;color:#ffffff;text-align:center">Création publicitaire</h3>
+    </div>
+    <div style="position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <img src="assets/dept-sem.jpg" alt="Publicité payante" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;inset:0;background:rgba(13,13,13,.58)"></div>
+      <span class="mono num" style="position:relative;color:var(--beeswax);margin-bottom:.5em;font-size:clamp(13px,1.1vw,22px)">03</span>
+      <h3 style="position:relative;font-size:clamp(26px,2.8vw,60px);line-height:1.05;color:#ffffff;text-align:center">Publicité payante · SEM</h3>
+    </div>
+    <div style="position:relative;min-height:0;border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center">
+      <img src="assets/dept-seo.jpg" alt="Référencement" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <div style="position:absolute;inset:0;background:rgba(13,13,13,.58)"></div>
+      <span class="mono num" style="position:relative;color:var(--beeswax);margin-bottom:.5em;font-size:clamp(13px,1.1vw,22px)">04</span>
+      <h3 style="position:relative;font-size:clamp(26px,2.8vw,60px);line-height:1.05;color:#ffffff;text-align:center">Référencement · SEO</h3>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · LA LEÇON -->
+<section class="slide g-marine" style="background:linear-gradient(rgba(11,40,54,.82),rgba(11,40,54,.82)),url('assets/bg2.jpg') center/cover">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div class="mono label">La leçon</div>
+    <h2 class="h-lg" style="max-width:20ch">Les gagnants branchent l'IA sur ce qu'ils connaissent déjà.</h2>
+    <p class="lead" style="margin-top:clamp(20px,3vh,44px);max-width:56ch">Au début, je voulais tout faire avec l'IA. J'ai réalisé qu'il fallait plutôt la brancher sur ce que je fais depuis 17 ans : <strong>du créatif et de la stratégie</strong>. Pas remplacer le métier. L'alimenter.</p>
+  </div>
+  <div class="footerline"><img src="assets/logo-vpourdesign-creme.png" alt="V pour Design"><span class="mono">02 · Introduction</span></div>
+</section>
+
+<!-- 04 · LE STACK -->
+<section class="slide g-cream">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em">
+    <div>
+      <div class="mono label" style="margin-bottom:.5em">Le stack en un coup d'œil</div>
+      <h2 class="h-md">La chaîne, en circuit fermé.</h2>
+    </div>
+    <span class="mono" style="max-width:34ch;text-align:right;color:var(--latte)">Le contraire d'un outil : une usine repensée autour du moteur.</span>
+  </div>
+  <div style="flex:1;min-height:0;display:flex;justify-content:center;margin-top:clamp(12px,2vh,28px)">
+    <svg viewBox="0 0 1660 790" style="height:100%;width:auto;max-width:100%" font-family="Inter, sans-serif">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#111111"/>
+        </marker>
+        <marker id="arrg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" fill="#D44720"/>
+        </marker>
+      </defs>
+
+      <!-- connecteurs -->
+      <line x1="562" y1="165" x2="608" y2="165" stroke="#111111" stroke-width="3" marker-end="url(#arr)"/>
+      <line x1="1082" y1="165" x2="1128" y2="165" stroke="#111111" stroke-width="3" marker-end="url(#arr)"/>
+      <path d="M1602,165 H1630 V625 H1614" fill="none" stroke="#111111" stroke-width="3" marker-end="url(#arr)"/>
+      <line x1="1118" y1="625" x2="1072" y2="625" stroke="#111111" stroke-width="3" marker-end="url(#arr)"/>
+      <line x1="598" y1="625" x2="552" y2="625" stroke="#111111" stroke-width="3" marker-end="url(#arr)"/>
+      <!-- le retour : la boucle -->
+      <path d="M118,625 H30 V165 H106" fill="none" stroke="#D44720" stroke-width="3" stroke-dasharray="10 9" marker-end="url(#arrg)"/>
+      <text x="-320" y="72" transform="rotate(-90)" font-family="'Roboto Mono', monospace" font-size="19" letter-spacing="2.2" fill="#D44720">LES DONNÉES REVIENNENT NOURRIR LE CRÉATIF</text>
+
+      <!-- 01 · INTAKE · marine -->
+      <g>
+        <rect x="120" y="20" width="440" height="290" rx="4" fill="#0B2836"/>
+        <text x="156" y="112" font-family="Poppins, sans-serif" font-weight="800" font-size="62" fill="#E9A752">01</text>
+        <text x="156" y="164" font-family="Poppins, sans-serif" font-weight="800" font-size="34" fill="#F7F5F2" letter-spacing="-0.5">INTAKE</text>
+        <text x="156" y="212" font-size="22" fill="#F7F5F2"><tspan x="156" dy="0">Neuf questions avant une</tspan><tspan x="156" dy="32">ligne de code. 74 systèmes,</tspan><tspan x="156" dy="32">27 grilles en référence.</tspan></text>
+      </g>
+
+      <!-- 02 · DESIGN.MD · night -->
+      <g>
+        <rect x="640" y="20" width="440" height="290" rx="4" fill="#0D0D0D"/>
+        <text x="676" y="112" font-family="Poppins, sans-serif" font-weight="800" font-size="62" fill="#E9A752">02</text>
+        <text x="676" y="164" font-family="Poppins, sans-serif" font-weight="800" font-size="34" fill="#F7F5F2" letter-spacing="-0.5">DESIGN.MD</text>
+        <text x="676" y="212" font-size="22" fill="#F7F5F2"><tspan x="676" dy="0">Le goût du client, écrit</tspan><tspan x="676" dy="32">en un seul fichier que</tspan><tspan x="676" dy="32">tout agent peut lire.</tspan></text>
+      </g>
+
+      <!-- 03 · GABARITS · beeswax -->
+      <g>
+        <rect x="1160" y="20" width="440" height="290" rx="4" fill="#E9A752"/>
+        <text x="1196" y="112" font-family="Poppins, sans-serif" font-weight="800" font-size="62" fill="#D44720">03</text>
+        <text x="1196" y="164" font-family="Poppins, sans-serif" font-weight="800" font-size="34" fill="#111111" letter-spacing="-0.5">GABARITS</text>
+        <text x="1196" y="212" font-size="22" fill="#111111"><tspan x="1196" dy="0">Claude Design tourne le</tspan><tspan x="1196" dy="32">système en gabarits de</tspan><tspan x="1196" dy="32">pubs multi-formats.</tspan></text>
+      </g>
+
+      <!-- 04 · PRODUCTION · grenadine, le coeur -->
+      <g>
+        <rect x="1160" y="480" width="440" height="290" rx="4" fill="#D44720"/>
+        <text x="1196" y="572" font-family="Poppins, sans-serif" font-weight="800" font-size="62" fill="#F7F5F2">04</text>
+        <text x="1196" y="624" font-family="Poppins, sans-serif" font-weight="800" font-size="34" fill="#F7F5F2" letter-spacing="-0.5">PRODUCTION</text>
+        <text x="1196" y="672" font-size="22" fill="#F7F5F2"><tspan x="1196" dy="0">Claude Code génère les</tspan><tspan x="1196" dy="32">séries : 14, 25, 50 pubs.</tspan><tspan x="1196" dy="32">Images et vidéos.</tspan></text>
+      </g>
+
+      <!-- 05 · DIFFUSION · brume -->
+      <g>
+        <rect x="640" y="480" width="440" height="290" rx="4" fill="#CFE1E6"/>
+        <text x="676" y="572" font-family="Poppins, sans-serif" font-weight="800" font-size="62" fill="#D44720">05</text>
+        <text x="676" y="624" font-family="Poppins, sans-serif" font-weight="800" font-size="34" fill="#111111" letter-spacing="-0.5">DIFFUSION</text>
+        <text x="676" y="672" font-size="22" fill="#111111"><tspan x="676" dy="0">Publié direct : connecteurs</tspan><tspan x="676" dy="32">Meta et Google Ads, en</tspan><tspan x="676" dy="32">lecture et en écriture.</tspan></text>
+      </g>
+
+      <!-- 06 · LA BOUCLE · cream, bordure grenadine -->
+      <g>
+        <rect x="120" y="480" width="440" height="290" rx="4" fill="#F7F5F2" stroke="#D44720" stroke-width="3"/>
+        <text x="156" y="572" font-family="Poppins, sans-serif" font-weight="800" font-size="62" fill="#D44720">06</text>
+        <text x="156" y="624" font-family="Poppins, sans-serif" font-weight="800" font-size="34" fill="#111111" letter-spacing="-0.5">LA BOUCLE</text>
+        <text x="156" y="672" font-size="22" fill="#111111"><tspan x="156" dy="0">Dimanche soir, les rapports.</tspan><tspan x="156" dy="32">Lundi matin, les prompts.</tspan><tspan x="156" dy="32">Le stack s'optimise lui-même.</tspan></text>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<!-- 05 · INTAKE -->
+<section class="slide g-cream">
+  <div class="mono label">Étape 01 · Awesome Design · l'intake</div>
+  <h2 class="h-md" style="max-width:26ch">Neuf questions avant d'écrire une seule ligne.</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:clamp(24px,3.5vh,52px)">
+    <div class="card"><span class="mono num">01 · Marque</span><p>Quel client, quel dossier, quels <strong>brand assets</strong> à respecter?</p></div>
+    <div class="card"><span class="mono num">02 · Type de page</span><p>Landing, portfolio, site marketing ou interface d'application?</p></div>
+    <div class="card"><span class="mono num">03 · Direction</span><p>Sombre, éditorial, fintech, ludique, minimal, luxe? Le mood choisit la référence.</p></div>
+    <div class="card"><span class="mono num">04 · Style</span><p>Premium calme, minimaliste éditorial ou brutaliste. Un seul, jamais deux.</p></div>
+    <div class="card"><span class="mono num">05 · Mouvement</span><p>Survol subtil, animations au défilement, ou séquences complètes?</p></div>
+    <div class="card"><span class="mono num">06 · Références</span><p>Images ou sites d'inspiration : on s'en inspire, on ne copie jamais.</p></div>
+    <div class="card"><span class="mono num">07 · Images d'abord?</span><p>Des maquettes à approuver avant de coder, ou direct au code?</p></div>
+    <div class="card"><span class="mono num">08 · Contenu</span><p>Textes et photos réels fournis, ou temporaires en attendant?</p></div>
+    <div class="card" style="border-color:var(--grenadine)"><span class="mono num" style="color:var(--grenadine)">09 · Grille et layout</span><p>Quel système de grille et quel archétype de composition? Toujours posée, jamais improvisée.</p></div>
+  </div>
+</section>
+
+<!-- 06 · BIBLIOTHÈQUE — LA GALERIE -->
+<section class="slide g-night" style="padding:clamp(20px,3vw,56px)">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em;margin-bottom:clamp(12px,1.8vh,26px)">
+    <div><span class="mono label" style="display:block;margin-bottom:.4em">Étape 01 · la bibliothèque</span>
+    <h2 class="h-sm">On ne part jamais d'une page blanche.</h2></div>
+    <span class="mono num" style="color:var(--beeswax)">74 design systems · filtrables par mood</span>
+  </div>
+  <div style="flex:1;min-height:0;border-radius:var(--radius);overflow:hidden">
+    <img src="assets/ad-gallery-2.jpg" alt="Galerie des 74 design systems" style="width:100%;height:100%;object-fit:cover;object-position:top">
+  </div>
+</section>
+
+<!-- 06b · BIBLIOTHÈQUE — LES GRILLES -->
+<section class="slide g-night" style="padding:clamp(20px,3vw,56px)">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em;margin-bottom:clamp(12px,1.8vh,26px)">
+    <div><span class="mono label" style="display:block;margin-bottom:.4em">Étape 01 · la bibliothèque</span>
+    <h2 class="h-sm">La couleur, on en parle. La grille, presque jamais.</h2></div>
+    <span class="mono num" style="color:var(--beeswax)">11 grilles · 16 archétypes de layout</span>
+  </div>
+  <div style="flex:1;min-height:0;border-radius:var(--radius);overflow:hidden">
+    <img src="assets/ad-layouts-2.jpg" alt="Référence des 27 grilles et layouts" style="width:100%;height:100%;object-fit:cover;object-position:top">
+  </div>
+</section>
+
+<!-- 07 · DESIGN.MD -->
+<section class="slide g-cream">
+  <div class="mono label">Étape 02 · DESIGN.md · la méthode des cinq gestes</div>
+  <h2 class="h-md" style="max-width:26ch">Un fichier qui pense comme un directeur artistique.</h2>
+  <div class="two" style="margin-top:clamp(24px,3.5vh,48px)">
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="card"><span class="mono num">01 · Pull</span><p>La marque existe? On la fait lire à Claude et on écrit son système noir sur blanc.</p></div>
+      <div class="card"><span class="mono num">02 · Design</span><p>Pas de marque? Trois directions réellement différentes, le client en choisit une, on verrouille.</p></div>
+      <div class="card"><span class="mono num">03 · Write</span><p>Couleurs par rôle, typo, espacement, grille, composants, ton : tout dans un seul DESIGN.md.</p></div>
+      <div class="card"><span class="mono num">04 · De-slop</span><p>La liste des interdits : ce qu'on refuse de livrer. Le test : « est-ce qu'on devine que c'est fait par une IA? »</p></div>
+      <div class="card" style="grid-column:1/-1;border-color:var(--grenadine)"><span class="mono num" style="color:var(--grenadine)">05 · Reuse</span><p>Le fichier suit le client partout. Chaque build commence par « lis DESIGN.md d'abord ». Quand le goût évolue, on édite un seul fichier.</p></div>
+    </div>
+    <div class="quotebox">
+      # DESIGN.md<br>
+      ## Marque et voix<br>
+      ## Couleur, par rôle<br>
+      ## Typographie<br>
+      ## Espacement et grille<br>
+      ## Formes et élévation<br>
+      ## Mouvement<br>
+      ## Composants<br>
+      ## Interdits
+    </div>
+  </div>
+</section>
+
+<!-- COUVERTURE · DÉPARTEMENT 01 -->
+<section class="slide g-night" style="padding:0">
+  <img src="assets/dept-web.jpg" alt="Site web" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div style="position:absolute;inset:0;background:rgba(13,13,13,.55)"></div>
+  <div style="position:absolute;left:clamp(32px,5vw,96px);bottom:clamp(32px,7vh,110px)">
+    <span class="mono num" style="display:block;color:var(--beeswax);margin-bottom:.8em;font-size:clamp(14px,1.2vw,24px)">Département 01 / 04</span>
+    <h2 style="font-size:clamp(56px,8vw,180px);color:#ffffff">Site web.</h2>
+  </div>
+</section>
+
+<!-- 07a · SEO AVANT LE DESIGN -->
+<section class="slide g-cream">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em">
+    <div>
+      <div class="mono label" style="margin-bottom:.5em">Preuve · sites web · la stratégie d'abord</div>
+      <h2 class="h-md">Le SEO se décide avant le premier pixel.</h2>
+    </div>
+    <span class="mono" style="max-width:36ch;text-align:right;color:var(--latte)">L'agence traditionnelle dessine d'abord. Ici, le design arrive sur un plan déjà gagnant.</span>
+  </div>
+  <div style="flex:1;min-height:0;display:flex;justify-content:center;margin-top:clamp(10px,1.6vh,24px)">
+    <svg viewBox="0 0 1660 770" style="height:100%;width:auto;max-width:100%" font-family="Inter, sans-serif">
+      <defs>
+        <marker id="sA" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#D44720"/></marker>
+      </defs>
+
+      <!-- l'ordre du travail, du bas vers le haut -->
+      <line x1="30" y1="740" x2="30" y2="60" stroke="#D44720" stroke-width="3" marker-end="url(#sA)"/>
+      <text x="-640" y="22" transform="rotate(-90)" font-family="'Roboto Mono',monospace" font-size="17" letter-spacing="2" fill="#D44720">L'ORDRE DU TRAVAIL</text>
+
+      <!-- 04 · le sommet visible -->
+      <rect x="560" y="20" width="560" height="132" rx="4" fill="#D44720"/>
+      <text x="596" y="72" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#F7F5F2">04 · LE DESIGN VISUEL</text>
+      <text x="596" y="106" font-size="20" fill="#F7F5F2">Le DESIGN.md habille une structure gagnante.</text>
+
+      <!-- la ligne de flottaison -->
+      <line x1="80" y1="176" x2="1600" y2="176" stroke="#111111" stroke-width="2.5" stroke-dasharray="10 9"/>
+      <text x="1600" y="152" text-anchor="end" font-family="'Roboto Mono',monospace" font-size="16" letter-spacing="1.6" fill="#3A3A3A">CE QUE LE CLIENT VOIT</text>
+      <text x="1600" y="212" text-anchor="end" font-family="'Roboto Mono',monospace" font-size="16" letter-spacing="1.6" fill="#3A3A3A"><tspan x="1600" dy="0">CE QUI LE FAIT TROUVER</tspan><tspan x="1600" dy="28">SUR GOOGLE</tspan></text>
+
+      <!-- 03 · l'architecture -->
+      <rect x="410" y="200" width="860" height="164" rx="4" fill="#3E7C99"/>
+      <text x="446" y="256" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#F7F5F2">03 · L'ARCHITECTURE</text>
+      <text x="446" y="292" font-size="20" fill="#F7F5F2"><tspan x="446" dy="0">L'arborescence, les pages, les titres et les textes,</tspan><tspan x="446" dy="30">fixés avant même le design visuel.</tspan></text>
+
+      <!-- 02 · les mots clés -->
+      <rect x="250" y="388" width="1180" height="164" rx="4" fill="#0B2836"/>
+      <text x="286" y="444" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#F7F5F2">02 · LES MOTS CLÉS</text>
+      <text x="286" y="480" font-size="20" fill="#F7F5F2"><tspan x="286" dy="0">Volumes, intentions, requêtes des compétiteurs, croisés avec Search Console.</tspan><tspan x="286" dy="30">On choisit les requêtes à gagner, pas celles qui flattent.</tspan></text>
+
+      <!-- 01 · les compétiteurs -->
+      <rect x="90" y="576" width="1500" height="164" rx="4" fill="#0D0D0D"/>
+      <text x="126" y="632" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#F7F5F2">01 · LES COMPÉTITEURS</text>
+      <text x="126" y="668" font-size="20" fill="#F7F5F2"><tspan x="126" dy="0">Claude lit leurs sites et en tire le positionnement : ce qu'ils promettent, les mots qu'ils emploient,</tspan><tspan x="126" dy="30">ce qu'ils négligent. C'est là qu'on trouve le terrain libre.</tspan></text>
+    </svg>
+  </div>
+</section>
+
+<!-- 07b · JULIE GAUTHIER · HÉRO PLEIN ÉCRAN -->
+<section class="slide g-night" style="padding:0">
+  <img src="assets/jg-hero.jpg" alt="Site de Julie Gauthier, section héro" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top">
+  <div style="position:absolute;inset:0;background:rgba(13,13,13,.18)"></div>
+  <div style="position:absolute;right:clamp(32px,5vw,96px);bottom:clamp(32px,6vh,96px);max-width:clamp(340px,34vw,620px);background:var(--cream);color:var(--ink);border-radius:var(--radius);padding:clamp(20px,2.2vw,44px)">
+    <span class="mono" style="display:block;color:var(--grenadine);margin-bottom:.7em">Preuve · Julie Gauthier · mon processus web</span>
+    <h3 class="h-sm" style="margin-bottom:.6em">La rigueur d'un design system, aligné sur les normes RE/MAX Québec.</h3>
+    <ul class="clean">
+      <li>Intake : neuf questions, la grille choisie avant le code.</li>
+      <li>Pull : la palette imposée par la bannière, écrite en DESIGN.md.</li>
+      <li>Build : HTML statique, servi en local, bâti sur le fichier.</li>
+      <li>QA : capture, comparaison, correction. Deux rondes minimum.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 07c · JULIE GAUTHIER · LA GRILLE TIENT -->
+<section class="slide g-cream" style="padding:clamp(24px,3.5vw,64px)">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em;margin-bottom:clamp(12px,1.8vh,26px)">
+    <div><span class="mono label" style="display:block;margin-bottom:.4em">Preuve · Julie Gauthier · la grille tient</span>
+    <h2 class="h-sm">Une seule décision de grille, tenue sur tout le site.</h2></div>
+    <span class="mono num">Normes RE/MAX Québec respectées</span>
+  </div>
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(12px,1.4vw,28px)">
+    <figure style="min-height:0;display:flex;flex-direction:column;gap:.45em">
+      <div style="flex:1;min-height:0;border:1px solid var(--border-light);border-radius:var(--radius);overflow:hidden"><img src="assets/jg-apropos.jpg" alt="Section à propos" style="width:100%;height:100%;object-fit:cover;object-position:top"></div>
+      <figcaption class="mono">À propos · grille éditoriale asymétrique</figcaption>
+    </figure>
+    <figure style="min-height:0;display:flex;flex-direction:column;gap:.45em">
+      <div style="flex:1;min-height:0;border:1px solid var(--border-light);border-radius:var(--radius);overflow:hidden"><img src="assets/jg-services.jpg" alt="Section services" style="width:100%;height:100%;object-fit:cover;object-position:top"></div>
+      <figcaption class="mono">Services · rythme d'espacement varié</figcaption>
+    </figure>
+    <figure style="min-height:0;display:flex;flex-direction:column;gap:.45em">
+      <div style="flex:1;min-height:0;border:1px solid var(--border-light);border-radius:var(--radius);overflow:hidden"><img src="assets/jg-props.jpg" alt="Section propriétés" style="width:100%;height:100%;object-fit:cover;object-position:top"></div>
+      <figcaption class="mono">Propriétés · statuts en trois traitements</figcaption>
+    </figure>
+    <figure style="min-height:0;display:flex;flex-direction:column;gap:.45em">
+      <div style="flex:1;min-height:0;border:1px solid var(--border-light);border-radius:var(--radius);overflow:hidden"><img src="assets/jg-contact.jpg" alt="Section contact" style="width:100%;height:100%;object-fit:cover;object-position:top"></div>
+      <figcaption class="mono">Contact · le rouge réservé à l'action</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- COUVERTURE · DÉPARTEMENT 02 -->
+<section class="slide g-night" style="padding:0">
+  <img src="assets/dept-creatif.jpg" alt="Création publicitaire" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div style="position:absolute;inset:0;background:rgba(13,13,13,.55)"></div>
+  <div style="position:absolute;left:clamp(32px,5vw,96px);bottom:clamp(32px,7vh,110px)">
+    <span class="mono num" style="display:block;color:var(--beeswax);margin-bottom:.8em;font-size:clamp(14px,1.2vw,24px)">Département 02 / 04</span>
+    <h2 style="font-size:clamp(48px,6.6vw,150px);color:#ffffff">Création publicitaire.</h2>
+  </div>
+</section>
+
+<!-- 08 · LA DÉCOUVERTE -->
+<section class="slide g-night" style="padding:clamp(24px,3.5vw,64px);background:linear-gradient(rgba(13,13,13,.82),rgba(13,13,13,.82)),url('assets/bg1.jpg') center/cover">
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,3vw,64px);align-items:center">
+    <div>
+      <div class="mono label">Étape 03 · la découverte</div>
+      <h2 class="h-md" style="max-width:20ch">Un design system, c'est aussi une machine à pubs.</h2>
+      <p class="lead" style="margin-top:clamp(16px,2.5vh,36px);max-width:50ch">En passant le DESIGN.md à <strong>Claude Design</strong>, je lui demande des séries de pubs multi-formats pour Meta. Les gabarits sortent déjà dans la marque : bonnes couleurs, bonne typo, bons interdits. La cohérence n'est plus un effort, c'est un préréglage.</p>
+      <div style="display:flex;gap:clamp(8px,0.9vw,18px);margin-top:clamp(20px,3.5vh,40px);flex-wrap:wrap">
+        <span class="pill mono num">4:5</span>
+        <span class="pill mono num">1:1</span>
+        <span class="pill mono num">9:16</span>
+        <span class="pill mono num">16:9</span>
+      </div>
+    </div>
+    <div style="min-height:0;height:100%;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(10px,1.1vw,22px)">
+      <div style="min-height:0"><img class="frame" src="assets/pbl-adultes-1x1.jpg" alt="Pub Probaclac 1:1" style="width:100%;height:100%;object-fit:contain;object-position:center"></div>
+      <div style="min-height:0"><img class="frame" src="assets/pbl-sci-9x16.jpg" alt="Pub Probaclac 9:16" style="width:100%;height:100%;object-fit:contain;object-position:center"></div>
+      <div style="min-height:0"><img class="frame" src="assets/pbl-sci-4x5.jpg" alt="Pub Probaclac 4:5" style="width:100%;height:100%;object-fit:contain;object-position:center"></div>
+      <div style="min-height:0"><img class="frame" src="assets/pbl-adultes-9x16.jpg" alt="Pub Probaclac 9:16" style="width:100%;height:100%;object-fit:contain;object-position:center"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 · CLAUDE CODE -->
+<section class="slide g-cream">
+  <div class="mono label">Étape 04 · Claude Code · la production</div>
+  <h2 class="h-md" style="max-width:26ch">Ensuite, je parle à Claude Code comme à mon studio.</h2>
+  <div class="two" style="margin-top:clamp(24px,3.5vh,48px)">
+    <div>
+      <div class="quotebox" style="font-size:clamp(15px,1.3vw,26px)">« Crée-moi 25 pubs différentes de septembre à décembre. Fie-toi au site web pour le contenu, et à ce dossier pour les images du produit. »</div>
+      <p class="lead" style="margin-top:1.2em;max-width:56ch">Le design system et les gabarits sont téléchargés dans le projet. Claude Code lit le site du client, prend les vraies fiches produit, et génère la série complète.</p>
+    </div>
+    <div class="grid" style="grid-template-columns:1fr">
+      <div class="card"><span class="mono">ads.json</span><p>Tout le contenu : accroches, photos, produit, accent. Changer un texte ne demande aucune retouche de code.</p></div>
+      <div class="card"><span class="mono">build.mjs + render.mjs</span><p>Deux scripts bâtis ensemble. Une commande regénère le lot au complet, ou juste les visuels 03 et 07.</p></div>
+      <div class="card"><span class="mono">Livrables automatiques</span><p>PNG un par un, zip prêt pour Canva, PDF d'approbation 14 pages, planche contact.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · PLANCHE CONTACT -->
+<section class="slide g-night" style="padding:clamp(20px,3vw,56px)">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:clamp(12px,1.6vh,24px)">
+    <div><span class="mono label" style="display:block;margin-bottom:.4em">Preuve · Probaclac · automne et fêtes 2026</span>
+    <h2 class="h-sm">14 visuels, 5 gabarits, 1 fichier de contenu.</h2></div>
+    <span class="mono num" style="color:var(--beeswax)">1080 × 1350 · Meta</span>
+  </div>
+  <div style="flex:1;min-height:0;display:flex;justify-content:center">
+    <img class="frame" src="assets/planche-contact-probaclac.png" alt="Planche contact Probaclac" style="max-height:100%;width:auto;object-fit:contain">
+  </div>
+</section>
+
+<!-- 11 · ZOOM PUBS -->
+<section class="slide g-cream" style="padding:clamp(24px,3.5vw,64px)">
+  <div class="mono label">Preuve · Probaclac · le détail</div>
+  <h2 class="h-sm" style="margin-bottom:clamp(16px,2.4vh,32px)">Chaque visuel respecte le système. Aucun ne se répète.</h2>
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(10px,1.2vw,24px);align-items:center">
+    <img class="frame" src="assets/probaclac-01-voyageurs-rome-1080x1350.png" alt="Pub Voyageurs" style="max-height:100%;object-fit:contain">
+    <img class="frame" src="assets/probaclac-02-adultes-foyer-noel-1080x1350.png" alt="Pub Adultes Noël" style="max-height:100%;object-fit:contain">
+    <img class="frame" src="assets/probaclac-08-croquable-neige-1080x1350.png" alt="Pub Croquable" style="max-height:100%;object-fit:contain">
+    <img class="frame" src="assets/probaclac-10-extrafort-snowboard-1080x1350.png" alt="Pub Extra-fort" style="max-height:100%;object-fit:contain">
+    <img class="frame" src="assets/probaclac-12-social-quebec-neige-1080x1350.png" alt="Post social Québec" style="max-height:100%;object-fit:contain">
+  </div>
+</section>
+
+<!-- 12 · VIDÉOS PROBACLAC -->
+<section class="slide g-night" style="padding:clamp(24px,3.5vw,64px)">
+  <div class="mono label">Preuve · Probaclac · la vidéo</div>
+  <h2 class="h-sm" style="margin-bottom:clamp(16px,2.4vh,32px)">Mêmes règles, en mouvement. Design system + scripts maison.</h2>
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:.62fr 2fr;gap:clamp(12px,1.4vw,28px)">
+    <div style="min-height:0;display:flex"><video src="assets/ad-enfants-9x16.mp4" muted loop playsinline style="width:100%;height:100%;object-fit:contain;object-position:center"></video></div>
+    <div style="min-height:0;display:grid;grid-template-rows:1.5fr 1fr;gap:clamp(12px,1.4vw,28px)">
+      <div style="min-height:0"><video src="assets/ad-voyage-16x9.mp4" muted loop playsinline style="width:100%;height:100%;object-fit:contain;object-position:left center"></video></div>
+      <div style="min-height:0;display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(12px,1.4vw,28px);align-items:center">
+        <div style="min-width:0;min-height:0;height:100%;display:flex"><video src="assets/ad-voyage-1x1.mp4" muted loop playsinline style="width:100%;height:100%;object-fit:contain;object-position:left center"></video></div>
+        <p style="font-size:clamp(13px,1.05vw,21px);line-height:1.5;max-width:38ch">Formats 9:16, 1:1 et 16:9 générés à partir des mêmes gabarits. Le montage est scripté : on regénère une vidéo comme on regénère un PNG.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · RIVIERA -->
+<section class="slide g-brume" style="padding:clamp(24px,3.5vw,64px)">
+  <div class="mono label">Preuve · Maison Riviera · avec BICOM</div>
+  <h2 class="h-sm" style="margin-bottom:clamp(16px,2.4vh,32px)">Un design system créé de zéro. Puis leurs pubs Meta, puis leurs vidéos.</h2>
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:1.25fr .5fr .5fr;gap:clamp(12px,1.4vw,28px);align-items:center">
+    <div style="display:flex;flex-direction:column;gap:clamp(10px,1.2vh,20px);height:100%;min-height:0;justify-content:center">
+      <video src="assets/Riviera_Bromont_1920x1080_15s.mp4" muted loop playsinline style="width:100%;height:auto;max-height:80%"></video>
+      <p style="font-size:clamp(13px,1.05vw,21px);line-height:1.5">Vidéo Bromont 15 s : script, prompts de génération, montage et habillage typographique, le tout piloté par le design system Riviera et des scripts Claude Code.</p>
+    </div>
+    <div style="grid-column:2/4;min-height:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(10px,1.1vw,22px)">
+      <div style="min-height:0"><img class="frame" src="assets/riviera-story-accroche.png" alt="Pub Riviera, format story" style="width:100%;height:100%;object-fit:contain;object-position:center"></div>
+      <div style="min-height:0"><img class="frame" src="assets/riviera-story-2.png" alt="Pub Riviera, format story" style="width:100%;height:100%;object-fit:contain;object-position:center"></div>
+      <div style="min-height:0"><img class="frame" src="assets/riviera-1x1-accroche.png" alt="Pub Riviera, format carré" style="width:100%;height:100%;object-fit:contain;object-position:center"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13c · SANTÉ ROSEMÈRE -->
+<section class="slide g-cream" style="padding:clamp(24px,3.5vw,64px)">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em;margin-bottom:clamp(12px,1.8vh,26px)">
+    <div><span class="mono label" style="display:block;margin-bottom:.4em">Preuve · Santé Rosemère · le recrutement</span>
+    <h2 class="h-sm">Claude Design propose, on choisit, la pub sort.</h2></div>
+    <span class="mono num">LinkedIn · 1200 × 1200</span>
+  </div>
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr .55fr;gap:clamp(16px,1.8vw,36px);align-items:center">
+    <div style="min-height:0;height:100%;display:flex;justify-content:end"><img class="frame" src="assets/sante1.png" alt="Pub recrutement Santé Rosemère" style="max-width:100%;max-height:100%;object-fit:contain"></div>
+    <div style="min-height:0;height:100%;display:flex"><img class="frame" src="assets/sante2.png" alt="Pub recrutement Santé Rosemère" style="max-width:100%;max-height:100%;object-fit:contain"></div>
+    <p class="lead" style="max-width:26ch;font-size:clamp(14px,1.25vw,26px)">Cinq options générées d'un coup dans la marque, sur le canvas Claude Design. On en retient deux, prêtes à publier : recrutement d'un médecin généraliste hors RAMQ.</p>
+  </div>
+</section>
+
+<!-- 14 · CONNECTEURS -->
+<!-- COUVERTURE · DÉPARTEMENT 03 -->
+<section class="slide g-night" style="padding:0">
+  <img src="assets/dept-sem.jpg" alt="Publicité payante" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div style="position:absolute;inset:0;background:rgba(13,13,13,.55)"></div>
+  <div style="position:absolute;left:clamp(32px,5vw,96px);bottom:clamp(32px,7vh,110px)">
+    <span class="mono num" style="display:block;color:var(--beeswax);margin-bottom:.8em;font-size:clamp(14px,1.2vw,24px)">Département 03 / 04 · SEM</span>
+    <h2 style="font-size:clamp(48px,6.6vw,150px);color:#ffffff">Publicité payante.</h2>
+  </div>
+</section>
+
+<section class="slide g-marine" style="padding:clamp(24px,3.5vw,64px);background:linear-gradient(rgba(11,40,54,.88),rgba(11,40,54,.88)),url('assets/bg5.jpg') center/cover">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em;margin-bottom:clamp(10px,1.6vh,24px)">
+    <div><span class="mono label" style="display:block;margin-bottom:.4em">Étape 05 · les connecteurs</span>
+    <h2 class="h-sm">Le créatif est branché directement sur les plateformes.</h2></div>
+  </div>
+  <div style="flex:1;min-height:0;display:flex;justify-content:center">
+    <svg viewBox="0 0 1640 860" style="height:100%;width:auto;max-width:100%" font-family="Inter, sans-serif">
+      <defs>
+        <marker id="aC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#F7F5F2"/></marker>
+        <marker id="aG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E9A752"/></marker>
+      </defs>
+
+      <!-- entêtes de colonnes -->
+      <text x="30" y="34" font-family="'Roboto Mono',monospace" font-size="18" letter-spacing="2" fill="#CFE1E6">LE CERVEAU</text>
+      <text x="570" y="34" font-family="'Roboto Mono',monospace" font-size="18" letter-spacing="2" fill="#CFE1E6">LES PONTS</text>
+      <text x="1230" y="34" font-family="'Roboto Mono',monospace" font-size="18" letter-spacing="2" fill="#CFE1E6">LES PLATEFORMES</text>
+
+      <!-- lignes · lecture en crème, écriture en beeswax -->
+      <!-- meta : lecture + écriture -->
+      <line x1="560" y1="110" x2="336" y2="110" stroke="#F7F5F2" stroke-width="3" marker-end="url(#aC)"/>
+      <line x1="1220" y1="110" x2="916" y2="110" stroke="#F7F5F2" stroke-width="3" marker-end="url(#aC)"/>
+      <line x1="320" y1="152" x2="544" y2="152" stroke="#E9A752" stroke-width="3" marker-end="url(#aG)"/>
+      <line x1="900" y1="152" x2="1204" y2="152" stroke="#E9A752" stroke-width="3" marker-end="url(#aG)"/>
+      <!-- google ads : lecture par le mcp -->
+      <line x1="1220" y1="298" x2="916" y2="298" stroke="#F7F5F2" stroke-width="3" marker-end="url(#aC)"/>
+      <line x1="560" y1="298" x2="336" y2="298" stroke="#F7F5F2" stroke-width="3" marker-end="url(#aC)"/>
+      <!-- google ads : écriture par le module -->
+      <line x1="320" y1="465" x2="544" y2="465" stroke="#E9A752" stroke-width="3" marker-end="url(#aG)"/>
+      <line x1="900" y1="465" x2="1204" y2="465" stroke="#E9A752" stroke-width="3" marker-end="url(#aG)"/>
+      <!-- analytics + search console : lecture via la console -->
+      <line x1="1220" y1="645" x2="916" y2="645" stroke="#F7F5F2" stroke-width="3" marker-end="url(#aC)"/>
+      <line x1="1220" y1="775" x2="916" y2="758" stroke="#F7F5F2" stroke-width="3" marker-end="url(#aC)"/>
+      <line x1="560" y1="700" x2="336" y2="700" stroke="#F7F5F2" stroke-width="3" marker-end="url(#aC)"/>
+
+      <!-- CLAUDE -->
+      <rect x="20" y="60" width="300" height="740" rx="4" fill="#D44720"/>
+      <text x="52" y="410" font-family="Poppins, sans-serif" font-weight="800" font-size="54" fill="#F7F5F2" letter-spacing="-1">CLAUDE</text>
+      <text x="52" y="452" font-family="'Roboto Mono',monospace" font-size="17" letter-spacing="1.6" fill="#F7F5F2">LE CERVEAU CRÉATIF</text>
+      <text x="52" y="498" font-size="21" fill="#F7F5F2">Code · Design · Cowork</text>
+
+      <!-- LES PONTS -->
+      <g>
+        <rect x="560" y="60" width="340" height="150" rx="4" fill="rgba(247,245,242,.05)" stroke="rgba(247,245,242,.28)" stroke-width="1.5"/>
+        <text x="588" y="104" font-family="Poppins, sans-serif" font-weight="800" font-size="26" fill="#F7F5F2">MCP META ADS</text>
+        <text x="588" y="134" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.4" fill="#CFE1E6">CONNECTEUR OFFICIEL</text>
+        <text x="588" y="164" font-size="19" fill="#F7F5F2"><tspan x="588" dy="0">Campagnes, créatifs, insights.</tspan><tspan x="588" dy="28">29 comptes en gestion.</tspan></text>
+      </g>
+      <g>
+        <rect x="560" y="248" width="340" height="100" rx="4" fill="rgba(247,245,242,.05)" stroke="rgba(247,245,242,.28)" stroke-width="1.5"/>
+        <text x="588" y="290" font-family="Poppins, sans-serif" font-weight="800" font-size="26" fill="#F7F5F2">MCP GOOGLE ADS</text>
+        <text x="588" y="320" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.4" fill="#CFE1E6">OFFICIEL · LECTURE SEULE</text>
+      </g>
+      <g>
+        <rect x="560" y="400" width="340" height="158" rx="4" fill="rgba(233,167,82,.08)" stroke="#E9A752" stroke-width="2.5"/>
+        <text x="588" y="444" font-family="Poppins, sans-serif" font-weight="800" font-size="26" fill="#E9A752">MODULE GADS</text>
+        <text x="588" y="474" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.4" fill="#E9A752">PROGRAMMÉ ENSEMBLE · ÉCRITURE</text>
+        <text x="588" y="504" font-size="19" fill="#F7F5F2"><tspan x="588" dy="0">Négatifs, budgets, enchères,</tspan><tspan x="588" dy="28">statuts. Journal et mode essai.</tspan></text>
+      </g>
+      <g>
+        <rect x="560" y="610" width="340" height="180" rx="4" fill="rgba(247,245,242,.05)" stroke="rgba(247,245,242,.28)" stroke-width="1.5"/>
+        <text x="588" y="654" font-family="Poppins, sans-serif" font-weight="800" font-size="24" fill="#F7F5F2">GOOGLE CLOUD</text>
+        <text x="588" y="684" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.4" fill="#CFE1E6">UTILISATEURS AUTORISÉS</text>
+        <text x="588" y="714" font-size="19" fill="#F7F5F2"><tspan x="588" dy="0">Comptes de service ajoutés dans</tspan><tspan x="588" dy="28">Analytics et Search Console.</tspan><tspan x="588" dy="28">Lecture seule, révocable.</tspan></text>
+      </g>
+
+      <!-- LES PLATEFORMES -->
+      <g>
+        <rect x="1220" y="60" width="390" height="120" rx="4" fill="#F7F5F2"/>
+        <text x="1252" y="112" font-family="Poppins, sans-serif" font-weight="800" font-size="30" fill="#111111">META ADS</text>
+        <text x="1252" y="146" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.4" fill="#3A3A3A">FACEBOOK · INSTAGRAM</text>
+      </g>
+      <g>
+        <rect x="1220" y="248" width="390" height="270" rx="4" fill="#F7F5F2"/>
+        <text x="1252" y="300" font-family="Poppins, sans-serif" font-weight="800" font-size="30" fill="#111111">GOOGLE ADS</text>
+        <text x="1252" y="334" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.4" fill="#3A3A3A">MCC VPOURDESIGN</text>
+        <text x="1252" y="380" font-size="19" fill="#111111"><tspan x="1252" dy="0">La lecture passe par le MCP,</tspan><tspan x="1252" dy="28">l'écriture par notre module,</tspan><tspan x="1252" dy="28">jamais l'inverse.</tspan></text>
+      </g>
+      <g>
+        <rect x="1220" y="586" width="390" height="115" rx="4" fill="#F7F5F2"/>
+        <text x="1252" y="636" font-family="Poppins, sans-serif" font-weight="800" font-size="28" fill="#111111">ANALYTICS 4</text>
+        <text x="1252" y="668" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.4" fill="#3A3A3A">TRAFIC · CONVERSIONS</text>
+      </g>
+      <g>
+        <rect x="1220" y="726" width="390" height="115" rx="4" fill="#F7F5F2"/>
+        <text x="1252" y="776" font-family="Poppins, sans-serif" font-weight="800" font-size="28" fill="#111111">SEARCH CONSOLE</text>
+        <text x="1252" y="808" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.4" fill="#3A3A3A">REQUÊTES · INDEXATION</text>
+      </g>
+    </svg>
+  </div>
+  <div style="display:flex;gap:clamp(20px,2.5vw,48px);align-items:center;margin-top:clamp(10px,1.6vh,22px);flex-wrap:wrap">
+    <span class="mono" style="display:flex;align-items:center;gap:.6em"><span style="display:inline-block;width:2.2em;height:3px;background:var(--cream)"></span>Lecture</span>
+    <span class="mono" style="display:flex;align-items:center;gap:.6em;color:var(--beeswax)"><span style="display:inline-block;width:2.2em;height:3px;background:var(--beeswax)"></span>Écriture</span>
+    <span class="mono" style="opacity:.8">Rien ne s'écrit sans mode essai, journal, puis validation de Vincent.</span>
+  </div>
+</section>
+
+<!-- 15 · LA BOUCLE -->
+<section class="slide g-cream">
+  <div class="mono label">Étape 06 · la boucle hebdomadaire</div>
+  <h2 class="h-md" style="max-width:26ch">Le dimanche soir, le stack se rapporte. Le lundi matin, il se corrige.</h2>
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,2.6vh,40px)">
+    <div style="position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(20px,2.5vw,56px)">
+      <!-- la ligne de temps -->
+      <div style="position:absolute;left:0;right:0;top:calc(clamp(72px,8vw,150px)/2);height:3px;background:var(--ink);z-index:0"></div>
+      <div style="position:absolute;right:-2px;top:calc(clamp(72px,8vw,150px)/2 - 7px);width:0;height:0;border-left:16px solid var(--ink);border-top:8.5px solid transparent;border-bottom:8.5px solid transparent;z-index:0"></div>
+
+      <!-- station 1 · claude, dimanche -->
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,18px)">
+        <div style="width:clamp(72px,8vw,150px);height:clamp(72px,8vw,150px);border-radius:50%;background:#ffffff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;flex:none">
+          <img src="assets/claude.png" alt="Claude" style="width:58%;height:58%;object-fit:contain">
+        </div>
+        <span class="mono num" style="color:var(--grenadine)">Dimanche · 21 h</span>
+        <h3 class="h-sm">Claude rapporte.</h3>
+        <p style="font-size:clamp(13px,1.05vw,21px);line-height:1.55">Sortie automatique des statistiques Meta et Google Ads en <strong>fichiers .md</strong> structurés, lisibles par n'importe quel agent : spend par semaine, CTR, CPC, conversions, tendances par compte.</p>
+      </div>
+
+      <!-- station 2 · grokbot, lundi matin -->
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,18px)">
+        <div style="width:clamp(72px,8vw,150px);height:clamp(72px,8vw,150px);border-radius:50%;overflow:hidden;flex:none;background:var(--night);border:3px solid var(--ink);box-sizing:border-box">
+          <img src="assets/grokbot.webp" alt="Grokbot" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <span class="mono num" style="color:var(--grenadine)">Lundi · 8 h</span>
+        <h3 class="h-sm">Grokbot traduit.</h3>
+        <p style="font-size:clamp(13px,1.05vw,21px);line-height:1.55">Mon agent grokbot lit les rapports et me livre <strong>un prompt adapté par compte</strong> : le contexte, les chiffres à ne pas recalculer, les écritures autorisées et interdites. Je le colle dans Claude, tel quel.</p>
+      </div>
+
+      <!-- station 3 · claude, lundi -->
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,18px)">
+        <div style="width:clamp(72px,8vw,150px);height:clamp(72px,8vw,150px);border-radius:50%;background:#ffffff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;flex:none">
+          <img src="assets/claude.png" alt="Claude" style="width:58%;height:58%;object-fit:contain">
+        </div>
+        <span class="mono num" style="color:var(--grenadine)">Lundi · 9 h</span>
+        <h3 class="h-sm">Claude exécute.</h3>
+        <p style="font-size:clamp(13px,1.05vw,21px);line-height:1.55">Mots clés négatifs, ajustements de budget, pauses. En <strong>mode essai d'abord</strong>, sous ma validation, avec journal des écritures.</p>
+      </div>
+    </div>
+    <div class="quotebox">OUTPUT/METAADS/rapport-meta-ads-2026-08-31.md · OUTPUT/GOOGLEADS/prompts-cowork-2026-08-31.md · 13 comptes actifs · 29 comptes scannés</div>
+  </div>
+</section>
+
+<!-- 16 · SEO -->
+<!-- COUVERTURE · DÉPARTEMENT 04 -->
+<section class="slide g-night" style="padding:0">
+  <img src="assets/dept-seo.jpg" alt="Référencement" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+  <div style="position:absolute;inset:0;background:rgba(13,13,13,.55)"></div>
+  <div style="position:absolute;left:clamp(32px,5vw,96px);bottom:clamp(32px,7vh,110px)">
+    <span class="mono num" style="display:block;color:var(--beeswax);margin-bottom:.8em;font-size:clamp(14px,1.2vw,24px)">Département 04 / 04 · SEO</span>
+    <h2 style="font-size:clamp(48px,6.6vw,150px);color:#ffffff">Référencement.</h2>
+  </div>
+</section>
+
+<section class="slide g-brume">
+  <div class="mono label">Étape 06 · la même boucle, pour le SEO</div>
+  <h2 class="h-md" style="max-width:26ch">Analytics et Search Console entrent dans la même mécanique.</h2>
+  <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,2.6vh,40px)">
+    <div style="position:relative;display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(20px,2.5vw,56px)">
+      <!-- la ligne de temps -->
+      <div style="position:absolute;left:0;right:0;top:calc(clamp(72px,8vw,150px)/2);height:3px;background:var(--marine);z-index:0"></div>
+      <div style="position:absolute;right:-2px;top:calc(clamp(72px,8vw,150px)/2 - 7px);width:0;height:0;border-left:16px solid var(--marine);border-top:8.5px solid transparent;border-bottom:8.5px solid transparent;z-index:0"></div>
+
+      <!-- station 1 · claude croise -->
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,18px)">
+        <div style="width:clamp(72px,8vw,150px);height:clamp(72px,8vw,150px);border-radius:50%;background:#ffffff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;flex:none">
+          <img src="assets/claude.png" alt="Claude" style="width:58%;height:58%;object-fit:contain">
+        </div>
+        <span class="mono num" style="color:var(--grenadine)">Chaque mois · jour 1</span>
+        <h3 class="h-sm">Claude croise.</h3>
+        <p style="font-size:clamp(13px,1.05vw,21px);line-height:1.55"><strong>Google Analytics</strong> et <strong>Search Console</strong>, croisés en un rapport SEO en .md : requêtes qui montent, pages qui décrochent, problèmes d'indexation.</p>
+      </div>
+
+      <!-- station 2 · grokbot planifie -->
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,18px)">
+        <div style="width:clamp(72px,8vw,150px);height:clamp(72px,8vw,150px);border-radius:50%;overflow:hidden;flex:none;background:var(--night);border:3px solid var(--ink);box-sizing:border-box">
+          <img src="assets/grokbot.webp" alt="Grokbot" style="width:100%;height:100%;object-fit:cover">
+        </div>
+        <span class="mono num" style="color:var(--grenadine)">Le lendemain</span>
+        <h3 class="h-sm">Grokbot planifie.</h3>
+        <p style="font-size:clamp(13px,1.05vw,21px);line-height:1.55">Il lit le rapport et produit ses prompts SEO : quoi réécrire, quelles pages créer, quels liens internes ajouter.</p>
+      </div>
+
+      <!-- station 3 · claude publie -->
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:clamp(8px,1.2vh,18px)">
+        <div style="width:clamp(72px,8vw,150px);height:clamp(72px,8vw,150px);border-radius:50%;background:#ffffff;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;flex:none">
+          <img src="assets/claude.png" alt="Claude" style="width:58%;height:58%;object-fit:contain">
+        </div>
+        <span class="mono num" style="color:var(--grenadine)">La même semaine</span>
+        <h3 class="h-sm">Claude publie.</h3>
+        <p style="font-size:clamp(13px,1.05vw,21px);line-height:1.55">Réécritures, nouvelles pages, liens internes. La stratégie de contenu n'est plus une intuition, c'est <strong>une sortie de données</strong>.</p>
+      </div>
+    </div>
+    <div class="quotebox" style="background:rgba(247,245,242,.55)">OUTPUT/SEO/rapport-seo-2026-07.md · OUTPUT/SEO/prompts-cowork-2026-07.md · l'état du référencement, puis le plan d'action, prêt à coller</div>
+  </div>
+</section>
+
+<!-- 17 · VS AGENCE -->
+<section class="slide g-night" style="background:linear-gradient(rgba(13,13,13,.84),rgba(13,13,13,.84)),url('assets/bg3.jpg') center/cover">
+  <div class="mono label">Le compte</div>
+  <h2 class="h-md" style="max-width:26ch">Ce que l'agence traditionnelle facture en équipe, le stack le fait en boucle.</h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr;margin-top:clamp(24px,3.5vh,48px);gap:clamp(20px,2.5vw,48px)">
+    <div class="card">
+      <span class="mono" style="color:var(--brume)">L'agence traditionnelle</span>
+      <ul class="clean" style="margin-top:.8em">
+        <li>Un DA, un designer, un monteur, un acheteur média, un analyste</li>
+        <li>Trois semaines pour une série de pubs</li>
+        <li>Un rapport PowerPoint par mois, déjà périmé</li>
+        <li>La cohérence de marque dépend de qui travaille ce jour-là</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--beeswax)">
+      <span class="mono" style="color:var(--beeswax)">Le stack</span>
+      <ul class="clean" style="margin-top:.8em">
+        <li>Un humain qui connaît le métier, et Claude branché dessus</li>
+        <li>14 pubs et 4 vidéos regénérables en une commande</li>
+        <li>Des rapports chaque dimanche, des actions chaque lundi</li>
+        <li>La cohérence vit dans DESIGN.md, pas dans la mémoire de quelqu'un</li>
+      </ul>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:clamp(20px,3vh,40px);max-width:56ch">Le métier reste humain : le goût, la stratégie, la relation client. Tout le reste est devenu regénérable.</p>
+</section>
+
+<!-- 17b · CHANTIER EN COURS -->
+<section class="slide g-cream">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:2em">
+    <div>
+      <div class="mono label" style="margin-bottom:.5em">Le morceau manquant</div>
+      <h2 class="h-lg">Chantier en cours.</h2>
+      <p class="lead" style="margin-top:.5em;max-width:52ch"><strong>Approuver une image, et la pub se monte toute seule.</strong></p>
+    </div>
+  </div>
+  <div style="flex:1;min-height:0;display:flex;justify-content:center;margin-top:clamp(10px,1.6vh,24px)">
+    <svg viewBox="0 0 1640 660" style="height:100%;width:auto;max-width:100%" font-family="Inter, sans-serif">
+      <defs>
+        <marker id="cA2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111111"/></marker>
+      </defs>
+
+      <!-- flèches -->
+      <line x1="374" y1="300" x2="442" y2="300" stroke="#111111" stroke-width="3" marker-end="url(#cA2)"/>
+      <line x1="804" y1="300" x2="872" y2="300" stroke="#111111" stroke-width="3" marker-end="url(#cA2)"/>
+      <line x1="1234" y1="300" x2="1302" y2="300" stroke="#111111" stroke-width="3" marker-end="url(#cA2)"/>
+
+      <!-- 1 · claude design -->
+      <g>
+        <rect x="20" y="140" width="354" height="320" rx="4" fill="#0D0D0D"/>
+        <text x="52" y="192" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#F7F5F2">CLAUDE DESIGN</text>
+        <text x="52" y="220" font-family="'Roboto Mono',monospace" font-size="14" letter-spacing="1.4" fill="#CFE1E6">LA REVUE DE CRÉATIFS</text>
+        <!-- mini interface -->
+        <rect x="52" y="244" width="290" height="120" rx="4" fill="#E9A752"/>
+        <text x="197" y="312" font-family="'Roboto Mono',monospace" font-size="14" letter-spacing="1.4" fill="#111111" text-anchor="middle">PUB GÉNÉRÉE · 4:5</text>
+        <rect x="52" y="384" width="140" height="44" rx="4" fill="#D44720"/>
+        <text x="122" y="412" font-family="'Roboto Mono',monospace" font-size="14" letter-spacing="1" fill="#F7F5F2" text-anchor="middle">APPROUVER</text>
+        <rect x="204" y="384" width="138" height="44" rx="4" fill="none" stroke="rgba(247,245,242,.45)" stroke-width="1.5"/>
+        <text x="273" y="412" font-family="'Roboto Mono',monospace" font-size="14" letter-spacing="1" fill="#F7F5F2" text-anchor="middle">REJETER</text>
+      </g>
+
+      <!-- 2 · le nuage -->
+      <g>
+        <rect x="450" y="140" width="354" height="320" rx="4" fill="#CFE1E6"/>
+        <text x="482" y="192" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#111111">AWS · G CLOUD</text>
+        <text x="482" y="220" font-family="'Roboto Mono',monospace" font-size="14" letter-spacing="1.4" fill="#3A3A3A">HÉBERGEMENT AUTOMATIQUE</text>
+        <text x="482" y="262" font-size="20" fill="#111111"><tspan x="482" dy="0">L'image approuvée est</tspan><tspan x="482" dy="30">téléversée dans le nuage,</tspan><tspan x="482" dy="30">qui lui donne une</tspan><tspan x="482" dy="30"><tspan font-weight="700">URL publique fetchable</tspan>.</tspan></text>
+        <rect x="482" y="396" width="290" height="36" rx="4" fill="rgba(13,13,13,.08)"/>
+        <text x="497" y="420" font-family="'Roboto Mono',monospace" font-size="14" fill="#111111">https://cdn.vpd.ca/pub-01.png</text>
+      </g>
+
+      <!-- 3 · mcp meta -->
+      <g>
+        <rect x="880" y="140" width="354" height="320" rx="4" fill="#0B2836"/>
+        <text x="912" y="192" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#F7F5F2">MCP META ADS</text>
+        <text x="912" y="220" font-family="'Roboto Mono',monospace" font-size="14" letter-spacing="1.4" fill="#CFE1E6">LE CONNECTEUR OFFICIEL</text>
+        <text x="912" y="262" font-size="20" fill="#F7F5F2"><tspan x="912" dy="0">Il va chercher l'image par</tspan><tspan x="912" dy="30">son URL et monte la pub :</tspan><tspan x="912" dy="30">créatif, textes, audience,</tspan><tspan x="912" dy="30">placement, budget.</tspan></text>
+      </g>
+
+      <!-- 4 · pub en ligne -->
+      <g>
+        <rect x="1310" y="140" width="310" height="320" rx="4" fill="#D44720"/>
+        <text x="1342" y="192" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#F7F5F2">PUB EN LIGNE</text>
+        <text x="1342" y="220" font-family="'Roboto Mono',monospace" font-size="14" letter-spacing="1.4" fill="#F7F5F2">SANS MONTAGE MANUEL</text>
+        <text x="1342" y="262" font-size="20" fill="#F7F5F2"><tspan x="1342" dy="0">Une mise en contexte</tspan><tspan x="1342" dy="30">en texte, un clic sur les</tspan><tspan x="1342" dy="30">images approuvées, et</tspan><tspan x="1342" dy="30">la campagne est en place.</tspan></text>
+      </g>
+
+      <!-- la restriction -->
+      <line x1="838" y1="316" x2="838" y2="512" stroke="#D44720" stroke-width="2.5" stroke-dasharray="8 7"/>
+      <rect x="500" y="500" width="680" height="128" rx="4" fill="none" stroke="#D44720" stroke-width="2" stroke-dasharray="8 7"/>
+      <text x="532" y="544" font-family="'Roboto Mono',monospace" font-size="15" letter-spacing="1.2" fill="#D44720">LA RESTRICTION QUI IMPOSE LE NUAGE</text>
+      <text x="532" y="576" font-size="19" fill="#111111"><tspan x="532" dy="0">L'API Meta n'accepte pas l'upload direct d'image</tspan><tspan x="532" dy="28">par le MCP : il faut une URL à aller chercher.</tspan></text>
+    </svg>
+  </div>
+</section>
+
+<!-- 18 · CLOSING -->
+<section class="slide g-grenadine">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div class="mono label">Conclusion</div>
+    <h2 class="h-xl" style="max-width:16ch">Branchons l'IA sur notre expertise actuelle.</h2>
+  </div>
+  <div class="footerline" style="opacity:1"><img src="assets/logo-vpourdesign-creme.png" alt="V pour Design"><span class="mono">vpourdesign.com · Rosemère, QC</span></div>
+</section>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const counter=document.getElementById('counter');
+  let i=0;
+  function pad(n){return String(n).padStart(2,'0')}
+  function show(n){
+    n=Math.max(0,Math.min(slides.length-1,n));
+    if(n===i && slides[i].classList.contains('active')){/*init*/}
+    i=n;
+    slides.forEach((s,k)=>{
+      const on=k===i;
+      s.classList.toggle('active',on);
+      s.querySelectorAll('video').forEach(v=>{ if(on){v.currentTime=0;v.play().catch(()=>{})} else v.pause(); });
+    });
+    counter.textContent=pad(i+1)+' / '+pad(slides.length);
+  }
+  function next(){show(i+1)} function back(){show(i-1)}
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next()}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();back()}
+    else if(e.key==='Home'){show(0)} else if(e.key==='End'){show(slides.length-1)}
+    else if(e.key==='f'||e.key==='F'){ if(document.fullscreenElement)document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(()=>{}) }
+  });
+  document.addEventListener('click',e=>{
+    if(e.target.closest('video'))return;
+    (e.clientX<window.innerWidth*0.15)?back():next();
+  });
+  show(0);
+  setTimeout(()=>{const h=document.getElementById('hint'); if(h)h.style.display='none'},8000);
+})();
+</script>
+</body>
+</html>

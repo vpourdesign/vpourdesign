@@ -18,6 +18,10 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/9sept/:path*',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' }],
+      },
+      {
         source: '/bicom',
         headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet' }],
       },
@@ -49,6 +53,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: '/9sept', destination: '/9sept/index.html', permanent: false },
       // Anciennes pages Wix indexées dans Google
       { source: '/gestion-medias-sociaux', destination: '/services/contenu-medias', permanent: true },
       { source: '/post/pourquoi-nous-avons-choisi-wix', destination: '/blog', permanent: true },
