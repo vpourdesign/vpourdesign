@@ -9,3 +9,6 @@ node_modules/
 *.mp4
 *.psd
 FICHIERS-NO-GITHUB/
+
+# Les vidéos de la présentation /9sept doivent être servies
+!public/9sept/assets/*.mp4
