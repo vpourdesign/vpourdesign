@@ -15,6 +15,7 @@ export default function sitemap() {
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/soumission`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/politique-de-confidentialite`, lastModified: new Date('2026-09-14'), changeFrequency: 'yearly', priority: 0.3 },
+    { url: `${baseUrl}/conditions-d-utilisation`, lastModified: new Date('2026-09-14'), changeFrequency: 'yearly', priority: 0.3 },
   ];
 
   // ─── FRENCH SERVICE PAGES ───

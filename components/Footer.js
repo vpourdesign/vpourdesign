@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="footer">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', padding: '20px 32px', flexWrap: 'wrap', gap: '12px' }}>
         <div className="footer-left" style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          <span>© 2026 V pour Design — Tous droits réservés · <Link href="/politique-de-confidentialite">Politique de confidentialité</Link></span>
+          <span>© 2026 V pour Design — Tous droits réservés · <Link href="/politique-de-confidentialite">Politique de confidentialité</Link> · <Link href="/conditions-d-utilisation">Conditions d&apos;utilisation</Link></span>
           <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--text-muted)' }}>400 Grande-Côte, Rosemère, QC · <PhoneLink plain /></span>
         </div>
         <div className="footer-right">
